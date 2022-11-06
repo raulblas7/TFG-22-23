@@ -4,15 +4,38 @@ using UnityEngine;
 
 public class CubeController : MonoBehaviour
 {
-    // Start is called before the first frame update
+    Vector3 targetPosUp;
+    Vector3 targetPosDown;
+
+    [SerializeField]
+    private float speedUp;
+
+    [SerializeField]
+    private float speedDown;
+
+    private bool startDiving;
+
     void Start()
     {
-        
+        startDiving = false;
+        targetPosUp = new Vector3(transform.position.x, 0.0f, transform.position.z);
+        targetPosDown = new Vector3(transform.position.x, -0.6f, transform.position.z);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (startDiving)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPosDown, speedDown * Time.deltaTime);
+        }
+        else
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPosUp, speedUp * Time.deltaTime);
+        }
+    }
+
+    public void SetStartDiving()
+    {
+        startDiving = true;
     }
 }
