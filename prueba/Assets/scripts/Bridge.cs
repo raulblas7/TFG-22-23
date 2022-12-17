@@ -6,13 +6,13 @@ public class Bridge : MonoBehaviour
 {
     //[SerializeField]
     // private Table[] tables;
+    [SerializeField]
+    private Table prefab;
+
     private List<Table> tables;
     public float fallVel;
     public int numTables;
-    [SerializeField]
-    private Table prefab;
  
-    // Start is called before the first frame update
     void Start()
     {
         tables = new List<Table>();
@@ -31,7 +31,6 @@ public class Bridge : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         

@@ -8,9 +8,10 @@ public class PlayerControler : MonoBehaviour
 {
     [SerializeField]
     private Transform[] dest;
-    private int currentDest;
     [SerializeField]
     private NavMeshAgent agent;
+
+    private int currentDest;
     public float increment = 1;
     public float errorDist = 1.5f;
     public float maxVelocity = 10;
@@ -18,7 +19,6 @@ public class PlayerControler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
         agent.destination = dest[currentDest].position;
     }
 
@@ -32,7 +32,6 @@ public class PlayerControler : MonoBehaviour
         }
         else if (agent.speed >= increment)
         {
-
             agent.speed -= increment;
         }
         else agent.speed = 0;
