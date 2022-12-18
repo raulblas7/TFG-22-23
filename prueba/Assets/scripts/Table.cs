@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Table : MonoBehaviour
 {
@@ -11,13 +12,9 @@ public class Table : MonoBehaviour
 
     //para depurar
     public int index;
-    public float fallVel;
     public Bridge parent;
-
-    void Start()
-    {
-       
-    }
+    
+    private NavigationBaker navigationBaker;
 
     void Update()
     {
@@ -30,9 +27,19 @@ public class Table : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
-        {
-            Debug.Log("colision con " + index);
-            rb.AddForce(Vector3.down * fallVel, ForceMode.Impulse);
+        {            
+            Invoke("ActiveGravity", 0.3f);
         }
+    }
+
+    private void ActiveGravity()
+    {
+        rb.useGravity = true;
+        //Invoke("UpdateNavMeshSurface", 0.2f);
+    }
+
+    public void SetNavigationBaker(NavigationBaker navBaker)
+    {
+        navigationBaker = navBaker;
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Bridge : MonoBehaviour
 {
@@ -12,7 +13,10 @@ public class Bridge : MonoBehaviour
     private List<Table> tables;
     public float fallVel;
     public int numTables;
- 
+
+    public NavigationBaker navigationBaker;
+    public NavMeshSurface navMeshSurface;
+
     void Start()
     {
         tables = new List<Table>();
@@ -23,12 +27,13 @@ public class Bridge : MonoBehaviour
         {
             Vector3 pos =  new Vector3( transform.position.x, transform.position.y, transform.position.z + aux );
             Table t = Instantiate(prefab, pos, Quaternion.identity, transform);
-            t.fallVel = fallVel;
+            t.SetNavigationBaker(navigationBaker);
             t.parent = this;
             tables.Add(t);
             t.index = i;
             aux += ancho;
         }
+        navMeshSurface.BuildNavMesh();
     }
 
     void Update()

@@ -40,10 +40,17 @@ public class PlayerControler : MonoBehaviour
 
         if ((Vector3.Distance(transform.position, dest[currentDest].position)) <= errorDist   /*0.2f*/)
         {
+            Debug.Log("Destino al llegar " + currentDest);
             currentDest++;
-            Debug.Log("Entra en el if " + currentDest + "lenght " + dest.Length);
-            if(currentDest == dest.Length) { currentDest = 0; }
+            Debug.Log("Destino nuevo " + currentDest);
+            if(currentDest == dest.Length) { Debug.Log("espero que aqui no entres xD"); currentDest = 0; }
             agent.destination = dest[currentDest].position;
+            Debug.Log(agent.hasPath);
+        }
+
+        if (!agent.hasPath)
+        {
+            Debug.Log("No hay camino");
         }
     }
 
