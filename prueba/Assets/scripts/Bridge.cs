@@ -33,11 +33,35 @@ public class Bridge : MonoBehaviour
             t.index = i;
             aux += ancho;
         }
-        navMeshSurface.BuildNavMesh();
+        // navMeshSurface.BuildNavMesh();
+        UpdateNavMesh();
     }
 
     void Update()
     {
         
+    }
+
+    private void UpdateNavMesh()
+    {
+        navMeshSurface.BuildNavMesh();
+    }
+
+    public void FallTables()
+    {
+        float time = 0.3f;
+        for (int i = 0; i < tables.Count; i++)
+        {
+            tables[i].FallTable(time);
+            time += 0.1f;
+        }
+        // actualizamos las navmes al poco de que caiga la ultima tabla
+        Invoke("UpdateNavMesh", time + 0.7f);
+       
+    }
+
+    public int getNumTables()
+    {
+        return tables.Count;
     }
 }

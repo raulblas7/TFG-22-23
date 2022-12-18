@@ -17,7 +17,8 @@ public class FallingObstacle : MonoBehaviour
     public float upVel;
     public float fallVel;
     // tiempo que espera antes de caer
-    public float waitTime; 
+    public float waitTimeUp;
+    public float waitTimeDown;
 
     private float maxY;
     private float currentTime = 0;
@@ -47,7 +48,7 @@ public class FallingObstacle : MonoBehaviour
                 rb.AddForce(Vector3.down * upVel, ForceMode.Force);
                 stopForceOnce = false;
             }
-            if (currentTime >= waitTime)
+            if (currentTime >= waitTimeUp)
             {
                 state = ObstacleState.FALLING;
               
@@ -84,7 +85,23 @@ public class FallingObstacle : MonoBehaviour
                
             }
         }
-       
+        else if (state == ObstacleState.DOWN)
+        {
+
+            //contamos el tiempo que va a estar abajo
+            currentTime += Time.deltaTime;
+
+           
+            if (currentTime >= waitTimeDown)
+            {
+                state = ObstacleState.ASCEND;
+
+                currentTime = 0;
+            }
+           
+
+        }
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -93,7 +110,7 @@ public class FallingObstacle : MonoBehaviour
         {
             addUpForceOnce = true;
             stopForceOnce = true;
-            state = ObstacleState.ASCEND;
+            state = ObstacleState.DOWN;
        
             //Debug.Log("colision");
         }
@@ -102,11 +119,12 @@ public class FallingObstacle : MonoBehaviour
             Debug.Log("colision");
         }
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            other.gameObject.transform.localScale = new Vector3(other.gameObject.transform.localScale.x, 0.5f, other.gameObject.transform.localScale.z);
-        }
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.gameObject.CompareTag("Player"))
+    //    {
+    //        other.
+    //        other.gameObject.transform.localScale = new Vector3(other.gameObject.transform.localScale.x, 0.5f, other.gameObject.transform.localScale.z);
+    //    }
+    //}
 }

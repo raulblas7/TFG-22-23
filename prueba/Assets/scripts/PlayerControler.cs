@@ -7,6 +7,7 @@ using UnityEngine.AI;
 public class PlayerControler : MonoBehaviour
 {
     [SerializeField]
+    private Circuit circuit;
     private Transform[] dest;
     [SerializeField]
     private NavMeshAgent agent;
@@ -16,9 +17,12 @@ public class PlayerControler : MonoBehaviour
     public float errorDist = 1.5f;
     public float maxVelocity = 10;
 
+    
+
     // Start is called before the first frame update
     void Start()
     {
+        dest = circuit.gertDest();
         agent.destination = dest[currentDest].position;
     }
 
@@ -54,7 +58,6 @@ public class PlayerControler : MonoBehaviour
         }
     }
 
-    
-
+   
 
 }

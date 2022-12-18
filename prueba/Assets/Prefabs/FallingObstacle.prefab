@@ -128,6 +128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 4281447122065900437}
-  upVel: 100
+  upVel: 50
   fallVel: 15
-  waitTime: 3
+  waitTimeUp: 3
+  waitTimeDown: 1
