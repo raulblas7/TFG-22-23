@@ -2,7 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+public enum CarState
+{
+    RUN = 0,
+    ONCLLISION,
+    FALLING,
 
+
+}
 
 public class PlayerControler : MonoBehaviour
 {
@@ -11,6 +18,7 @@ public class PlayerControler : MonoBehaviour
     private Transform[] dest;
     [SerializeField]
     private NavMeshAgent agent;
+    private CarState state = CarState.RUN;
 
     private int currentDest;
     public float increment = 1;
@@ -29,35 +37,57 @@ public class PlayerControler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // cambiamos la velocidad
-        if (Input.GetKey(KeyCode.Space) && agent.speed <= maxVelocity)
+        if(state == CarState.RUN)
         {
-            agent.speed += increment;
+            // cambiamos la velocidad
+            if (Input.GetKey(KeyCode.Space) && agent.speed <= maxVelocity)
+            {
+                agent.speed += increment;
+            }
+            else if (agent.speed >= increment)
+            {
+                agent.speed -= increment;
+            }
+            else agent.speed = 0;
+
+
+
+            if ((Vector3.Distance(transform.position, dest[currentDest].position)) <= errorDist   /*0.2f*/)
+            {
+                //Debug.Log("Destino al llegar " + currentDest);
+                currentDest++;
+               // Debug.Log("Destino nuevo " + currentDest);
+                if (currentDest == dest.Length) { currentDest = 0; }
+                agent.destination = dest[currentDest].position;
+                //Debug.Log(agent.hasPath);
+            }
         }
-        else if (agent.speed >= increment)
+
+        if (state == CarState.ONCLLISION || state == CarState.FALLING)
         {
-            agent.speed -= increment;
+           // Debug.Log("Satte = ONCOLLISION");
+            agent.speed = 0;
         }
-        else agent.speed = 0;
+       
 
-        // Debug.Log(Vector3.Distance(transform.position, dest[currentDest].position));
+   
 
-        if ((Vector3.Distance(transform.position, dest[currentDest].position)) <= errorDist   /*0.2f*/)
-        {
-            Debug.Log("Destino al llegar " + currentDest);
-            currentDest++;
-            Debug.Log("Destino nuevo " + currentDest);
-            if(currentDest == dest.Length) { Debug.Log("espero que aqui no entres xD"); currentDest = 0; }
-            agent.destination = dest[currentDest].position;
-            Debug.Log(agent.hasPath);
-        }
-
+      
+        //comprobacion TODO quitar
         if (!agent.hasPath)
         {
             Debug.Log("No hay camino");
         }
     }
 
-   
+   public void SetNewState(CarState s)
+    {
+        state = s;
+    }
+
+    public void SetVelocity(float vel)
+    {
+        agent.speed = vel;
+    }
 
 }

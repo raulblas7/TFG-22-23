@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-enum ObstacleState
+public enum ObstacleState
 {
     FALLING = 0,
     DOWN,
@@ -69,7 +69,7 @@ public class FallingObstacle : MonoBehaviour
         }
         else if(state == ObstacleState.ASCEND)
         {
-    
+            Debug.Log("ASCEND");
             // Debug.Log("ascenso");
             if (addUpForceOnce)
             {
@@ -91,11 +91,12 @@ public class FallingObstacle : MonoBehaviour
             //contamos el tiempo que va a estar abajo
             currentTime += Time.deltaTime;
 
-           
+            Debug.Log("DOWN");
             if (currentTime >= waitTimeDown)
             {
                 state = ObstacleState.ASCEND;
-
+                addUpForceOnce = true;
+                stopForceOnce = true;
                 currentTime = 0;
             }
            
@@ -108,16 +109,12 @@ public class FallingObstacle : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("floor"))
         {
-            addUpForceOnce = true;
-            stopForceOnce = true;
+           
             state = ObstacleState.DOWN;
        
             //Debug.Log("colision");
         }
-        else
-        {
-            Debug.Log("colision");
-        }
+    
     }
     //private void OnTriggerEnter(Collider other)
     //{
@@ -127,4 +124,10 @@ public class FallingObstacle : MonoBehaviour
     //        other.gameObject.transform.localScale = new Vector3(other.gameObject.transform.localScale.x, 0.5f, other.gameObject.transform.localScale.z);
     //    }
     //}
+
+
+    public void SetObstacleState(ObstacleState o)
+    {
+        state = o;
+    }
 }
