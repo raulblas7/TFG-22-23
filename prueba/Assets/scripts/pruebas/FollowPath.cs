@@ -36,12 +36,8 @@ public class FollowPath : MonoBehaviour
     //esta variable nos indica con que tabla estamos chocando dentro del puente
     private int currentBridgeTable = 0;
 
+    private Vector3 dir;
 
-
-
-
-
-    // Start is called before the first frame update
     void Start()
     {
         positions = new Vector3[line.positionCount];
@@ -57,28 +53,24 @@ public class FollowPath : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void Update()
     {
-
-
-
         if (state == CarState.RUN)
         {
             //calculamos la direccion
-            Vector3 dir = dest - transform.position;
+            dir = dest - transform.position;
             //actualizamos la velocidad
-            if (Input.GetKey(KeyCode.Space) && vel <= maxVelocity)
-            {
-                vel += increment;
-            }
-            else if (vel >= increment)
-            {
-                vel -= increment;
-            }
-            else vel = 0;
+           //if (Input.GetKey(KeyCode.Space) && vel <= maxVelocity)
+           //{
+           //    vel += increment;
+           //}
+           //else if (vel >= increment)
+           //{
+           //    vel -= increment;
+           //}
+           //else vel = 0;
 
-            // si nos hacercamos lo suficiente al objetivo cambiamos de objetivo
+            // si nos acercamos lo suficiente al objetivo cambiamos de objetivo
             if (dir.magnitude <= errorDist)
             {
                 //Debug.Log("cambio de destino");
@@ -90,20 +82,19 @@ public class FollowPath : MonoBehaviour
             }
             //actualizamos la rotacion
 
-            Vector3 aux = new Vector3(dir.x, 0, dir.z);
-            Quaternion q = Quaternion.LookRotation(aux, Vector3.up);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, q, rotationSpeed * Time.deltaTime);
+            //Vector3 aux = new Vector3(dir.x, 0, dir.z);
+            //Quaternion q = Quaternion.LookRotation(aux, Vector3.up);
+            //transform.rotation = Quaternion.RotateTowards(transform.rotation, q, rotationSpeed * Time.deltaTime);
 
             // rb.MoveRotation(q);
-
-
             //transform.Rotate(Vector3.up, angle);
 
             //aplicamos la fuerza
-            Vector3 dirN = dir.normalized;
+            //Vector3 dirN = dir.normalized;
             //rb.AddForce(dirN * vel, ForceMode.Force);
-            transform.Translate(dirN * vel * Time.deltaTime, Space.World);
-
+            //rb.velocity = dirN * vel;
+            //transform.Translate(dirN * vel * Time.deltaTime, Space.World);
+            Debug.Log("Current Dest es " + currentDest);
 
         }
         else if (state == CarState.ONCLLISION)
@@ -121,6 +112,11 @@ public class FollowPath : MonoBehaviour
             //aqui pierdes
             Destroy(this.gameObject);
         }
+    }
+
+    public Vector3 getDir()
+    {
+        return dir;
     }
 
     //comprobamos colisiones
@@ -152,7 +148,6 @@ public class FollowPath : MonoBehaviour
 
     }
 
-
     private void OnCollisionExit(Collision collision)
     {
         Debug.Log("OnCollisionExit");
@@ -163,13 +158,10 @@ public class FollowPath : MonoBehaviour
         }
     }
 
-
-
     public void Fall()
     {
         state = CarState.FALLING;
     }
-
 
     public void setBridgeTable(int t)
     {
@@ -179,12 +171,4 @@ public class FollowPath : MonoBehaviour
     {
         return currentBridgeTable;
     }
-
-  
-
-
-
-
-
-
 }

@@ -20,12 +20,11 @@ public class Line : MonoBehaviour
         for(int i =0; i< line.positionCount; i++)
         {
             Vector3 newPos = line.GetPosition(i);
-            newPos.y = 0;
+            newPos.y = 0f;
             line.SetPosition(i, newPos);
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         //line.positionCount++;
