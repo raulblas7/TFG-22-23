@@ -37,7 +37,8 @@ public class Table : MonoBehaviour
                 parent.FallTables();
             }
             //le pasamos al player el indice de la tabla con la que esta chocando
-            collision.gameObject.GetComponent<Car>().setBridgeTable(index);
+            //collision.gameObject.GetComponent<Car>().setBridgeTable(index);
+            collision.gameObject.GetComponent<FollowPath>().setBridgeTable(index);
         }
     }
 
@@ -86,13 +87,14 @@ public class Table : MonoBehaviour
             //Si salimos de una tabla y no esta tocando la siguente
             //es decir si la ultima tabla con la que colisiono es la misma de la que esta saliendo ahora
             //quiere decir que ya no esta tocando ninguna tabla, luego el jugador deberia caer;
-            if (collision.gameObject.GetComponent<Car>().getBridgeTable() == index)
+            // if (collision.gameObject.GetComponent<Car>().getBridgeTable() == index)
+            if (collision.gameObject.GetComponent<FollowPath>().getBridgeTable() == index)
             {
                 //si salimos de la ultima tabla estamos saliendo del pueste
                 //es todos los demas casos caeremos;
                 if (parent.getNumTables() - 1 != index)
                 {
-                    collision.gameObject.GetComponent<Car>().Fall();
+                    collision.gameObject.GetComponent<FollowPath>().Fall();
 
                 }
             }

@@ -69,7 +69,7 @@ public class FallingObstacle : MonoBehaviour
         }
         else if(state == ObstacleState.ASCEND)
         {
-            Debug.Log("ASCEND");
+            //Debug.Log("ASCEND");
             // Debug.Log("ascenso");
             if (addUpForceOnce)
             {
@@ -91,7 +91,7 @@ public class FallingObstacle : MonoBehaviour
             //contamos el tiempo que va a estar abajo
             currentTime += Time.deltaTime;
 
-            Debug.Log("DOWN");
+           // Debug.Log("DOWN");
             if (currentTime >= waitTimeDown)
             {
                 state = ObstacleState.ASCEND;

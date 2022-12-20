@@ -64,7 +64,7 @@ public class Car : MonoBehaviour
         if (collision.gameObject.CompareTag("Obstacle"))
         {
             parent.SetNewState(CarState.ONCLLISION);
-            parent.SetVelocity(0);
+            parent.StopAgent();
             if (upFace + 0.01 >= downFace && upFace - 0.01 <= downFace)
             {
 
@@ -137,6 +137,7 @@ public class Car : MonoBehaviour
     private void StartRun()
     {
         parent.SetNewState(CarState.RUN);
+        parent.ResumeAgent();
     }
     //private void OnTriggerExit(Collider other)
     //{

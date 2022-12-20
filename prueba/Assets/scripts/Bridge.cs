@@ -14,8 +14,8 @@ public class Bridge : MonoBehaviour
     public float fallVel;
     public int numTables;
 
-    public NavigationBaker navigationBaker;
-    public NavMeshSurface navMeshSurface;
+   // public NavigationBaker navigationBaker;
+    //public NavMeshSurface navMeshSurface;
 
     void Start()
     {
@@ -27,7 +27,7 @@ public class Bridge : MonoBehaviour
         {
             Vector3 pos =  new Vector3( transform.position.x, transform.position.y, transform.position.z + aux );
             Table t = Instantiate(prefab, pos, Quaternion.identity, transform);
-            t.SetNavigationBaker(navigationBaker);
+           // t.SetNavigationBaker(navigationBaker);
             t.parent = this;
             tables.Add(t);
             t.index = i;
@@ -44,7 +44,7 @@ public class Bridge : MonoBehaviour
 
     private void UpdateNavMesh()
     {
-        navMeshSurface.BuildNavMesh();
+       // navMeshSurface.BuildNavMesh();
     }
 
     public void FallTables()

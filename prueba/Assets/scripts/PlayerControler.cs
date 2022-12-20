@@ -25,6 +25,7 @@ public class PlayerControler : MonoBehaviour
     public float errorDist = 1.5f;
     public float maxVelocity = 10;
 
+
     
 
     // Start is called before the first frame update
@@ -32,6 +33,7 @@ public class PlayerControler : MonoBehaviour
     {
         dest = circuit.gertDest();
         agent.destination = dest[currentDest].position;
+      
     }
 
     // Update is called once per frame
@@ -85,9 +87,16 @@ public class PlayerControler : MonoBehaviour
         state = s;
     }
 
-    public void SetVelocity(float vel)
+  
+
+    public void StopAgent()
     {
-        agent.speed = vel;
+        agent.Stop();
+    }
+
+    public void ResumeAgent()
+    {
+        agent.Resume();
     }
 
 }
