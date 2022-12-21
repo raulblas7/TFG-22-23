@@ -13,6 +13,8 @@ using UnityEngine;
 public class FollowPath : MonoBehaviour
 {
     [SerializeField]
+    private Circuit circuit;
+    [SerializeField]
     private LineRenderer line;
     [SerializeField]
     private Rigidbody rb;
@@ -28,6 +30,8 @@ public class FollowPath : MonoBehaviour
     private float deadZone = -50;
 
     private Vector3[] positions;
+    private Transform[] dests;
+
     private int currentDest;
     private Vector3 dest;
     //publico para depurar
@@ -42,13 +46,16 @@ public class FollowPath : MonoBehaviour
     {
         positions = new Vector3[line.positionCount];
 
+        dests = circuit.gertDest();
+
         int aux = line.GetPositions(positions);
         if (aux != line.positionCount)
         {
             Debug.Log("no se han cogido todos los vertices");
         }
         currentDest = 0;
-        dest = positions[0];
+        //dest = positions[0];
+        dest = dests[currentDest].position;
         //calculamos la direccion
 
     }
@@ -71,14 +78,24 @@ public class FollowPath : MonoBehaviour
            //else vel = 0;
 
             // si nos acercamos lo suficiente al objetivo cambiamos de objetivo
-            if (dir.magnitude <= errorDist)
-            {
-                //Debug.Log("cambio de destino");
-                //actualizamos el destino
-                currentDest++;
-                if (currentDest == positions.Length) { currentDest = 0; }
-                dest = positions[currentDest];
+            //if (dir.magnitude <= errorDist)
+            //{
+            //    //Debug.Log("cambio de destino");
+            //    //actualizamos el destino
+            //    currentDest++;
+            //    if (currentDest == positions.Length) { currentDest = 0; }
+            //    dest = positions[currentDest];
+            //
+            //}
 
+            if ((Vector3.Distance(transform.position, dest)) <= errorDist   /*0.2f*/)
+            {
+                //Debug.Log("Destino al llegar " + currentDest);
+                currentDest++;
+                // Debug.Log("Destino nuevo " + currentDest);
+                if (currentDest == dests.Length) { currentDest = 0; }
+                dest = dests[currentDest].position;
+                //Debug.Log(agent.hasPath);
             }
             //actualizamos la rotacion
 
@@ -94,7 +111,6 @@ public class FollowPath : MonoBehaviour
             //rb.AddForce(dirN * vel, ForceMode.Force);
             //rb.velocity = dirN * vel;
             //transform.Translate(dirN * vel * Time.deltaTime, Space.World);
-            Debug.Log("Current Dest es " + currentDest);
 
         }
         else if (state == CarState.ONCLLISION)

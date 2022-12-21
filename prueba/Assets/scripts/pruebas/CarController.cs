@@ -56,7 +56,9 @@ public class CarController : MonoBehaviour
     {
         currentDir = followPath.getDir();
         currentDir = currentDir.normalized;
-        currentSteerAngle = maxSteerAngle * currentDir.x;
+        Debug.Log(currentDir);
+        //if (currentDir.x <= -0.5f || currentDir.x >= 0.5f) currentSteerAngle = maxSteerAngle * currentDir.x;
+        currentSteerAngle = maxSteerAngle * ((currentDir.x + currentDir.z) / 2);
         frontLeftWheelCollider.steerAngle = currentSteerAngle;
         frontRightWheelCollider.steerAngle = currentSteerAngle;
     }
