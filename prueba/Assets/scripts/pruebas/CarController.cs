@@ -29,6 +29,8 @@ public class CarController : MonoBehaviour
     [SerializeField] private Transform rearLeftWheelTransform;
     [SerializeField] private Transform rearRightWheelTransform;
 
+    [SerializeField] private Rigidbody carRb;
+
     private void FixedUpdate()
     {
         GetInput();
@@ -54,11 +56,46 @@ public class CarController : MonoBehaviour
     }
     private void HandleSteering()
     {
-        currentDir = followPath.getDir();
-        currentDir = currentDir.normalized;
-        Debug.Log(currentDir);
-        //if (currentDir.x <= -0.5f || currentDir.x >= 0.5f) currentSteerAngle = maxSteerAngle * currentDir.x;
-        currentSteerAngle = maxSteerAngle * ((currentDir.x + currentDir.z) / 2);
+        //float angle = Vector3.Angle(followPath.getDir());
+        Vector3 auxDir = followPath.getDir();
+
+        float angle = Vector3.Angle(followPath.getDir(), carRb.rotation * Vector3.forward);
+        
+        Vector3 dirComb = Vector3.zero;
+
+        //Vector3 vec = Quaternion.Euler(0f, transform.rotation.y, 0f) * Vector3.left;
+        Vector3 vec = Quaternion.AngleAxis(transform.rotation.y, Vector3.up) * Vector3.left;
+
+        //Vector3 v = Quaternion.LookRotation(followPath.getDir()).eulerAngles;
+
+
+        Debug.Log(angle);
+        //if(auxDir.x < 0f)
+        //{
+        //    dirComb += Vector3.right;
+        //}
+        //else if (auxDir.x > 0f)
+        //{
+        //    dirComb += Vector3.left;
+        //}
+        //if(auxDir.z < 0f)
+        //{
+        //    dirComb += Vector3.back;
+        //}
+        //else if(auxDir.z > 0f)
+        //{
+        //    dirComb += Vector3.forward;
+        //}
+        //
+        //angle = Vector3.Angle(followPath.getDir(), dirComb);
+        //
+        ////transform.rotation.y = angle;
+        ////currentDir = followPath.getDir();
+        ////currentDir = currentDir.normalized;
+        ////Debug.Log(angle);
+        ////if (currentDir.x <= -0.5f || currentDir.x >= 0.5f) currentSteerAngle = maxSteerAngle * currentDir.x;
+        ////currentSteerAngle = maxSteerAngle * ((currentDir.x + currentDir.z) / 2);
+        currentSteerAngle = angle;
         frontLeftWheelCollider.steerAngle = currentSteerAngle;
         frontRightWheelCollider.steerAngle = currentSteerAngle;
     }

@@ -29,6 +29,7 @@ public class FollowPath : MonoBehaviour
     [SerializeField]
     private float deadZone = -50;
 
+
     private Vector3[] positions;
     private Transform[] dests;
 
@@ -92,7 +93,7 @@ public class FollowPath : MonoBehaviour
             {
                 //Debug.Log("Destino al llegar " + currentDest);
                 currentDest++;
-                // Debug.Log("Destino nuevo " + currentDest);
+                Debug.Log("Destino nuevo " + currentDest);
                 if (currentDest == dests.Length) { currentDest = 0; }
                 dest = dests[currentDest].position;
                 //Debug.Log(agent.hasPath);
