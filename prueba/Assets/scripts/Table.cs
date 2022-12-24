@@ -28,7 +28,6 @@ public class Table : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("oncollision enter");
         if (collision.gameObject.CompareTag("Player"))
         {
             //si choca con la primera tabla, activamos la caida de las demas

@@ -39,70 +39,68 @@ public class FallingObstacle : MonoBehaviour
     {
         if (state == ObstacleState.UP)
         {
-          
             //contamos el tiempo que va a estar arriba
             currentTime += Time.deltaTime;
 
-            if (stopForceOnce)
-            {
-                rb.AddForce(Vector3.down * upVel, ForceMode.Force);
-                stopForceOnce = false;
-            }
             if (currentTime >= waitTimeUp)
             {
                 state = ObstacleState.FALLING;
               
                 currentTime = 0;
             }
-            addDownForceOnce = true;
 
         }
-        else if ( state == ObstacleState.FALLING)
+        else if(state == ObstacleState.ASCEND)
+        {
+            //si llegamos a la altura maxima
+            if(transform.position.y >= maxY)
+            {
+                state = ObstacleState.UP;
+            }
+        }
+        else if (state == ObstacleState.DOWN)
+        {
+            //contamos el tiempo que va a estar abajo
+            currentTime += Time.deltaTime;
+
+            if (currentTime >= waitTimeDown)
+            {
+                rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezePositionX;
+                state = ObstacleState.ASCEND;
+                addUpForceOnce = true;
+                stopForceOnce = true;
+                currentTime = 0;
+            }
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (state == ObstacleState.UP)
+        {
+            if (stopForceOnce)
+            {
+                rb.AddForce(Vector3.down * upVel, ForceMode.Force);
+                stopForceOnce = false;
+            }
+            addDownForceOnce = true;
+        }
+        else if (state == ObstacleState.FALLING)
         {
             if (addDownForceOnce)
             {
                 rb.AddForce(Vector3.down * fallVel, ForceMode.Impulse);
                 addDownForceOnce = false;
             }
-           
- 
         }
-        else if(state == ObstacleState.ASCEND)
+        else if (state == ObstacleState.ASCEND)
         {
-            //Debug.Log("ASCEND");
-            // Debug.Log("ascenso");
             if (addUpForceOnce)
             {
                 rb.AddForce(Vector3.up * upVel, ForceMode.Force);
                 addUpForceOnce = false;
             }
-        
-            //si llegamos a la altura maxima
-            if(transform.position.y >= maxY)
-            {
-                //Debug.Log("arriba");
-                state = ObstacleState.UP;
-               
-            }
         }
-        else if (state == ObstacleState.DOWN)
-        {
-
-            //contamos el tiempo que va a estar abajo
-            currentTime += Time.deltaTime;
-
-           // Debug.Log("DOWN");
-            if (currentTime >= waitTimeDown)
-            {
-                state = ObstacleState.ASCEND;
-                addUpForceOnce = true;
-                stopForceOnce = true;
-                currentTime = 0;
-            }
-           
-
-        }
-
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -111,20 +109,11 @@ public class FallingObstacle : MonoBehaviour
         {
            
             state = ObstacleState.DOWN;
-       
+            rb.constraints = RigidbodyConstraints.FreezeAll;
             //Debug.Log("colision");
         }
     
     }
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.gameObject.CompareTag("Player"))
-    //    {
-    //        other.
-    //        other.gameObject.transform.localScale = new Vector3(other.gameObject.transform.localScale.x, 0.5f, other.gameObject.transform.localScale.z);
-    //    }
-    //}
-
 
     public void SetObstacleState(ObstacleState o)
     {

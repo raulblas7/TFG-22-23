@@ -20,7 +20,7 @@ public class Line : MonoBehaviour
         for(int i =0; i< line.positionCount; i++)
         {
             Vector3 newPos = line.GetPosition(i);
-            newPos.y = 0f;
+            newPos.y = -0.5f;
             line.SetPosition(i, newPos);
         }
     }
