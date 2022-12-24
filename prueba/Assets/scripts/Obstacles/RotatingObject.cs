@@ -10,7 +10,6 @@ enum RotatingState
 }
 public class RotatingObject : MonoBehaviour
 {
-    public NavMeshSurface navMeshSurface;
     [SerializeField]
     private float vel;
     [SerializeField]
@@ -22,13 +21,7 @@ public class RotatingObject : MonoBehaviour
     private float currentDegrees = 0;
     private bool returnToInit = false;
     private RotatingState state = RotatingState.WAITING;
-    // Start is called before the first frame update
-    void Start()
-    {
-        navMeshSurface.BuildNavMesh();
-    }
 
-    // Update is called once per frame
     void Update()
     {
         if (state == RotatingState.WAITING)
@@ -44,8 +37,7 @@ public class RotatingObject : MonoBehaviour
         }
         else
         {
-          
-            if(returnToInit) transform.Rotate(new Vector3(0, 1, 0), -vel);
+            if (returnToInit) transform.Rotate(new Vector3(0, 1, 0), -vel);
             else transform.Rotate(new Vector3(0, 1, 0), vel);
 
             currentDegrees += vel;
@@ -54,14 +46,7 @@ public class RotatingObject : MonoBehaviour
                 currentDegrees = 0;
                 state = RotatingState.WAITING;
                 returnToInit = !returnToInit;
-                navMeshSurface.BuildNavMesh();
             }
         }
-
-
-
-
     }
-
-   
 }
