@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class Table : MonoBehaviour
 {
@@ -41,7 +40,6 @@ public class Table : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-
             //Si salimos de una tabla y no esta tocando la siguente
             //es decir si la ultima tabla con la que colisiono es la misma de la que esta saliendo ahora
             //quiere decir que ya no esta tocando ninguna tabla, luego el jugador deberia caer;

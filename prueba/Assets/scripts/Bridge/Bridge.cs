@@ -1,50 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class Bridge : MonoBehaviour
 {
-    //[SerializeField]
-    // private Table[] tables;
-    [SerializeField]
-    private Table prefab;
+    [SerializeField] private Table prefab;
+    [SerializeField] private Vector3 bridgeDir = Vector3.zero;
 
     private List<Table> tables;
     public float fallVel;
     public int numTables;
 
-   // public NavigationBaker navigationBaker;
-    //public NavMeshSurface navMeshSurface;
-
     void Start()
     {
         tables = new List<Table>();
+        InstantiateTables();
+    }
+
+    private void InstantiateTables()
+    {
         float ancho = prefab.gameObject.transform.localScale.z + 0.1f;
         float aux = 0;
 
-        for (int i =0; i < numTables; i++)
+        for (int i = 0; i < numTables; i++)
         {
-            Vector3 pos =  new Vector3( transform.position.x, transform.position.y, transform.position.z + aux );
-            Table t = Instantiate(prefab, pos, Quaternion.identity, transform);
-           // t.SetNavigationBaker(navigationBaker);
+            Vector3 pos = new Vector3(transform.position.x + aux * bridgeDir.x, transform.position.y, transform.position.z + aux * bridgeDir.z);
+            Table t = Instantiate(prefab, pos, transform.rotation, transform);
             t.parent = this;
             tables.Add(t);
             t.index = i;
             aux += ancho;
         }
-        // navMeshSurface.BuildNavMesh();
-        UpdateNavMesh();
-    }
-
-    void Update()
-    {
-        
-    }
-
-    private void UpdateNavMesh()
-    {
-       // navMeshSurface.BuildNavMesh();
     }
 
     public void FallTables()
@@ -55,9 +41,6 @@ public class Bridge : MonoBehaviour
             tables[i].FallTable(time);
             time += 0.1f;
         }
-        // actualizamos las navmes al poco de que caiga la ultima tabla
-        Invoke("UpdateNavMesh", time + 0.7f);
-       
     }
 
     public int getNumTables()
