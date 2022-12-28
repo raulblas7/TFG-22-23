@@ -44,15 +44,19 @@ public class ManageCarCollisions : MonoBehaviour
                 rbCar.AddForce(Vector3.forward * (-1) * collisionForce, ForceMode.Impulse);
             }
         }
+        //if (collision.gameObject.CompareTag("RotatingObstacle"))
+        //{
+        //    transform.parent = collision.gameObject.transform;
+        //}
     }
 
     private void OnCollisionExit(Collision collision)
     {
         Debug.Log("OnCollisionExit");
-        if (collision.gameObject.CompareTag("Obstacle"))
-        {
-            //Invoke("StartRun", 2.0f);
-        }
+        //if (collision.gameObject.CompareTag("RotatingObstacle"))
+        //{
+        //    transform.parent = null;
+        //}
     }
 
     private float AngleDir(Vector3 fwd, Vector3 targetDir, Vector3 up)

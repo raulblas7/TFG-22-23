@@ -10,12 +10,11 @@ enum RotatingState
 }
 public class RotatingObject : MonoBehaviour
 {
-    [SerializeField]
-    private float vel;
-    [SerializeField]
-    private float maxDegrees;
-    [SerializeField]
-    public float time;
+    [SerializeField] private float vel;
+    [SerializeField] private float maxDegrees;
+    [SerializeField] private float time;
+    [SerializeField] private Rigidbody rb;
+
 
     private float currentTime = 0;
     private float currentDegrees = 0;
@@ -31,7 +30,8 @@ public class RotatingObject : MonoBehaviour
             if (currentTime >= time)
             {
                 state = RotatingState.ROTATING;
-
+                //if (returnToInit) rb.AddTorque(transform.up * vel);
+                //else rb.AddTorque(transform.up * -vel);
                 currentTime = 0;
             }
         }
@@ -45,8 +45,12 @@ public class RotatingObject : MonoBehaviour
             {
                 currentDegrees = 0;
                 state = RotatingState.WAITING;
+                //if (returnToInit) rb.AddTorque(transform.up * -vel);
+                //else rb.AddTorque(Vector3.up * +vel);
                 returnToInit = !returnToInit;
             }
         }
     }
+
+  
 }

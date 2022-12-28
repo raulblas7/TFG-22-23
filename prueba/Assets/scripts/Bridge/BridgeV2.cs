@@ -11,7 +11,7 @@ public class BridgeV2 : MonoBehaviour
 
     void Start()
     {
-        float width = bridgeTable.transform.localScale.z + 0.2f;
+        //float width = bridgeTable.transform.localScale.z + 0.2f;
         float aux = 0;
 
         for (int i = 0; i < numTables; i++)
@@ -24,7 +24,7 @@ public class BridgeV2 : MonoBehaviour
 
             //if (i == 0 || i == numTables - 1) t.ContraintAll();
 
-            aux += width;
+           // aux += width;
         }
     }
 

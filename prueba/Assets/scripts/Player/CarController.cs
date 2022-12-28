@@ -31,6 +31,8 @@ public class CarController : MonoBehaviour
 
     [SerializeField] private Rigidbody carRb;
 
+    [SerializeField] private float deadzoneAngle;
+
     private void FixedUpdate()
     {
         GetInput();
@@ -61,8 +63,12 @@ public class CarController : MonoBehaviour
 
         float leftOrRight = AngleDir(transform.forward, auxDir, Vector3.up);
         float angle = Vector3.Angle(followPath.getDir(), transform.forward);
+        //Debug.Log("LeftOrRight " + leftOrRight);
+       // if (angle >= -deadzoneAngle && angle <= deadzoneAngle) angle = 0;
+       // Debug.Log("angulo2 " + angle);
 
         currentSteerAngle = angle * leftOrRight;
+        //Debug.Log("angulo3 " + currentSteerAngle);
         frontLeftWheelCollider.steerAngle = currentSteerAngle;
         frontRightWheelCollider.steerAngle = currentSteerAngle;
     }
@@ -96,11 +102,24 @@ public class CarController : MonoBehaviour
         Vector3 perp = Vector3.Cross(fwd, targetDir);
         float dir = Vector3.Dot(perp, up);
 
-        if (dir > 0f)
+        //if (dir > 0f)
+        //{
+        //    return 1f;
+        //}
+        //else if (dir < 0f)
+        //{
+        //    return -1f;
+        //}
+        //else
+        //{
+        //    return 0f;
+        //}
+
+        if (dir > 0f + deadzoneAngle)
         {
             return 1f;
         }
-        else if (dir < 0f)
+        else if (dir < 0f - deadzoneAngle)
         {
             return -1f;
         }
