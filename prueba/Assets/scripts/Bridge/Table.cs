@@ -12,6 +12,11 @@ public class Table : MonoBehaviour
     public int index;
     public Bridge parent;
 
+    private void Start()
+    {
+        rb.Sleep();
+    }
+
     void Update()
     {
         if (transform.position.y < deadZone)
@@ -23,49 +28,31 @@ public class Table : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Wheel"))
         {
             //si choca con la primera tabla, activamos la caida de las demas
-            if (index == 0)
+            if (index != 0 && index != parent.numTables - 1)
             {
-                parent.FallTables();
+                //parent.FallTables();
+                Invoke("ActiveGravity", 5f);
             }
-            //le pasamos al player el indice de la tabla con la que esta chocando
-            //collision.gameObject.GetComponent<Car>().setBridgeTable(index);
-            collision.gameObject.GetComponent<FollowPath>().setBridgeTable(index);
-        }
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            //Si salimos de una tabla y no esta tocando la siguente
-            //es decir si la ultima tabla con la que colisiono es la misma de la que esta saliendo ahora
-            //quiere decir que ya no esta tocando ninguna tabla, luego el jugador deberia caer;
-            // if (collision.gameObject.GetComponent<Car>().getBridgeTable() == index)
-            if (collision.gameObject.GetComponent<FollowPath>().getBridgeTable() == index)
-            {
-                //si salimos de la ultima tabla estamos saliendo del pueste
-                //es todos los demas casos caeremos;
-                if (parent.getNumTables() - 1 != index)
-                {
-                    //collision.gameObject.GetComponent<FollowPath>().Fall();
-
-                }
-            }
-
         }
     }
 
     private void ActiveGravity()
     {
-        rb.useGravity = true;
-        // Invoke("UpdateNavMeshSurface", 0.2f);
+        Debug.Log("Hola");
+        rb.WakeUp();
+        //rb.useGravity = true;
     }
 
     public void FallTable(float time)
     {
         Invoke("ActiveGravity", time);
+    }
+
+    public void ContraintAll()
+    {
+        rb.constraints = RigidbodyConstraints.FreezeAll;
     }
 }

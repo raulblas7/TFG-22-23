@@ -11,13 +11,9 @@ public class FollowPath : MonoBehaviour
     [SerializeField] private float errorDist = 1.0f;
     [SerializeField] private float deadZone = -50;
 
-    private Vector3[] positions;
     private int currentDest;
+    private Vector3[] positions;
     private Vector3 dest;
-    
-    //esta variable nos indica con que tabla estamos chocando dentro del puente
-    private int currentBridgeTable = 0;
-
     private Vector3 dir;
 
     void Start()
@@ -59,14 +55,5 @@ public class FollowPath : MonoBehaviour
     public Vector3 getDir()
     {
         return dir;
-    }
-
-    public void setBridgeTable(int t)
-    {
-        currentBridgeTable = t;
-    }
-    public int getBridgeTable()
-    {
-        return currentBridgeTable;
     }
 }

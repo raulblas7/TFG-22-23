@@ -19,7 +19,7 @@ public class Bridge : MonoBehaviour
 
     private void InstantiateTables()
     {
-        float ancho = prefab.gameObject.transform.localScale.z + 0.1f;
+        float ancho = prefab.gameObject.transform.localScale.z + 0.2f;
         float aux = 0;
 
         for (int i = 0; i < numTables; i++)
@@ -29,22 +29,20 @@ public class Bridge : MonoBehaviour
             t.parent = this;
             tables.Add(t);
             t.index = i;
+
+            if(i == 0 || i == numTables - 1) t.ContraintAll();
+
             aux += ancho;
         }
     }
 
     public void FallTables()
     {
-        float time = 0.3f;
-        for (int i = 0; i < tables.Count; i++)
+        float time = 0.8f;
+        for (int i = 1; i < tables.Count - 1; i++)
         {
             tables[i].FallTable(time);
-            time += 0.1f;
+            time += 0.2f;
         }
-    }
-
-    public int getNumTables()
-    {
-        return tables.Count;
     }
 }
