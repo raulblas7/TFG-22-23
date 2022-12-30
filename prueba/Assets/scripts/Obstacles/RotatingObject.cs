@@ -13,7 +13,7 @@ public class RotatingObject : MonoBehaviour
     [SerializeField] private float vel;
     [SerializeField] private float maxDegrees;
     [SerializeField] private float time;
-    [SerializeField] private Rigidbody rb;
+    
 
 
     private float currentTime = 0;
