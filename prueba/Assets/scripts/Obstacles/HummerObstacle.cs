@@ -5,6 +5,7 @@ using UnityEngine;
 public class HummerObstacle : MonoBehaviour
 {
     [SerializeField] HingeJoint[] hummersJoints;
+    [SerializeField] Vector3[] hummersAnchorValues;
 
     void Start()
     {
@@ -22,7 +23,7 @@ public class HummerObstacle : MonoBehaviour
         {
             for(int i = 0; i < hummersJoints.Length; i++)
             {
-                
+                hummersJoints[i].anchor = new Vector3(hummersAnchorValues[i][0], hummersAnchorValues[i][1], hummersAnchorValues[i][2]);
             }
         }
     }

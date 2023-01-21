@@ -137,7 +137,7 @@ HingeJoint:
   m_GameObject: {fileID: 1214143}
   m_ConnectedBody: {fileID: 0}
   m_ConnectedArticulationBody: {fileID: 0}
-  m_Anchor: {x: 0.3, y: 0, z: 0}
+  m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
   m_ConnectedAnchor: {x: 0, y: 0, z: 0}
@@ -3491,7 +3491,7 @@ HingeJoint:
   m_GameObject: {fileID: 973756105}
   m_ConnectedBody: {fileID: 0}
   m_ConnectedArticulationBody: {fileID: 0}
-  m_Anchor: {x: -0.3, y: 0, z: 0}
+  m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
   m_ConnectedAnchor: {x: 0, y: 0, z: 0}
@@ -6173,7 +6173,7 @@ HingeJoint:
   m_GameObject: {fileID: 1656370009}
   m_ConnectedBody: {fileID: 0}
   m_ConnectedArticulationBody: {fileID: 0}
-  m_Anchor: {x: -0.3, y: 0, z: 0}
+  m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
   m_ConnectedAnchor: {x: 0, y: 0, z: 0}
@@ -7018,7 +7018,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd8d8a5aaf8759e438352bec8e647f6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hummersJoints: []
+  hummersJoints:
+  - {fileID: 973756106}
+  - {fileID: 1214144}
+  - {fileID: 1656370011}
+  hummersAnchorValues:
+  - {x: -0.3, y: 0, z: 0}
+  - {x: 0.3, y: 0, z: 0}
+  - {x: -0.3, y: 0, z: 0}
 --- !u!1 &2034977426
 GameObject:
   m_ObjectHideFlags: 0
