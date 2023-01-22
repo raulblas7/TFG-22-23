@@ -14,17 +14,14 @@ public class Ball : MonoBehaviour
     private bool thrownBall = false;
     private float currentAngle = 0;
     private int dir = 1;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
+
+
+
     void Update()
     {
-        
-        currentAngle += vel * dir;
+
+        currentAngle += vel * dir * Time.deltaTime;
         GameManager.Instance.setAngle(currentAngle);
         if (currentAngle >= MaxAngle)
         {
@@ -34,7 +31,7 @@ public class Ball : MonoBehaviour
         {
             dir = 1;
         }
-        if (!thrownBall && Input.GetKeyDown(KeyCode.Space)  )
+        if (!thrownBall && Input.GetKeyDown(KeyCode.Space))
         {
             Quaternion q = new Quaternion();
             q.eulerAngles = new Vector3(0, 0, 0);
@@ -48,8 +45,14 @@ public class Ball : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.gameObject.CompareTag("DeadZone"))
+        {
+            GameManager.Instance.ThrownBall();
+            Destroy(this.gameObject);
+        }
     }
 }
+
