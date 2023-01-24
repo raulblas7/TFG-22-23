@@ -4,27 +4,32 @@ using UnityEngine;
 
 public class HummerObstacle : MonoBehaviour
 {
-    [SerializeField] HingeJoint[] hummersJoints;
-    [SerializeField] Vector3[] hummersAnchorValues;
+    [SerializeField] Rigidbody[] hummersRbs;
+    [SerializeField] float force;
+    [SerializeField] Vector3 dir;
+    private bool startSwing = false;
 
-    void Start()
+    private void FixedUpdate()
     {
-        
-    }
-
-    void Update()
-    {
-        
+        if(startSwing)
+        {
+            for(int i = 0; i < hummersRbs.Length; i++)
+            {
+                hummersRbs[i].angularVelocity = dir * force;
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            for(int i = 0; i < hummersJoints.Length; i++)
-            {
-                hummersJoints[i].anchor = new Vector3(hummersAnchorValues[i][0], hummersAnchorValues[i][1], hummersAnchorValues[i][2]);
-            }
+            Swing();
         }
+    }
+
+    private void Swing()
+    {
+        startSwing= true;
     }
 }
