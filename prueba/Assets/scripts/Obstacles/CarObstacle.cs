@@ -36,5 +36,9 @@ public class CarObstacle : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+        else if (other.gameObject.CompareTag("Player"))
+        {
+            other.gameObject.GetComponent<ManageCarCollisions>().SetPositionToLastCheckPoint();
+        }
     }
 }

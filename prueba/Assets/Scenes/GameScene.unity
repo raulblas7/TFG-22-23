@@ -1065,6 +1065,10 @@ PrefabInstance:
       propertyPath: line
       value: 
       objectReference: {fileID: 153620663}
+    - target: {fileID: 215362343, guid: 133308cdb8794744caaef026bde9e1f0, type: 3}
+      propertyPath: playerCheckPoints
+      value: 
+      objectReference: {fileID: 1005853721}
     - target: {fileID: 460083236159403640, guid: 133308cdb8794744caaef026bde9e1f0, type: 3}
       propertyPath: m_TagString
       value: Wheel
@@ -3379,6 +3383,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1205559189}
     m_Modifications:
+    - target: {fileID: 973756113, guid: eb7b0d81414d6724fa971f03578cebd2, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7957796827297786059, guid: eb7b0d81414d6724fa971f03578cebd2, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -3628,6 +3636,23 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 978817448}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1005853720 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3311311803080157842, guid: 133308cdb8794744caaef026bde9e1f0, type: 3}
+  m_PrefabInstance: {fileID: 215362333}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1005853721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1005853720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 969549813401f1b4e9277ec1dcd1419c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1053063553
 GameObject:
   m_ObjectHideFlags: 0
@@ -7662,7 +7687,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3705518898225864899, guid: 373a29fea5b68ec449a2cc3092610c34, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3705518898225864899, guid: 373a29fea5b68ec449a2cc3092610c34, type: 3}
       propertyPath: m_LocalPosition.z

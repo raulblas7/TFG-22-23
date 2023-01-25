@@ -8,6 +8,7 @@ public class ManageCarCollisions : MonoBehaviour
     [SerializeField] private FollowPath followPath;
     [SerializeField] private Rigidbody rbCar;
     [SerializeField] private float collisionForce;
+    [SerializeField] private PlayerCheckPoints playerCheckPoints;
 
     private void Start()
     {
@@ -19,16 +20,11 @@ public class ManageCarCollisions : MonoBehaviour
     {
         Debug.Log("onCollisionEnter");
 
-        //float upFace = transform.position.y + (transform.lossyScale.y / 2.0f);
-        //float downFace = collision.gameObject.transform.position.y - (collision.gameObject.transform.lossyScale.y / 2.0f);
-
         if (collision.gameObject.CompareTag("Obstacle"))
         {
             Collider collisionCollider = collision.gameObject.GetComponent<Collider>();
             float upFace = collider3d.bounds.max.y;
             float downFace = collisionCollider.bounds.min.y;
-
-            //float leftOrRight = AngleDir(transform.forward, followPath.getDir(), Vector3.up);
 
             if (upFace + 0.5f >= downFace && upFace - 0.5f <= downFace)
             {
@@ -44,10 +40,11 @@ public class ManageCarCollisions : MonoBehaviour
                 rbCar.AddForce(Vector3.forward * (-1) * collisionForce, ForceMode.Impulse);
             }
         }
-        //if (collision.gameObject.CompareTag("RotatingObstacle"))
-        //{
-        //    transform.parent = collision.gameObject.transform;
-        //}
+    }
+
+    public void SetPositionToLastCheckPoint()
+    {
+        transform.position = playerCheckPoints.GetLastCheckPoint();
     }
 
     private void OnCollisionExit(Collision collision)

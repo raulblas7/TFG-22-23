@@ -102,19 +102,6 @@ public class CarController : MonoBehaviour
         Vector3 perp = Vector3.Cross(fwd, targetDir);
         float dir = Vector3.Dot(perp, up);
 
-        //if (dir > 0f)
-        //{
-        //    return 1f;
-        //}
-        //else if (dir < 0f)
-        //{
-        //    return -1f;
-        //}
-        //else
-        //{
-        //    return 0f;
-        //}
-
         if (dir > 0f + deadzoneAngle)
         {
             return 1f;

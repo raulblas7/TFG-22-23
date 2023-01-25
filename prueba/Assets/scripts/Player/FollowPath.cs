@@ -37,7 +37,6 @@ public class FollowPath : MonoBehaviour
         // si nos acercamos lo suficiente al objetivo cambiamos de objetivo
         if (dir.magnitude <= errorDist)
         {
-            Debug.Log("Destino nuevo " + currentDest);
             //actualizamos el destino
             currentDest++;
             if (currentDest == positions.Length) { currentDest = 0; }
