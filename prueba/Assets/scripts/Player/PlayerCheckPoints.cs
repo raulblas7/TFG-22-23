@@ -5,24 +5,17 @@ using UnityEngine;
 public class PlayerCheckPoints : MonoBehaviour
 {
 
-    private Vector3 lastCheckPoint;
+    private CheckPointInfo lastCheckPoint;
 
-    void Start()
+    private void OnTriggerEnter(Collider other)
     {
-        InvokeRepeating("InstantiateCheckPoint", 0.0f, 15.0f);
+        if (other.gameObject.CompareTag("CheckPoint"))
+        {
+            lastCheckPoint = other.gameObject.GetComponent<CheckPointInfo>();
+        }
     }
 
-    void Update()
-    {
-        
-    }
-
-    private void InstantiateCheckPoint()
-    {
-        lastCheckPoint = transform.position;
-    }
-
-    public Vector3 GetLastCheckPoint()
+    public CheckPointInfo GetCheckPointInfo()
     {
         return lastCheckPoint;
     }

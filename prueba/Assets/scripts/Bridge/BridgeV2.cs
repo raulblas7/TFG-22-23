@@ -12,7 +12,7 @@ public class BridgeV2 : MonoBehaviour
     void Start()
     {
         //float width = bridgeTable.transform.localScale.z + 0.2f;
-        float aux = 0;
+        //float aux = 0;
 
         for (int i = 0; i < numTables; i++)
         {

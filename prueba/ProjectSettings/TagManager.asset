@@ -10,6 +10,7 @@ TagManager:
   - RotatingObstacle
   - DeadZone
   - DeadObstacle
+  - CheckPoint
   layers:
   - Default
   - TransparentFX

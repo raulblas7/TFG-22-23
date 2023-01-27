@@ -10,9 +10,11 @@ public class ManageCarCollisions : MonoBehaviour
     [SerializeField] private float collisionForce;
     [SerializeField] private PlayerCheckPoints playerCheckPoints;
 
+    private Vector3 originalScale;
+
     private void Start()
     {
-        
+        originalScale = transform.localScale;
     }
 
     //comprobamos colisiones
@@ -30,10 +32,11 @@ public class ManageCarCollisions : MonoBehaviour
             {
                 //Colision por arriba
                 Debug.Log("colision por arriba");
-                float floorPos = transform.position.y - (transform.lossyScale.y / 2.0f);
                 transform.localScale = new Vector3(transform.localScale.x, 0.3f, transform.localScale.z);
                 transform.Translate(Vector3.forward * 2f);
                 collision.gameObject.GetComponent<FallingObstacle>().SetObstacleState(ObstacleState.DOWN);
+
+                Invoke("GoBigAgain", 4.0f);
             }
             else
             {
@@ -42,36 +45,24 @@ public class ManageCarCollisions : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("DeadObstacle"))
+        { 
+            SetPositionToLastCheckPoint();
+        }
+    }
+
     public void SetPositionToLastCheckPoint()
     {
-        transform.position = playerCheckPoints.GetLastCheckPoint();
+        rbCar.Sleep();
+        transform.position = playerCheckPoints.GetCheckPointInfo().GetTransform().position;
+        transform.rotation = playerCheckPoints.GetCheckPointInfo().GetTransform().rotation;
+        rbCar.WakeUp();
     }
 
-    private void OnCollisionExit(Collision collision)
+    private void GoBigAgain()
     {
-        Debug.Log("OnCollisionExit");
-        //if (collision.gameObject.CompareTag("RotatingObstacle"))
-        //{
-        //    transform.parent = null;
-        //}
-    }
-
-    private float AngleDir(Vector3 fwd, Vector3 targetDir, Vector3 up)
-    {
-        Vector3 perp = Vector3.Cross(fwd, targetDir);
-        float dir = Vector3.Dot(perp, up);
-
-        if (dir > 0f)
-        {
-            return 1f;
-        }
-        else if (dir < 0f)
-        {
-            return -1f;
-        }
-        else
-        {
-            return 0f;
-        }
+        transform.localScale = originalScale;
     }
 }

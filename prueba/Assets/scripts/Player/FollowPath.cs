@@ -11,10 +11,12 @@ public class FollowPath : MonoBehaviour
     [SerializeField] private float errorDist = 1.0f;
     [SerializeField] private float deadZone = -50;
 
-    private int currentDest;
+    [SerializeField] private PlayerCheckPoints playerCheckPoints;
+
     private Vector3[] positions;
     private Vector3 dest;
     private Vector3 dir;
+    private int currentDest;
 
     void Start()
     {
@@ -46,8 +48,12 @@ public class FollowPath : MonoBehaviour
         //comprobamos muerte del jugador por caida
         if (transform.position.y < deadZone)
         {
-            //aqui pierdes
-            Destroy(this.gameObject);
+            rb.Sleep();
+            transform.position = playerCheckPoints.GetCheckPointInfo().GetTransform().position;
+            transform.rotation = playerCheckPoints.GetCheckPointInfo().GetTransform().rotation;
+            rb.WakeUp();
+
+            dest = positions[playerCheckPoints.GetCheckPointInfo().GetNextPointInDest()];
         }
     }
 

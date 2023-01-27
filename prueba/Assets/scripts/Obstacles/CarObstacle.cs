@@ -26,7 +26,6 @@ public class CarObstacle : MonoBehaviour
     {
         if (move)
         {
-            Debug.Log(transform.forward);
             rb.AddForce(transform.forward * vel, ForceMode.Force);
         }
     }
@@ -35,10 +34,6 @@ public class CarObstacle : MonoBehaviour
         if (other.gameObject.CompareTag("DeadZone"))
         {
             Destroy(this.gameObject);
-        }
-        else if (other.gameObject.CompareTag("Player"))
-        {
-            other.gameObject.GetComponent<ManageCarCollisions>().SetPositionToLastCheckPoint();
         }
     }
 }
