@@ -20,12 +20,15 @@ public class Fish : MonoBehaviour
     [SerializeField] private Rigidbody rb;
     [SerializeField] private float vel;
     [SerializeField] private FishVision fishVision;
+    [SerializeField] private float lifeTime;
 
     private bool goToFishingRod = false;
+    
 
     void Start()
     {
-        InvokeRepeating("ChangeDir", 0f, changeDirTime);
+        Invoke("DeadFish", lifeTime);
+       // InvokeRepeating("ChangeDir", 0f, changeDirTime);
     }
 
     void Update()
@@ -42,9 +45,14 @@ public class Fish : MonoBehaviour
         rb.AddForce(transform.right * vel);
     }
 
+    private void DeadFish()
+    {
+        Destroy(this.gameObject);
+    }
     private void ChangeDir()
     {
-
+        int side = Random.Range(0, 5);
+        UTurn((Sides)side);
     }
 
     private void GoToFishingRod()
@@ -107,7 +115,14 @@ public class Fish : MonoBehaviour
 
                 aux = q.eulerAngles;
                 aux.x = transform.rotation.eulerAngles.x;
-                aux.z = transform.rotation.eulerAngles.z;
+                aux.z = transform.rotation.eulerAngles.z;   
+
+                angle = Random.Range(-60,60);
+                q = Quaternion.AngleAxis(angle, transform.forward);
+
+                aux.z = q.eulerAngles.z;
+                aux.x = transform.rotation.eulerAngles.x;
+                
 
                 q.eulerAngles = aux;
                 rb.MoveRotation(q);
@@ -120,28 +135,36 @@ public class Fish : MonoBehaviour
                 aux.x = transform.rotation.eulerAngles.x;
                 aux.z = transform.rotation.eulerAngles.z;
 
+                angle = Random.Range(-60, 60);
+                q = Quaternion.AngleAxis(angle, transform.forward);
+
+                aux.z = q.eulerAngles.z;
+                aux.x = transform.rotation.eulerAngles.x;
+
                 q.eulerAngles = aux;
                 rb.MoveRotation(q);
 
                 break;
             case Sides.Up:
-                angle = Random.Range(-90, 90);
+                
+                angle = Random.Range(10, 60);
                 q = Quaternion.AngleAxis(angle, transform.forward);
 
                 aux = q.eulerAngles;
                 aux.x = transform.rotation.eulerAngles.x;
-                aux.z = transform.rotation.eulerAngles.y;
+                aux.y = transform.rotation.eulerAngles.y;
 
                 q.eulerAngles = aux;
                 rb.MoveRotation(q);
                 break;
             case Sides.Down:
-                angle = Random.Range(90, 270);
+                angle = Random.Range(-70, -20);
+                Debug.Log(angle);
                 q = Quaternion.AngleAxis(angle, transform.forward);
 
                 aux = q.eulerAngles;
                 aux.x = transform.rotation.eulerAngles.x;
-                aux.z = transform.rotation.eulerAngles.y;
+                aux.y = transform.rotation.eulerAngles.y;
 
                 q.eulerAngles = aux;
                 rb.MoveRotation(q);
@@ -154,6 +177,12 @@ public class Fish : MonoBehaviour
                 aux.x = transform.rotation.eulerAngles.x;
                 aux.z = transform.rotation.eulerAngles.z;
 
+                angle = Random.Range(-60, 60);
+                q = Quaternion.AngleAxis(angle, transform.forward);
+
+                aux.z = q.eulerAngles.z;
+                aux.x = transform.rotation.eulerAngles.x;
+
                 q.eulerAngles = aux;
                 rb.MoveRotation(q);
                 break;
@@ -164,6 +193,12 @@ public class Fish : MonoBehaviour
                 aux = q.eulerAngles;
                 aux.x = transform.rotation.eulerAngles.x;
                 aux.z = transform.rotation.eulerAngles.z;
+
+                angle = Random.Range(-60, 60);
+                q = Quaternion.AngleAxis(angle, transform.forward);
+
+                aux.z = q.eulerAngles.z;
+                aux.x = transform.rotation.eulerAngles.x;
 
                 q.eulerAngles = aux;
                 rb.MoveRotation(q);
