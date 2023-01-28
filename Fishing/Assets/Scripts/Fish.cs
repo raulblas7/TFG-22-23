@@ -51,16 +51,37 @@ public class Fish : MonoBehaviour
     {
         Transform fishingRodPosTR = fishVision.GetFishingRodTr();
         Vector3 dir = fishingRodPosTR.position - transform.position;
-        float angle = Vector3.Angle(transform.right, dir);
 
-        if(dir.x < 0f)
+        float angle = Vector3.Angle(transform.right, Vector3.right);
+        float angleFishRod = Vector3.Angle(transform.right, dir);
+        // saber si el pez esta a la derecha o a la izquierda del eje x
+        if (AngleDir(Vector3.right, transform.right, Vector3.up) >= 0)
         {
-            angle += 180f;
+            Debug.Log("Derecha de vector right");
+            //invertimos el angulo
+            angle = 360 - angle;
+
         }
+        else
+        {
+            Debug.Log("Izquierda de vector right");
+        }
+        //mirar si la caña esta a la izquierda o a la derecha de el pez
+        if (AngleDir(transform.right, dir, Vector3.up) >= 0)
+        {
+            Debug.Log("Derecha de el pez");
+            angle -= angleFishRod;
+        }
+        else
+        {
+            Debug.Log("Izquierda de el pez");
+            angle += angleFishRod;
+        }
+
 
         Debug.Log("Angulo goTo: " + angle);
 
-        Quaternion quaternion = Quaternion.AngleAxis(angle, transform.up);
+        Quaternion quaternion = Quaternion.AngleAxis(angle *-1, transform.up);
         Vector3 aux = quaternion.eulerAngles;
         aux.x = transform.rotation.eulerAngles.x;
         aux.z = transform.rotation.eulerAngles.z;
@@ -182,6 +203,25 @@ public class Fish : MonoBehaviour
         {
 
             UTurn(Sides.Forward);
+        }
+    }
+
+    private float AngleDir(Vector3 fwd, Vector3 targetDir, Vector3 up)
+    {
+        Vector3 perp = Vector3.Cross(fwd, targetDir);
+        float dir = Vector3.Dot(perp, up);
+
+        if (dir > 0f)
+        {
+            return 1f;
+        }
+        else if (dir < 0f)
+        {
+            return -1f;
+        }
+        else
+        {
+            return 0f;
         }
     }
 
