@@ -53,12 +53,18 @@ public class FollowPath : MonoBehaviour
             transform.rotation = playerCheckPoints.GetCheckPointInfo().GetTransform().rotation;
             rb.WakeUp();
 
-            dest = positions[playerCheckPoints.GetCheckPointInfo().GetNextPointInDest()];
+            SetDest(playerCheckPoints.GetCheckPointInfo().GetNextPointInDest());
         }
     }
 
     public Vector3 getDir()
     {
         return dir;
+    }
+
+    public void SetDest(int nextPos)
+    {
+        dest = positions[nextPos];
+        currentDest = nextPos;
     }
 }

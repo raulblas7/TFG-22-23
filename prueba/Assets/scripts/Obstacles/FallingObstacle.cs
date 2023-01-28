@@ -27,14 +27,12 @@ public class FallingObstacle : MonoBehaviour
     bool addDownForceOnce = true;
     bool stopForceOnce = true;
 
-    // Start is called before the first frame update
     void Start()
     {
         maxY = transform.position.y;
         state = ObstacleState.FALLING;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (state == ObstacleState.UP)
@@ -107,7 +105,6 @@ public class FallingObstacle : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("floor"))
         {
-           
             state = ObstacleState.DOWN;
             rb.constraints = RigidbodyConstraints.FreezeAll;
             //Debug.Log("colision");

@@ -59,6 +59,8 @@ public class ManageCarCollisions : MonoBehaviour
         transform.position = playerCheckPoints.GetCheckPointInfo().GetTransform().position;
         transform.rotation = playerCheckPoints.GetCheckPointInfo().GetTransform().rotation;
         rbCar.WakeUp();
+
+        followPath.SetDest(playerCheckPoints.GetCheckPointInfo().GetNextPointInDest());
     }
 
     private void GoBigAgain()
