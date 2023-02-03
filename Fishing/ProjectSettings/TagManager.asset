@@ -13,6 +13,7 @@ TagManager:
   - Down
   - Back
   - Forward
+  - FishingRod
   layers:
   - Default
   - TransparentFX
