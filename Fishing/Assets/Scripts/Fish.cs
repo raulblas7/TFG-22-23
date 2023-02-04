@@ -22,10 +22,13 @@ public class Fish : MonoBehaviour
     [SerializeField] private FishVision fishVision;
     [SerializeField] private float lifeTime;
     [SerializeField] private float waitTimeInRod;
- 
+    [SerializeField] private MeshRenderer meshRenderer;
+    [SerializeField] private int layerIndexWhenCatched;
 
     private bool goToFishingRod = false;
     private bool alreadyAtFishingRod = false;
+    private FishingRod fishingRod;
+    private FishInstantiator fishInstantiator;
 
     void Start()
     {
@@ -52,8 +55,7 @@ public class Fish : MonoBehaviour
     {
         if (!alreadyAtFishingRod)
         {
-            Destroy(this.gameObject);
-
+            fishInstantiator.DeleteFishFromList(this);
         }
     }
     private void ChangeDir()
@@ -152,7 +154,7 @@ public class Fish : MonoBehaviour
 
         goToFishingRod = true;
 
-        EditorApplication.isPaused = true;
+        //EditorApplication.isPaused = true;
     }
 
     private void UTurn(Sides side)
@@ -264,44 +266,36 @@ public class Fish : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Right"))
         {
-
             UTurn(Sides.Right);
         }
         else if (collision.gameObject.CompareTag("Left"))
         {
-
             UTurn(Sides.Left);
         }
         else if (collision.gameObject.CompareTag("Up"))
         {
-
             UTurn(Sides.Up);
         }
         else if (collision.gameObject.CompareTag("Down"))
         {
-
             UTurn(Sides.Down);
         }
         else if (collision.gameObject.CompareTag("Back"))
         {
-
             UTurn(Sides.Back);
         }
         else if (collision.gameObject.CompareTag("Forward"))
         {
-
             UTurn(Sides.Forward);
         }
         else if (collision.gameObject.CompareTag("FishingRod") && fishVision.IsSawFishingRod())
         {
-            FishingRod rod = collision.gameObject.GetComponent<FishingRod>();
-            if (!rod.HasChild())
+            if (!fishingRod.HasFishAtBait())
             {
-
                 alreadyAtFishingRod = true;
-                transform.parent = collision.gameObject.transform;
-                rod.SetChild();
-
+                fishingRod.SetFishAtBait();
+                fishingRod.AddComponentToBait(rb);
+                this.gameObject.layer = layerIndexWhenCatched;
             }
         }
     }
@@ -325,5 +319,15 @@ public class Fish : MonoBehaviour
         }
     }
 
+    public void SetFishingRod(FishingRod fR) { fishingRod = fR; }
 
+    public void SetFishInstantiator(FishInstantiator fI)
+    {
+        fishInstantiator= fI;
+    }
+
+    public void SetMaterialToMeshRenderer(Material mat)
+    {
+        meshRenderer.material = mat;
+    }
 }

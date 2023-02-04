@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e427e35b4f3cf54594b0eac6712c9c8, type: 3}
+  m_Name: FishSkins
+  m_EditorClassIdentifier: 
+  materials:
+  - {fileID: 2100000, guid: 987cec49a098d174d86fbeee4a5ab108, type: 2}
+  - {fileID: 2100000, guid: 27b74e50a04708e44aee3a4a1b4723a5, type: 2}
+  - {fileID: 2100000, guid: 081d9972610f27c40ae40b591508f9a8, type: 2}
+  - {fileID: 2100000, guid: e51a69ff94d05cf449e56a71dffa779d, type: 2}

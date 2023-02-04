@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Skin", menuName = "Flow/Skin")]
+[CreateAssetMenu(fileName = "Skin", menuName = "Fish/Skin")]
 public class Skin : ScriptableObject
 {
-    [HideInInspector] public static int SIZE = 16;
-    public Color[] colors = new Color[SIZE];
+    [HideInInspector] public static int SIZE = 4;
+    public Material[] materials = new Material[SIZE];
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5031894538091634516}
   - component: {fileID: 3075650634266427612}
   - component: {fileID: 849990762508336818}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: 12265_Fish
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,10 +96,9 @@ GameObject:
   - component: {fileID: 617099529}
   - component: {fileID: 617099530}
   - component: {fileID: 617099533}
-  - component: {fileID: -7219913050140373153}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Fish
-  m_TagString: Untagged
+  m_TagString: Fish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -166,8 +165,10 @@ MonoBehaviour:
   rb: {fileID: 617099529}
   vel: 5
   fishVision: {fileID: 617099533}
-  lifeTime: 120
+  lifeTime: 15
   waitTimeInRod: 0
+  meshRenderer: {fileID: 849990762508336818}
+  layerIndexWhenCatched: 11
 --- !u!114 &617099533
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,21 +181,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c3b9fb039005bf4d8f98badf927057c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!138 &-7219913050140373153
-FixedJoint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6197459220999386336}
-  m_ConnectedBody: {fileID: 0}
-  m_ConnectedArticulationBody: {fileID: 0}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_EnableCollision: 0
-  m_EnablePreprocessing: 1
-  m_MassScale: 1
-  m_ConnectedMassScale: 1
 --- !u!1001 &7732714952673324418
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -262,9 +248,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: cono
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8642586b2d6150d4fa365a37b81c069d, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4431670454091400558, guid: 8642586b2d6150d4fa365a37b81c069d, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8487167654232718067, guid: 8642586b2d6150d4fa365a37b81c069d, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8642586b2d6150d4fa365a37b81c069d, type: 3}

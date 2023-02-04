@@ -4,18 +4,42 @@ using UnityEngine;
 
 public class FishingRod : MonoBehaviour
 {
-    private bool child = false;
+    [SerializeField] private GameObject baitGO;
+    [SerializeField] private Rigidbody rbFirstRopePart;
+    [SerializeField] private float speed;
+
+    private bool fishAtBait = false;
+    private bool addForce = false;
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
-        
+        if(Input.GetKey(KeyCode.Space)) {
+            addForce= true;
+        }
+        else addForce= false;
     }
 
-    public bool HasChild() { return child; }
-    public void SetChild() { child = !child; }
+    private void FixedUpdate()
+    {
+        if(addForce)
+        {
+            rbFirstRopePart.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+            rbFirstRopePart.AddForce(Vector3.up * speed, ForceMode.Force);
+        }
+    }
+
+    public bool HasFishAtBait() { return fishAtBait; }
+    public void SetFishAtBait() { fishAtBait = !fishAtBait; }
+
+    public void AddComponentToBait(Rigidbody fishRb)
+    {
+        FixedJoint fixedJoint = baitGO.AddComponent<FixedJoint>();
+        fixedJoint.connectedBody = fishRb;
+    }
 }
