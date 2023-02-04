@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 617099529}
   - component: {fileID: 617099530}
   - component: {fileID: 617099533}
+  - component: {fileID: -7219913050140373153}
   m_Layer: 0
   m_Name: Fish
   m_TagString: Untagged
@@ -166,6 +167,7 @@ MonoBehaviour:
   vel: 5
   fishVision: {fileID: 617099533}
   lifeTime: 120
+  waitTimeInRod: 0
 --- !u!114 &617099533
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,9 +180,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c3b9fb039005bf4d8f98badf927057c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visionAngle: 81
-  visionDistance: 5
-  fishingRodTr: {fileID: 0}
+--- !u!138 &-7219913050140373153
+FixedJoint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6197459220999386336}
+  m_ConnectedBody: {fileID: 0}
+  m_ConnectedArticulationBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_EnableCollision: 0
+  m_EnablePreprocessing: 1
+  m_MassScale: 1
+  m_ConnectedMassScale: 1
 --- !u!1001 &7732714952673324418
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -285,9 +299,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c3b9fb039005bf4d8f98badf927057c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visionAngle: 30
-  visionDistance: 10
-  fishingRodTr: {fileID: 0}
 --- !u!4 &7843764472845732457 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8642586b2d6150d4fa365a37b81c069d, type: 3}

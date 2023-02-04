@@ -21,14 +21,17 @@ public class Fish : MonoBehaviour
     [SerializeField] private float vel;
     [SerializeField] private FishVision fishVision;
     [SerializeField] private float lifeTime;
+    [SerializeField] private float waitTimeInRod;
+ 
 
     private bool goToFishingRod = false;
     private bool alreadyAtFishingRod = false;
 
     void Start()
     {
+
         Invoke("DeadFish", lifeTime);
-       // InvokeRepeating("ChangeDir", 0f, changeDirTime);
+        // InvokeRepeating("ChangeDir", 0f, changeDirTime);
     }
 
     void Update()
@@ -42,12 +45,16 @@ public class Fish : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(!alreadyAtFishingRod) rb.AddForce(transform.right * vel);
+        if (!alreadyAtFishingRod) rb.AddForce(transform.right * vel);
     }
 
     private void DeadFish()
     {
-        Destroy(this.gameObject);
+        if (!alreadyAtFishingRod)
+        {
+            Destroy(this.gameObject);
+
+        }
     }
     private void ChangeDir()
     {
@@ -59,74 +66,88 @@ public class Fish : MonoBehaviour
     {
         Transform fishingRodPosTR = fishVision.GetFishingRodTr();
         Vector3 dir = fishingRodPosTR.position - transform.position;
-        
 
-        float angle = Vector3.Angle(transform.right, Vector3.right);
-        float angleFishRod = Vector3.Angle(transform.right, dir);
 
-        // saber si el pez esta a la derecha o a la izquierda del eje x
-        if (AngleDir(Vector3.right, transform.right, Vector3.up) >= 0)
-        {
-            Debug.Log("Derecha de vector right");
-            //invertimos el angulo
-            angle = 360 - angle;
+        //float angle = Vector3.Angle(transform.right, Vector3.right);
+        //float angleFishRod = Vector3.Angle(transform.right, dir);
 
-        }
-        else
-        {
-            Debug.Log("Izquierda de vector right");
-        }
-        //mirar si la caña esta a la izquierda o a la derecha de el pez
-        if (AngleDir(transform.right, dir, Vector3.up) >= 0)
-        {
-            Debug.Log("Derecha de el pez");
-            angle -= angleFishRod;
-        }
-        else
-        {
-            Debug.Log("Izquierda de el pez");
-            angle += angleFishRod;
-        }
+        //// saber si el pez esta a la derecha o a la izquierda del eje x
+        //if (AngleDir(Vector3.right, transform.right, Vector3.up) >= 0)
+        //{
+        //    Debug.Log("Derecha de vector right");
+        //    //invertimos el angulo
+        //    angle = 360 - angle;
 
-        float angleUpDown =  angleFishRod;
-        if (AngleDir(Vector3.right, transform.right, Vector3.forward) >= 0)
-        {
-            Debug.Log("Arriba");
-        }
-        else
-        {
-            Debug.Log("Abajo");
-            angleUpDown = 360-angleUpDown;
-        }
-        //mirar si la caña esta a la izquierda o a la derecha de el pez
-        if (AngleDir(transform.right, dir, Vector3.forward) >= 0)
-        {
-            Debug.Log("Arriba de el pez");
-            angleUpDown -= angleFishRod;
-        }
-        else
-        {
-            Debug.Log("Abajo de el pez");
-            angleUpDown += angleFishRod;
-        }
+        //}
+        //else
+        //{
+        //    Debug.Log("Izquierda de vector right");
+        //}
 
-        Debug.Log("Angulo goTo: " + angle);
-        Debug.Log("Angulo up down: " + angleUpDown);
 
-        
+        //Debug.Log("Angulo goTo before: " + angle);
+        ////mirar si la caña esta a la izquierda o a la derecha de el pez
+        //if (AngleDir(transform.right, dir, Vector3.up) >= 0)
+        //{
+        //    Debug.Log("Derecha de el pez");
+        //    angle -= angleFishRod;
+        //}
+        //else
+        //{
+        //    Debug.Log("Izquierda de el pez");
+        //    angle += angleFishRod;
+        //}
 
-        Quaternion q = Quaternion.AngleAxis(-angle, transform.up);
+        //float angleUpDown =  angleFishRod;
+        //if (AngleDir(Vector3.right, transform.right, Vector3.forward) >= 0)
+        //{
+        //    Debug.Log("Arriba");
+        //}
+        //else
+        //{
+        //    Debug.Log("Abajo");
+        //    angleUpDown = 360-angleUpDown;
+        //}
+        ////mirar si la caña esta a la izquierda o a la derecha de el pez
+        //if (AngleDir(transform.right, dir, Vector3.forward) >= 0)
+        //{
+        //    Debug.Log("Abajo de el pez");
+        //    angleUpDown -= angleFishRod;
+        //}
+        //else
+        //{
+        //    Debug.Log("Arriba de el pez");
+        //    angleUpDown += angleFishRod;
+        //}
+
+        //Debug.Log("Angulo goTo: " + angle);
+        //Debug.Log("Angulo up down: " + angleUpDown);
+        //Debug.Log("Angulo pez,caña: " + angleFishRod);
+
+
+
+        //Quaternion q = Quaternion.AngleAxis(-angle, transform.up);
+        //Vector3 aux;
+        //aux = q.eulerAngles;
+        //aux.x = transform.rotation.eulerAngles.x;
+        //aux.z = transform.rotation.eulerAngles.z;
+
+        //q = Quaternion.AngleAxis(-angleUpDown, transform.forward);
+
+        //aux.z = q.eulerAngles.z;
+        //aux.x = transform.rotation.eulerAngles.x;
+
+        //q.eulerAngles = aux;
+        Quaternion q = Quaternion.FromToRotation(transform.right, dir);
+        Debug.Log(q.eulerAngles);
         Vector3 aux;
         aux = q.eulerAngles;
         aux.x = transform.rotation.eulerAngles.x;
-        aux.z = transform.rotation.eulerAngles.z;
 
-        q = Quaternion.AngleAxis(-angleUpDown, transform.forward);
-
-        aux.z = q.eulerAngles.z;
-        aux.x = transform.rotation.eulerAngles.x;
-
+        aux.y = transform.rotation.eulerAngles.y + aux.y;
+        aux.z = transform.rotation.eulerAngles.z - aux.z;
         q.eulerAngles = aux;
+        Debug.Log(q.eulerAngles);
         rb.MoveRotation(q);
 
         goToFishingRod = true;
@@ -147,14 +168,14 @@ public class Fish : MonoBehaviour
 
                 aux = q.eulerAngles;
                 aux.x = transform.rotation.eulerAngles.x;
-                aux.z = transform.rotation.eulerAngles.z;   
+                aux.z = transform.rotation.eulerAngles.z;
 
-                angle = Random.Range(-60,60);
+                angle = Random.Range(-60, 60);
                 q = Quaternion.AngleAxis(angle, transform.forward);
 
                 aux.z = q.eulerAngles.z;
                 aux.x = transform.rotation.eulerAngles.x;
-                
+
 
                 q.eulerAngles = aux;
                 rb.MoveRotation(q);
@@ -178,7 +199,7 @@ public class Fish : MonoBehaviour
 
                 break;
             case Sides.Up:
-                
+
                 angle = Random.Range(10, 60);
                 q = Quaternion.AngleAxis(angle, transform.forward);
 
@@ -273,7 +294,15 @@ public class Fish : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("FishingRod") && fishVision.IsSawFishingRod())
         {
-            //alreadyAtFishingRod = true;
+            FishingRod rod = collision.gameObject.GetComponent<FishingRod>();
+            if (!rod.HasChild())
+            {
+
+                alreadyAtFishingRod = true;
+                transform.parent = collision.gameObject.transform;
+                rod.SetChild();
+
+            }
         }
     }
 
