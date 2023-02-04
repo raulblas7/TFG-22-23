@@ -20,15 +20,17 @@ public class Fish : MonoBehaviour
     [SerializeField] private Rigidbody rb;
     [SerializeField] private float vel;
     [SerializeField] private FishVision fishVision;
-    [SerializeField] private float lifeTime;
     [SerializeField] private float waitTimeInRod;
     [SerializeField] private MeshRenderer meshRenderer;
     [SerializeField] private int layerIndexWhenCatched;
+    [SerializeField] private int layerIndexWhenNOTCatched;
 
+    private float lifeTime;
     private bool goToFishingRod = false;
     private bool alreadyAtFishingRod = false;
     private FishingRod fishingRod;
     private FishInstantiator fishInstantiator;
+    private Vector3 dir;
 
     void Start()
     {
@@ -67,7 +69,7 @@ public class Fish : MonoBehaviour
     private void GoToFishingRod()
     {
         Transform fishingRodPosTR = fishVision.GetFishingRodTr();
-        Vector3 dir = fishingRodPosTR.position - transform.position;
+        dir = fishingRodPosTR.position - transform.position;
 
 
         //float angle = Vector3.Angle(transform.right, Vector3.right);
@@ -140,8 +142,16 @@ public class Fish : MonoBehaviour
         //aux.x = transform.rotation.eulerAngles.x;
 
         //q.eulerAngles = aux;
-        Quaternion q = Quaternion.FromToRotation(transform.right, dir);
-        Debug.Log(q.eulerAngles);
+
+        MakeRotationInDir(dir);
+        goToFishingRod = true;
+
+        //EditorApplication.isPaused = true;
+    }
+
+    private void MakeRotationInDir(Vector3 d)
+    {
+        Quaternion q = Quaternion.FromToRotation(transform.right, d);
         Vector3 aux;
         aux = q.eulerAngles;
         aux.x = transform.rotation.eulerAngles.x;
@@ -149,12 +159,7 @@ public class Fish : MonoBehaviour
         aux.y = transform.rotation.eulerAngles.y + aux.y;
         aux.z = transform.rotation.eulerAngles.z - aux.z;
         q.eulerAngles = aux;
-        Debug.Log(q.eulerAngles);
         rb.MoveRotation(q);
-
-        goToFishingRod = true;
-
-        //EditorApplication.isPaused = true;
     }
 
     private void UTurn(Sides side)
@@ -296,6 +301,8 @@ public class Fish : MonoBehaviour
                 fishingRod.SetFishAtBait();
                 fishingRod.AddComponentToBait(rb);
                 this.gameObject.layer = layerIndexWhenCatched;
+
+                Invoke("QuitFromFishingRod", waitTimeInRod);
             }
         }
     }
@@ -329,5 +336,25 @@ public class Fish : MonoBehaviour
     public void SetMaterialToMeshRenderer(Material mat)
     {
         meshRenderer.material = mat;
+    }
+
+    public void SetLifeTime(float lT)
+    {
+        lifeTime = lT;
+    }
+
+    private void QuitFromFishingRod()
+    {
+        if (!fishingRod.IsFishingRodGoingUp())
+        {
+            alreadyAtFishingRod = false;
+            fishingRod.SetFishAtBait();
+            fishingRod.QuitComponentToBait();
+            this.gameObject.layer = layerIndexWhenCatched;
+
+            MakeRotationInDir(-dir);
+
+            //fishInstantiator.DeleteFishFromList(this);
+        }
     }
 }

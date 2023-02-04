@@ -165,10 +165,10 @@ MonoBehaviour:
   rb: {fileID: 617099529}
   vel: 5
   fishVision: {fileID: 617099533}
-  lifeTime: 15
-  waitTimeInRod: 0
+  waitTimeInRod: 2
   meshRenderer: {fileID: 849990762508336818}
   layerIndexWhenCatched: 11
+  layerIndexWhenNOTCatched: 6
 --- !u!114 &617099533
 MonoBehaviour:
   m_ObjectHideFlags: 0

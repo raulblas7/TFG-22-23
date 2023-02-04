@@ -33,13 +33,16 @@ public class FishInstantiator : MonoBehaviour
 
     private void InstantiateFish()
     {
-        int randomSpawner = Random.Range(0, spawners.Length);
-        Fish fishGO = Instantiate(fishPrefab, spawners[randomSpawner].position, Quaternion.identity, transform);
+        int randomNum = Random.Range(0, spawners.Length);
+        Fish fishGO = Instantiate(fishPrefab, spawners[randomNum].position, Quaternion.identity, transform);
         fishGO.SetFishingRod(fishingRod);
         fishGO.SetFishInstantiator(this);
 
-        int randomSkin = Random.Range(0, fishSkins.materials.Length);
-        fishGO.SetMaterialToMeshRenderer(fishSkins.materials[randomSkin]);
+        randomNum = Random.Range(0, fishSkins.materials.Length);
+        fishGO.SetMaterialToMeshRenderer(fishSkins.materials[randomNum]);
+
+        randomNum = Random.Range(10, 20);
+        fishGO.SetLifeTime(randomNum);
 
         fishList.Add(fishGO);
     }

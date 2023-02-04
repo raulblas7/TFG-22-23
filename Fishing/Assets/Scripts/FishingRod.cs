@@ -10,13 +10,8 @@ public class FishingRod : MonoBehaviour
 
     private bool fishAtBait = false;
     private bool addForce = false;
+    private FixedJoint fixedJoint;
 
-    void Start()
-    {
-        
-    }
-
-    
     void Update()
     {
         if(Input.GetKey(KeyCode.Space)) {
@@ -39,7 +34,17 @@ public class FishingRod : MonoBehaviour
 
     public void AddComponentToBait(Rigidbody fishRb)
     {
-        FixedJoint fixedJoint = baitGO.AddComponent<FixedJoint>();
+        fixedJoint = baitGO.AddComponent<FixedJoint>();
         fixedJoint.connectedBody = fishRb;
+    }
+
+    public void QuitComponentToBait()
+    {
+        Destroy(fixedJoint);
+    }
+
+    public bool IsFishingRodGoingUp()
+    {
+        return addForce;
     }
 }

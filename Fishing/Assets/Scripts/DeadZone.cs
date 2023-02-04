@@ -6,14 +6,14 @@ public class DeadZone : MonoBehaviour
 {
     [SerializeField] private FishInstantiator fishInstantiator;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Fish"))
+        if (other.gameObject.CompareTag("Fish"))
         {
-            // Añadir puntos
+            // Añadir puntos solo si estoy pescado (falta un if)
 
             // lo eliminamos de la lista
-            fishInstantiator.DeleteFishFromList(collision.gameObject.GetComponent<Fish>());
+            fishInstantiator.DeleteFishFromList(other.gameObject.GetComponent<Fish>());
         }
     }
 }
