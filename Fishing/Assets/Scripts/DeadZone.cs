@@ -5,6 +5,7 @@ using UnityEngine;
 public class DeadZone : MonoBehaviour
 {
     [SerializeField] private FishInstantiator fishInstantiator;
+    [SerializeField] private FishingRod fishingRod;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -14,6 +15,7 @@ public class DeadZone : MonoBehaviour
 
             // lo eliminamos de la lista
             fishInstantiator.DeleteFishFromList(other.gameObject.GetComponent<Fish>());
+            
         }
     }
 }

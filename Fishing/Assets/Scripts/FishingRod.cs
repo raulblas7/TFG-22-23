@@ -10,7 +10,7 @@ public class FishingRod : MonoBehaviour
 
     private bool fishAtBait = false;
     private bool addForce = false;
-    private FixedJoint fixedJoint;
+    private HingeJoint fixedJoint;
 
     void Update()
     {
@@ -30,11 +30,11 @@ public class FishingRod : MonoBehaviour
     }
 
     public bool HasFishAtBait() { return fishAtBait; }
-    public void SetFishAtBait() { fishAtBait = !fishAtBait; }
+    public void SetFishAtBait(bool b) { fishAtBait = b; }
 
     public void AddComponentToBait(Rigidbody fishRb)
     {
-        fixedJoint = baitGO.AddComponent<FixedJoint>();
+        fixedJoint = baitGO.AddComponent<HingeJoint>();
         fixedJoint.connectedBody = fishRb;
     }
 
@@ -46,5 +46,13 @@ public class FishingRod : MonoBehaviour
     public bool IsFishingRodGoingUp()
     {
         return addForce;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("DeadZone"))
+        {
+            SetFishAtBait(false);
+        }
     }
 }

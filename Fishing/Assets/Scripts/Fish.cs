@@ -57,7 +57,8 @@ public class Fish : MonoBehaviour
     {
         if (!alreadyAtFishingRod)
         {
-            fishInstantiator.DeleteFishFromList(this);
+            this.gameObject.layer = layerIndexWhenCatched;
+            //fishInstantiator.DeleteFishFromList(this);
         }
     }
     private void ChangeDir()
@@ -219,7 +220,7 @@ public class Fish : MonoBehaviour
                 break;
             case Sides.Down:
                 angle = Random.Range(-70, -20);
-                Debug.Log(angle);
+             
                 q = Quaternion.AngleAxis(angle, transform.forward);
 
                 aux = q.eulerAngles;
@@ -297,8 +298,9 @@ public class Fish : MonoBehaviour
         {
             if (!fishingRod.HasFishAtBait())
             {
+                Debug.Log("pecado");
                 alreadyAtFishingRod = true;
-                fishingRod.SetFishAtBait();
+                fishingRod.SetFishAtBait(true);
                 fishingRod.AddComponentToBait(rb);
                 this.gameObject.layer = layerIndexWhenCatched;
 
@@ -348,7 +350,7 @@ public class Fish : MonoBehaviour
         if (!fishingRod.IsFishingRodGoingUp())
         {
             alreadyAtFishingRod = false;
-            fishingRod.SetFishAtBait();
+            fishingRod.SetFishAtBait(false);
             fishingRod.QuitComponentToBait();
             this.gameObject.layer = layerIndexWhenCatched;
 
