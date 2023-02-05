@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,11 +11,14 @@ public class GameManager : MonoBehaviour
 
     private List<CubeController> cubes;
 
-    [SerializeField]
-    private int maxCubes = 4;
+    [SerializeField] private int maxCubes = 4;
+    [SerializeField] private Spawner spawner;
 
-    [SerializeField]
-    private Spawner spawner;
+    // TODO: esto vendra configurable desde el menú pero de momento lo ponemos por el inspector
+    [SerializeField] private int numJumps = 20;
+    private int numCurrentJumps;
+
+    private Transform finalIslandTR;
 
     public static GameManager Instance { get { return _instance; } }
 
@@ -46,7 +50,7 @@ public class GameManager : MonoBehaviour
 
     public CubeController getLastCube() { return cubes[cubes.Count - 1]; }
 
-    public GameObject getFirstCube() { return cubes[1].gameObject; }
+    public GameObject getFirstCube() { return cubes[1].gameObject; }    
 
     public void addCube(CubeController c) { cubes.Add(c); }
 
@@ -63,5 +67,30 @@ public class GameManager : MonoBehaviour
     public void LoadScene(string name)
     {
         //SceneManager.LoadScene(name);
+    }
+
+    public int GetNumJumps()
+    {
+        return numJumps;
+    }
+
+    public int GetNumCurrentJumps()
+    {
+        return numCurrentJumps;
+    }
+
+    public void AddOneMoreJump()
+    {
+        numCurrentJumps++;
+    }
+
+    public void SetFinalIslandTR(Transform tr)
+    {
+        finalIslandTR = tr;
+    }
+
+    public GameObject GetIsland()
+    {
+        return finalIslandTR.gameObject;
     }
 }
