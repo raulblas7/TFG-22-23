@@ -131,4 +131,4 @@ MonoBehaviour:
   force: 200
   MaxAngle: 30
   MinAngle: -30
-  vel: 1
+  vel: 10

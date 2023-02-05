@@ -54,14 +54,15 @@ public class GameManager : MonoBehaviour
     //metodos para cambiar a una nueva ronda
     public void NewRound()
     {
-        CleanBolos();
+        //CleanBolos();
+        Invoke("CleanBolos", 3);
         currentRounds++;
     }
 
     //metodos para pasar a la segunda parte de la ronda
     public void SetRoundPartTwo()
     {
-        Invoke("StartSecondPart", 5);
+        Invoke("StartSecondPart", 3);
     }
 
     private void StartSecondPart()
