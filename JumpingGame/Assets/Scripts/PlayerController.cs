@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour
             canJump = false;
             jumpInput = true;
             GameManager.Instance.AddOneMoreJump();
+            Debug.Log("Numero de saltos actuales es " + GameManager.Instance.GetNumCurrentJumps());
             JumpingAndLanding();
         }
     }
@@ -58,12 +59,13 @@ public class PlayerController : MonoBehaviour
         if(GameManager.Instance.GetNumCurrentJumps() + 1 < GameManager.Instance.GetNumJumps())
         {
             nextDest = GameManager.Instance.getFirstCube();
+            Destroy(other.gameObject);
         }
-        else
+        else if(GameManager.Instance.GetNumCurrentJumps() + 1 == GameManager.Instance.GetNumJumps())
         {
-            nextDest = GameManager.Instance.GetIsland();
+            GameObject island = GameManager.Instance.GetIsland();
+            nextDest = island.GetComponent<Island>().GetJumpDest();
         }
-        Destroy(other.gameObject);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -72,7 +74,6 @@ public class PlayerController : MonoBehaviour
         {
             CubeController cube = collision.gameObject.GetComponent<CubeController>();
             cube.SetStartDiving();
-            Debug.Log("Hola");
         }
         if (collision.gameObject.CompareTag("Water"))
         {

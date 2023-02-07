@@ -8,58 +8,63 @@ public class Spawner : MonoBehaviour
     [SerializeField] private CubeController firstPrefab;
     [SerializeField] private CubeController prefabBarrel;
 
-    [SerializeField] private GameObject finalIsland;
+    [SerializeField] private CubeController finalIsland;
 
     [SerializeField] private Transform parent;
-    [SerializeField] private Transform limitLeft;
-    [SerializeField] private Transform limitRight;
+
+    [SerializeField] private float limitLeftCubes;
+    [SerializeField] private float limitRightCubes;
+    [SerializeField] private float limitLeftIsland;
+    [SerializeField] private float limitRightIsland;
 
     private int numCubesInstantiated;
     private int randomNum;
 
     public void InstantiateNewCube()
     {
-        randomNum = Random.Range(0, 2);
-        CubeController cube;
-        // Instanciar el primer cubo
-        if(GameManager.Instance.getCubesSize() == 0)
+        if (numCubesInstantiated != GameManager.Instance.GetNumJumps() + 1)
         {
-            Vector3 posCubeIni = new Vector3(0.0f, -0.6f, 0.0f);
-            cube = Instantiate(firstPrefab, posCubeIni, Quaternion.identity, parent);
-            numCubesInstantiated++;
-            GameManager.Instance.addCube(cube);
-        }
-        else if(numCubesInstantiated + 1 < GameManager.Instance.GetNumJumps())
-        {
-            Vector3 newCubePos = GetNewPos();
-
-            if (randomNum > 0)
+            CubeController cube = null;
+            // Instanciar el primer cubo
+            if (GameManager.Instance.getCubesSize() == 0)
             {
-                cube = Instantiate(prefab, newCubePos, Quaternion.identity, parent);
+                Vector3 posCubeIni = new Vector3(0.0f, -0.6f, 0.0f);
+                cube = Instantiate(firstPrefab, posCubeIni, Quaternion.identity, parent);
             }
-            else cube = Instantiate(prefabBarrel, newCubePos, prefabBarrel.gameObject.transform.rotation, parent);
+            else if (numCubesInstantiated + 1 <= GameManager.Instance.GetNumJumps())
+            {
+                Vector3 newCubePos = GetNewPos(2.0f, 4.0f, -0.6f, false);
+                randomNum = Random.Range(0, 2);
+                if (randomNum > 0)
+                {
+                    cube = Instantiate(prefab, newCubePos, Quaternion.identity, parent);
+                }
+                else cube = Instantiate(prefabBarrel, newCubePos, prefabBarrel.gameObject.transform.rotation, parent);
+            }
+            else if (numCubesInstantiated + 1 > GameManager.Instance.GetNumJumps())
+            {
+                Vector3 islandPos = GetNewPos(-11.5f, -11f, -10f, true);
 
+                cube = Instantiate(finalIsland, islandPos, finalIsland.transform.rotation, parent);
+                GameManager.Instance.SetFinalIslandTR(cube.transform);
+            }
             numCubesInstantiated++;
             GameManager.Instance.addCube(cube);
-        }
-        else
-        {
-            Vector3 islandPos = GetNewPos();
-
-            GameObject island = Instantiate(finalIsland, islandPos, finalIsland.transform.rotation, parent);
-            GameManager.Instance.SetFinalIslandTR(island.transform);
         }
     }
 
-    private Vector3 GetNewPos()
+    private Vector3 GetNewPos(float limitMin, float limitMax, float initPosY, bool island)
     {
         CubeController lastCube = GameManager.Instance.getLastCube();
 
         Vector3 posLastCube = lastCube.transform.position;
 
-        float posX = Random.Range(limitLeft.position.x, limitRight.position.x);
-        float posZ = Random.Range(posLastCube.z + 2.0f, posLastCube.z + 4.0f);
+        float posX;
+        if(!island) posX = Random.Range(limitLeftCubes, limitRightCubes);
+        else posX = Random.Range(limitLeftIsland, limitRightIsland);
+        
+        float posZ = Random.Range(posLastCube.z + limitMin, posLastCube.z + limitMax);
 
-        return new Vector3(posX, -0.6f, posZ);
+        return new Vector3(posX, initPosY, posZ);
     }
 }

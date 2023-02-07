@@ -52,7 +52,9 @@ public class GameManager : MonoBehaviour
 
     public GameObject getFirstCube() { return cubes[1].gameObject; }    
 
-    public void addCube(CubeController c) { cubes.Add(c); }
+    public void addCube(CubeController c) { 
+        if(c != null) cubes.Add(c); 
+    }
 
     public int getCubesSize() { return cubes.Count; }
 
