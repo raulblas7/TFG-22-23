@@ -9,11 +9,23 @@ public class PuntuationUIManager : MonoBehaviour
     private List<PanelPuntuation> panels;
     void Start()
     {
+        //inicializo la lista
+        panels = new List<PanelPuntuation>();
         //le digo al game manager que yo soy el puntuationManager
-
+        GameManager.Instance.SetPuntuationUIManager(this);
         //consulto el numero de rondas
+        int rounds = GameManager.Instance.getNumRounds();
         //instancio un panel por cada ronda
-        //inicializo los paneles
+        for (int i = 0; i < rounds; i++)
+        {
+            PanelPuntuation panel = Instantiate<PanelPuntuation>(prefab, transform);
+            //inicializo los paneles
+            panel.SetRound(i);
+            panel.ResetPanel();
+            //añado el panel a la lista
+            panels.Add(panel);
+
+        }
     }
 
     public void FirstShootPuntuation(int round, int points)
