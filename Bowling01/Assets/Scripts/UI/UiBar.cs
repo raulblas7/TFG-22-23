@@ -6,28 +6,31 @@ using UnityEngine.UI;
 public class UiBar : MonoBehaviour
 {
     [SerializeField] Slider slider;
-    [SerializeField] int MaxValue = 60;
-    [SerializeField] int MinValue = -60;
+    [SerializeField] int MaxValue;
+    [SerializeField] int MinValue;
+    [SerializeField] RectTransform _handleTransform;
 
     private float currentValue;
-  
- 
 
 
-    // Start is called before the first frame update
+
+
+
     void Start()
     {
-        
+        _handleTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Screen.width / 42.66667f);
+
+
     }
 
-    // Update is called once per frame
+ 
     void Update()
     {
         currentValue = GameManager.Instance.getAngle();
         float aux = (float)(currentValue - MinValue) / (float)(MaxValue - MinValue);
         slider.value = aux;
 
-       
-        
+
+
     }
 }

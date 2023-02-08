@@ -10,7 +10,13 @@ public class PanelPuntuation : MonoBehaviour
     [SerializeField] TMPro.TextMeshProUGUI firstShoot;
     [SerializeField] TMPro.TextMeshProUGUI secondShoot;
     [SerializeField] TMPro.TextMeshProUGUI roundPoints;
-  
+    [SerializeField] RectTransform _transform;
+
+    private void Start()
+    {
+        _transform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Screen.width / 11.3274f);
+        _transform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, Screen.width / 11.3274f);
+    }
     public void SetFirstShoot(int points)
     {
         if (points == 10)

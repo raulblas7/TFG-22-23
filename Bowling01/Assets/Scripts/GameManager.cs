@@ -134,4 +134,8 @@ public class GameManager : MonoBehaviour
     public float getAngle() { return _angle; }
 
     public int getNumRounds() { return _rounds; }
+
+    //metodos para la configuración
+    public void SetNumRound(int round) { _rounds = round; }
+   
 }
