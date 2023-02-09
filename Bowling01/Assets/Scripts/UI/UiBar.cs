@@ -12,18 +12,12 @@ public class UiBar : MonoBehaviour
 
     private float currentValue;
 
-
-
-
-
     void Start()
     {
         _handleTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Screen.width / 42.66667f);
 
-
     }
 
- 
     void Update()
     {
         currentValue = GameManager.Instance.getAngle();

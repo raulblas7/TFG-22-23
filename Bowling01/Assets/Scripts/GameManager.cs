@@ -137,5 +137,6 @@ public class GameManager : MonoBehaviour
 
     //metodos para la configuración
     public void SetNumRound(int round) { _rounds = round +1; }
-   
+    public void SetNumRound(float round) { _rounds =(int)round ; }
+
 }
