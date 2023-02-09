@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -138,5 +139,10 @@ public class GameManager : MonoBehaviour
     //metodos para la configuración
     public void SetNumRound(int round) { _rounds = round +1; }
     public void SetNumRound(float round) { _rounds =(int)round ; }
+
+    public void ChangeScene(string scene)
+    {
+        SceneManager.LoadScene(scene);
+    }
 
 }

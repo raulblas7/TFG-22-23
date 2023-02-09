@@ -8,8 +8,10 @@ public class SelectRoundSlider : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI text;
     [SerializeField] RectTransform _handleTransform;
+    
     void Start()
     {
+        UpdateText(gameObject.GetComponent<Slider>().value);
         _handleTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Screen.width / 42.66667f);
     }
 
