@@ -8,11 +8,17 @@ public class BolosManager : MonoBehaviour
 
     [SerializeField] Bolo prefabBolo;
     [SerializeField] Transform[] positions;
+
     private List<Bolo> bolos;
+    private int maxNumBolos;
+    private int firstPartPoints = 0; // variable auxiliar para distinguir los
+                                     // puntos de la primera parte de la ronda
+                                     // de los puntos de la segunda parte
 
 
     void Start()
     {
+        maxNumBolos = positions.Length;
         bolos = new List<Bolo>();
         GameManager.Instance.SetBolosManager(this);
         instatiateBolos();
@@ -26,7 +32,7 @@ public class BolosManager : MonoBehaviour
         
        if(bolos.Remove(b))
         {
-            Debug.Log("Eliminado bolo " + b._index);
+           // Debug.Log("Eliminado bolo " + b._index);
         }
     }
 
@@ -53,7 +59,7 @@ public class BolosManager : MonoBehaviour
     }
     public void CheckOnthefloor()
     {
-        Debug.Log(bolos.Count);
+        //Debug.Log(bolos.Count);
         for (int i = 0; i < bolos.Count; i++)
         {
             if (!bolos[i].IsOnTheFloor())
@@ -61,5 +67,31 @@ public class BolosManager : MonoBehaviour
                 bolos[i].ElevateBolo();
             }
         }
+    }
+
+    // se encarga de comprobar los puntos
+    public int CheckPoints(bool firstPart )
+    {
+        int standUpBowling = 0;
+       
+        for (int i = 0; i < bolos.Count; i++)
+        {
+            if (!bolos[i].IsOnTheFloor())
+            {
+                standUpBowling++;
+             
+            }
+        }
+        if (firstPart)
+        {
+            firstPartPoints = maxNumBolos - standUpBowling;
+        }
+
+        Debug.Log(standUpBowling);
+
+        Debug.Log(firstPartPoints);
+
+        // return maxNumBolos - standUpBowling;
+        return firstPart ? maxNumBolos - standUpBowling : maxNumBolos - standUpBowling - firstPartPoints;
     }
 }
