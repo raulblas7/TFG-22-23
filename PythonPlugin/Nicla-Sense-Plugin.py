@@ -9,6 +9,10 @@ import struct
 import threading
 import keyboard
 
+import socket
+import pickle
+
+
 # Dirección MAC de la placa Nicla Sense ME a la que nos vamos a conectar via BLE (Bluetooth Low Energy)
 NICLA_SENSE_ME_ADDRESS = "B6:FE:22:11:AA:D4"
 
@@ -25,7 +29,14 @@ gyroscope = []
 
 endConection = False
 
-async def getValuesFromBoard(client):
+# Variables para la gestion de la conexion TCP entre cliente y servidor
+# El servidor sera inicializado en Python a partir de este script
+# Sera el encargado de mandar la información recogida de la placa al cliente
+# el cual escucha desde Unity
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # Creacion del socket
+port = 8888
+    
+async def getValuesFromBoard(client, conn):
     orien = await client.read_gatt_char(NICLA_SENSE_VALUES_TO_COLECT["orientation"])
     orientation = struct.unpack('<3h', orien)
     accel = await client.read_gatt_char(NICLA_SENSE_VALUES_TO_COLECT["accelerometer"])
@@ -33,8 +44,11 @@ async def getValuesFromBoard(client):
     gyros = await client.read_gatt_char(NICLA_SENSE_VALUES_TO_COLECT["gyroscope"])
     gyroscope = struct.unpack('<3f', gyros)
 
-
-    print('quaternion es ', orientation)
+    listData = orientation + accelerometer + gyroscope
+    data=pickle.dumps(listData)
+    conn.sendall(data)
+    
+    print('orientation es ', orientation)
     print('accelerometer es ', accelerometer)
     print('gyroscope es ', gyroscope)
 
@@ -42,7 +56,7 @@ async def getValuesFromBoard(client):
 def callback(sender: BleakGATTCharacteristic, data: bytearray):
     pass
 
-async def makeBLEConection():
+async def makeBLEConection(conn):
     client = BleakClient(NICLA_SENSE_ME_ADDRESS)
     try:
         await client.connect() # Espera a que la placa se conecte, si no no avanza, dado que es una corrutina
@@ -52,7 +66,7 @@ async def makeBLEConection():
         await client.start_notify(NICLA_SENSE_VALUES_TO_COLECT["gyroscope"], callback)
         endConection = keyboard.is_pressed('a')
         while not endConection:
-            await getValuesFromBoard(client)
+            await getValuesFromBoard(client, conn)
             endConection = keyboard.is_pressed('a')
 
     except Exception as exception:
@@ -61,8 +75,22 @@ async def makeBLEConection():
         print("La Nicla va a ser desconectada...")
         await client.disconnect()
 
-def targetThread():
-    asyncio.run(makeBLEConection())
+def targetThread(conn):
+    asyncio.run(makeBLEConection(conn))
 
-thread = threading.Thread(target=targetThread)
-thread.start()
+
+def initThread(conn):
+    thread = threading.Thread(target=targetThread, args=(conn))
+    thread.start()
+
+def initServer():
+    s.bind(('localhost', port))
+    s.listen(1) #espera la conexión del cliente
+    conn, addr = s.accept()
+    initThread(conn)
+    conn.close()
+
+initServer()
+
+    
+
