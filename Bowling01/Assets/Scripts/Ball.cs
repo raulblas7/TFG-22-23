@@ -20,29 +20,33 @@ public class Ball : MonoBehaviour
 
     void Update()
     {
-
-        currentAngle += vel * dir * Time.deltaTime;
-        GameManager.Instance.setAngle(currentAngle);
-        if (currentAngle >= MaxAngle)
+        //solo actualizamos el juego si esta activo(si aun no ha terminado la partida)
+        if (GameManager.Instance.IsGameActive()) 
         {
-            dir = -1;
-        }
-        if (currentAngle <= MinAngle)
-        {
-            dir = 1;
-        }
-        if (!thrownBall && Input.GetKeyDown(KeyCode.Space))
-        {
-            Quaternion q = new Quaternion();
-            q.eulerAngles = new Vector3(0, 0, 0);
-            transform.rotation = q;
+            currentAngle += vel * dir * Time.deltaTime;
+            GameManager.Instance.setAngle(currentAngle);
+            if (currentAngle >= MaxAngle)
+            {
+                dir = -1;
+            }
+            if (currentAngle <= MinAngle)
+            {
+                dir = 1;
+            }
+            if (!thrownBall && Input.GetKeyDown(KeyCode.Space))
+            {
+                Quaternion q = new Quaternion();
+                q.eulerAngles = new Vector3(0, 0, 0);
+                transform.rotation = q;
 
-            transform.rotation = Quaternion.AngleAxis(currentAngle, Vector3.up);
+                transform.rotation = Quaternion.AngleAxis(currentAngle, Vector3.up);
 
-            rb.AddForce(transform.forward * -1 * force, ForceMode.Impulse);
-            rb.useGravity = true;
-            thrownBall = true;
+                rb.AddForce(transform.forward * -1 * force, ForceMode.Impulse);
+                rb.useGravity = true;
+                thrownBall = true;
+            }
         }
+       
     }
 
 

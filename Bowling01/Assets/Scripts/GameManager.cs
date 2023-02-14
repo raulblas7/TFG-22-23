@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     private bool firstPartCompleted = false;
     private int currentRound = 0;
     private int totalPoints = 0;
+    private bool isGameActive = true;
 
 
     public static GameManager Instance { get { return _instance; } }
@@ -28,7 +29,7 @@ public class GameManager : MonoBehaviour
         if (_instance != null)
         {
             Destroy(this.gameObject);
-          
+
         }
         else
         {
@@ -67,7 +68,7 @@ public class GameManager : MonoBehaviour
     {
         //CleanBolos();
         Invoke("CleanBolos", 3);
-        
+
     }
 
     //metodos para pasar a la segunda parte de la ronda
@@ -99,7 +100,7 @@ public class GameManager : MonoBehaviour
             firstPartCompleted = false;
             _bolosManager.instatiateBolos();
         }
-       
+
         _spawnerBall.SpawnBall();
     }
 
@@ -118,6 +119,13 @@ public class GameManager : MonoBehaviour
         totalPoints += points;
         _puntuationUIManager.EndRoundPuntuation(currentRound, points, totalPoints);
         currentRound++;
+        if(currentRound == _rounds)
+        {
+            //finalizamos el juego
+            isGameActive = false;
+            _puntuationUIManager.ActiveFinalPanel(totalPoints);
+
+        }
     }
 
     //metodos Setter
@@ -125,6 +133,9 @@ public class GameManager : MonoBehaviour
     public void SetSpawnerBall(SpawnerBall s) { _spawnerBall = s; }
     public void SetSpawnerCleaner(SpawnerCleaner s) { _spawnerCleaner = s; }
     public void SetPuntuationUIManager(PuntuationUIManager p) { _puntuationUIManager = p; }
+
+    //metodos getter
+    public bool IsGameActive() { return isGameActive; }
 
     //metodos para la UI
     public void setAngle(float angle)
@@ -137,12 +148,23 @@ public class GameManager : MonoBehaviour
     public int getNumRounds() { return _rounds; }
 
     //metodos para la configuración
-    public void SetNumRound(int round) { _rounds = round +1; }
-    public void SetNumRound(float round) { _rounds =(int)round ; }
+    public void SetNumRound(int round) { _rounds = round + 1; }
+    public void SetNumRound(float round) { _rounds = (int)round; }
 
+    //gestion del juego
     public void ChangeScene(string scene)
     {
         SceneManager.LoadScene(scene);
     }
+
+    public void RestartGame()
+    {
+        firstPartCompleted = false;
+        currentRound = 0;
+        totalPoints = 0;
+        isGameActive = true;
+    }
+
+  
 
 }

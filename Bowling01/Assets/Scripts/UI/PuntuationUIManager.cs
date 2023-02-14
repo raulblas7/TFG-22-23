@@ -1,14 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PuntuationUIManager : MonoBehaviour
 {
     [SerializeField] PanelPuntuation prefab;
+    [SerializeField] GameObject finalPanel;
+    [SerializeField] TextMeshProUGUI FinalPoints;
 
     private List<PanelPuntuation> panels;
     void Start()
     {
+        //desactivamos el finalPanel
+        finalPanel.SetActive(false);
         //inicializo la lista
         panels = new List<PanelPuntuation>();
         //le digo al game manager que yo soy el puntuationManager
@@ -38,5 +43,12 @@ public class PuntuationUIManager : MonoBehaviour
         PanelPuntuation panel = panels[round];
         panel.SetSecondShoot(shootpoints);
         panel.SetRoundPoints(totalRoundPoints);
+    }
+
+    public void ActiveFinalPanel(int points)
+    {
+        //activamos el finalPanel
+        finalPanel.SetActive(true);
+        FinalPoints.text = points.ToString();
     }
 }
