@@ -31,6 +31,7 @@ public class Fish : MonoBehaviour
     private FishingRod fishingRod;
     private FishInstantiator fishInstantiator;
     private Vector3 dir;
+    private int points = 0;
 
     void Start()
     {
@@ -220,7 +221,7 @@ public class Fish : MonoBehaviour
                 break;
             case Sides.Down:
                 angle = Random.Range(-70, -20);
-             
+
                 q = Quaternion.AngleAxis(angle, transform.forward);
 
                 aux = q.eulerAngles;
@@ -296,9 +297,9 @@ public class Fish : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("FishingRod") && fishVision.IsSawFishingRod())
         {
-            if (!fishingRod.HasFishAtBait())
+            if (!fishingRod.HasFishAtBait() && gameObject.layer != layerIndexWhenCatched)
             {
-                Debug.Log("pecado");
+                Debug.Log("pescado");
                 alreadyAtFishingRod = true;
                 fishingRod.SetFishAtBait(true);
                 fishingRod.AddComponentToBait(rb);
@@ -332,7 +333,7 @@ public class Fish : MonoBehaviour
 
     public void SetFishInstantiator(FishInstantiator fI)
     {
-        fishInstantiator= fI;
+        fishInstantiator = fI;
     }
 
     public void SetMaterialToMeshRenderer(Material mat)
@@ -344,6 +345,12 @@ public class Fish : MonoBehaviour
     {
         lifeTime = lT;
     }
+
+    public void SetPoints(int p) { points = p; }
+
+    public int GetPoints() { return points; }
+
+    public bool IsInTheFishingRod() { return alreadyAtFishingRod; }
 
     private void QuitFromFishingRod()
     {

@@ -10,8 +10,10 @@ public class FishInstantiator : MonoBehaviour
 
     [SerializeField] private Transform[] spawners;
     [SerializeField] private Skin fishSkins;
+    
 
     private List<Fish> fishList;
+  
 
     void Start()
     {
@@ -40,6 +42,7 @@ public class FishInstantiator : MonoBehaviour
 
         randomNum = Random.Range(0, fishSkins.materials.Length);
         fishGO.SetMaterialToMeshRenderer(fishSkins.materials[randomNum]);
+        fishGO.SetPoints(fishSkins.points[randomNum]);
 
         randomNum = Random.Range(10, 20);
         fishGO.SetLifeTime(randomNum);
