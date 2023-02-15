@@ -8,6 +8,7 @@ TagManager:
   - NormalCube
   - Water
   - FinalJump
+  - Chest
   layers:
   - Default
   - TransparentFX

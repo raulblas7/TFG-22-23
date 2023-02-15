@@ -1424,6 +1424,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 1824340380413090, guid: de06a5272cb3d3b478c5a17399956d02, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 4549428611729446, guid: de06a5272cb3d3b478c5a17399956d02, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -1486,7 +1490,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1255016621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2330,10 +2334,17 @@ MonoBehaviour:
   prefabBarrel: {fileID: 1990048825085293182, guid: 40232713999ca814aa217f3cd25650eb, type: 3}
   finalIsland: {fileID: 8907015710311689398, guid: 7ff82c4536267aa46bc2a72198224912, type: 3}
   parent: {fileID: 1891447689}
-  limitLeftCubes: -2
-  limitRightCubes: 2
+  chestObject: {fileID: 7759381522125351291, guid: 26a4285211a68734b9db205ff1b9512d, type: 3}
+  limitLeftCubes: -1.5
+  limitRightCubes: 1.5
+  limitMinCubesZ: 2
+  limitMaxCubesZ: 4
+  initPosCubeY: -0.6
   limitLeftIsland: -27
   limitRightIsland: -23
+  limitMinIslandZ: -11.5
+  limitMaxIslandZ: -11
+  initPosIslandY: -10
 --- !u!4 &1891447689
 Transform:
   m_ObjectHideFlags: 0

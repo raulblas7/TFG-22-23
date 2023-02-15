@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float impulseH;
     [SerializeField] private float impulseV;
 
+    [SerializeField] private int pointsPerChest = 100;
+
     [SerializeField] private Animator animator = null;
 
     private Vector3 currentForce;
@@ -53,18 +55,26 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        rb.AddForce(-currentForce, ForceMode.Force);
-        GameManager.Instance.deleteCube();
-
-        if(GameManager.Instance.GetNumCurrentJumps() + 1 < GameManager.Instance.GetNumJumps())
+        if (other.gameObject.CompareTag("Chest"))
         {
-            nextDest = GameManager.Instance.getFirstCube();
+            GameManager.Instance.AddPoints(pointsPerChest);
             Destroy(other.gameObject);
         }
-        else if(GameManager.Instance.GetNumCurrentJumps() + 1 == GameManager.Instance.GetNumJumps())
+        else
         {
-            GameObject island = GameManager.Instance.GetIsland();
-            nextDest = island.GetComponent<Island>().GetJumpDest();
+            rb.AddForce(-currentForce, ForceMode.Force);
+            GameManager.Instance.deleteCube();
+
+            if (GameManager.Instance.GetNumCurrentJumps() + 1 < GameManager.Instance.GetNumJumps())
+            {
+                nextDest = GameManager.Instance.getFirstCube();
+                Destroy(other.gameObject);
+            }
+            else if (GameManager.Instance.GetNumCurrentJumps() + 1 == GameManager.Instance.GetNumJumps())
+            {
+                GameObject island = GameManager.Instance.GetIsland();
+                nextDest = island.GetComponent<Island>().GetJumpDest();
+            }
         }
     }
 
