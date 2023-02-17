@@ -1,14 +1,17 @@
 import socket
-import pickle
 
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # Creacion del socket
-port = 8888
+s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+s.bind(('', 8888))
+s.listen()
+print('El servidor está comenzando ...')
 
-def initServer():
-    s.bind(('localhost', port))
-    s.listen(1) #espera la conexión del cliente
-    conn, addr = s.accept()
-    conn.sendall(b'Hello, world')
-    conn.close()
+conn,address = s.accept()
+print(address)
 
-initServer()
+data = conn.recv(1024)
+print('Recibir mensaje del cliente: {0}'.format(data.decode()))
+
+conn.send('Hola a todos'.encode())
+
+conn.close()
+s.close()

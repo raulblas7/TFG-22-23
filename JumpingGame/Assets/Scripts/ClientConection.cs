@@ -36,12 +36,13 @@ public class ClientConection : MonoBehaviour
             string data = Encoding.ASCII.GetString(buffer, 0, bytes); // 123123123
             Debug.Log("Data es " + data);
 
-            string orient = data.Substring(0, 2);
-            string accele = data.Substring(3, 5);
-            string gyrosc = data.Substring(6, 8);
-
-            //orientation = new Vector3(orient)
+            
         }
+        
+    }
+
+    private void OnApplicationQuit()
+    {
         
     }
 }
