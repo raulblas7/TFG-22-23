@@ -44,9 +44,23 @@ async def getValuesFromBoard(client, conn):
     gyros = await client.read_gatt_char(NICLA_SENSE_VALUES_TO_COLECT["gyroscope"])
     gyroscope = struct.unpack('<3f', gyros)
 
-    listData = orientation + accelerometer + gyroscope
-    data=pickle.dumps(listData)
-    conn.sendall(data)
+    separador = '-'
+    separadorLists = '/'
+
+    listDataOrien = ''
+    listDataAccel = ''
+    listDataGyros = ''
+    for num in orientation:
+        listDataOrien += str(num) + separador
+    
+    for num in accelerometer:
+        listDataAccel += str(num) + separador
+    
+    for num in gyroscope:
+        listDataGyros += str(num) + separador
+    
+    listData = str(listDataOrien + separadorLists + listDataAccel + separadorLists + listDataGyros)
+    conn.sendall(listData.encode())
     
     print('orientation es ', orientation)
     print('accelerometer es ', accelerometer)
@@ -80,17 +94,16 @@ def targetThread(conn):
 
 
 def initThread(conn):
-    thread = threading.Thread(target=targetThread, args=(conn))
+    thread = threading.Thread(target=targetThread, args=(conn,))
     thread.start()
 
-def initServer():
-    s.bind(('localhost', port))
-    s.listen(1) #espera la conexión del cliente
-    conn, addr = s.accept()
-    initThread(conn)
-    conn.close()
+def initClient():
+    s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+    s.connect(('127.0.0.1',8888))
+    return s
 
-initServer()
+#initClient()
+initThread(initClient())
 
     
 

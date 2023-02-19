@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
 
     private Transform finalIslandTR;
 
+    private int numPoints;
+
     public static GameManager Instance { get { return _instance; } }
 
     private void Awake()
@@ -94,5 +96,11 @@ public class GameManager : MonoBehaviour
     public GameObject GetIsland()
     {
         return finalIslandTR.gameObject;
+    }
+
+    public void AddPoints(int points)
+    {
+        numPoints += points;
+        Debug.Log("Llevas " + numPoints + " puntos!");
     }
 }
