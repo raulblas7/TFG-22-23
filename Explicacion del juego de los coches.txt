@@ -1,0 +1,4 @@
+En el juego de los coches el paciente deberá mover el tobillo arriba y abajo como si pisara un acelerador.
+En el juego el coche se moverá en función de la posición del pie del paciente, si el pie esta hacia abajo el coche acelerá hasta una velocidad maxima, si levanta el pie el coche frena.
+Durante el recorrido el coche se encontrará con una serie de obstaculos que oblegaran al paciente a lebantar el pie para frenar, y volver a bajarlo para acelerar de nuevo.
+La velocidad de los obstaculos es ajustable de forma que demos al paciente todo el tiempo que necesite para realizar el movimiento de frenado y de aceleración.

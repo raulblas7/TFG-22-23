@@ -1,0 +1,10 @@
+En el juego del jumping el paciente debera mover la pierna hacie el pecho flexionando la rodilla.
+La idea es que cada vez que realice el movimiento el muñeco en pantalla saltará sobre un objeto.
+Estoe objeto empezara a hundirse una vez el muñeco lo alcance, dando un tiempo limite al paciente para repetir el movimiento.
+La velocidad a la que se hunde el objeto(y el tiempo que le damos al paciente para repetir el movimiento) será configurable, de forma que puede ser todo lo lento que nosotros queramos.
+(en el video se ve bastante rapido para que no durara mucho)
+
+El numero de veces que tiene que saltar el jugador hasta llegar a la meta tambien es configurable.
+De forma que podemos ajustar el numero de repeticiones del movimiento a la cantidad que nosotros queramos.
+
+Se añade una recogida de cofres y una puntuación como forma de motivacion al paciente(para darle la sensacion de que esta consiguinedo algo, progreso.

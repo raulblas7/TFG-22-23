@@ -1,0 +1,12 @@
+En el juego de la bolera el paciente deberá mover el brazo estirado hacia arriba.
+El juego dispone de una barra que nos indica la desviacion que tendra la bola.
+Cuando el jugador realice el movimiento la bola será lanzada y según el indicador de la barra inferior la bola ira mas recta o mas hacia los lados(de forma que podemos apuntar a los bolos).
+La dificultad del juego es ajustable.
+
+-La cantidad de desviación de la bola se puede ajustar.
+
+-La velocidad a la que se mueve la barra también se puede ajustar, puede ir todo lo rápido o lento que queramos de forma que demos tiempo de sobra al paciente para apuntar y realizar el movimiento.
+
+-El número de Repeticiones también se puede ajutar. Aunque en este caso deberán ser siempre un numero par de repeticiones ya que cada ronda del juego consta de 2 tiradas.
+
+

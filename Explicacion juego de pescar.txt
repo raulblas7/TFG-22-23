@@ -1,0 +1,12 @@
+En el juego de la pesca el paciente debera mover el brazo, flexionando el codo y llevando la mano hacia el hombro.
+En este juego los peces en pantalla se muven de forma aleatoria hasta encontrar la caña.
+Una vez la encuentras se quedan enganchados a ella durante un numero X de segundos.
+Ese es el tiempo que tendra el paciente para iniciar el movimiento de ascensión del brazo.
+Una vez el paciente inicie el movimiento, el pez ya nunca se soltara de la caña hasta salir de la pantalla y ser pescado.
+El tiempo que el pez espera en la caña sera configurable, de forma que podemos dar al paciente todo el tiempo que necesite para repetir el movimiento.
+Una vez pasado el tiempo de espera, el pez se soltará de la caña y habra que esperar a que otro pez se enganche para poder pescarlo.
+
+El numero de peces que se pueden pescar tambien puede ser configurable, de forma que ajustamos el numero de repeticiones que realizará el paciente durante una partida.
+
+El tiempo de espera del pez y la puntuacion saldran por pantalla para informar al paciente.
+pero actualmente eso aun no esta completado. por eso en el video no se ve.
