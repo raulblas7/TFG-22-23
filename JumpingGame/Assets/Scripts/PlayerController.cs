@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private Animator animator = null;
 
+    [SerializeField] private ArduinoConnection arduinoConnection;
+
     private Vector3 currentForce;
     private GameObject nextDest;
     private bool canJump;
@@ -40,6 +42,18 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Numero de saltos actuales es " + GameManager.Instance.GetNumCurrentJumps());
             JumpingAndLanding();
         }
+
+
+        //Vector3 boardOrient = arduinoConnection.GetOrientationFromBoard();
+        //if(boardOrient.x <= -90.0f && canJump && GameManager.Instance.GetNumCurrentJumps() < GameManager.Instance.GetNumJumps())
+        //{
+        //    Debug.Log("La orientación en x del board es " + boardOrient.x);
+        //    canJump = false;
+        //    jumpInput = true;
+        //    GameManager.Instance.AddOneMoreJump();
+        //    Debug.Log("Numero de saltos actuales es " + GameManager.Instance.GetNumCurrentJumps());
+        //    JumpingAndLanding();
+        //}
     }
 
     private void FixedUpdate()

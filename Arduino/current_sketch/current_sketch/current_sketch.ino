@@ -128,8 +128,37 @@
   }
 
   void loop(){
-    while (BLE.connected()){
+
+    if(Serial.available() && !alreadyConnected){
+        data = Serial.read();
+        if(data == 'A'){
+          Serial.println("Device: NiclaSenseME");
+          alreadyConnected = true;
+        }
+    }
+    if(alreadyConnected){
       BHY2.update();
+      float x, y, z;
+      x = orientation.pitch();
+      y = orientation.roll();
+      z = orientation.heading();
+
+      int16_t oriValues[3] = {x, y, z};
+
+      Serial.println(x + "," + y + "," + z);
+      Serial.print(",");
+      Serial.print(y);
+      Serial.print(",");
+      Serial.println(z);
+    }
+    
+    while (BLE.connected()){
+
+      if(Serial.available()){
+        data = Serial.read();
+        if(data == 'A'){
+          Serial.println("Device: NiclaSenseME");
+          BHY2.update();
       
       if (orientationCharacteristic.subscribed()){
         float x, y, z;
@@ -174,6 +203,9 @@
         float quaternionValues[] = {x,y,z,w};
         quaternionCharacteristic.writeValue(quaternionValues, sizeof(quaternionValues));
       }
+        }
+      }
+      
 
     }
   }

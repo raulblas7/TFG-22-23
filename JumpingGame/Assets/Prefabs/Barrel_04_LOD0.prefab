@@ -157,6 +157,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedUp: 0.4
-  speedDown: 0.4
+  speedDown: 0.1
   posYUp: 0.65
   posYDown: 0
