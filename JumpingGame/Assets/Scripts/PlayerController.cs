@@ -12,11 +12,12 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private Animator animator = null;
 
-    [SerializeField] private ArduinoConnection arduinoConnection;
+    //[SerializeField] private ArduinoConnection arduinoConnection;
 
     private Vector3 currentForce;
     private GameObject nextDest;
     private bool canJump;
+    private bool movementMade;
 
     private bool jumpInput;
     private bool isGrounded;
@@ -30,18 +31,19 @@ public class PlayerController : MonoBehaviour
         nextDest = GameManager.Instance.getFirstCube();
         canJump = true;
         jumpInput = false;
+        movementMade= false;
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && canJump && GameManager.Instance.GetNumCurrentJumps() < GameManager.Instance.GetNumJumps())
-        {
-            canJump = false;
-            jumpInput = true;
-            GameManager.Instance.AddOneMoreJump();
-            Debug.Log("Numero de saltos actuales es " + GameManager.Instance.GetNumCurrentJumps());
-            JumpingAndLanding();
-        }
+        //if (Input.GetKeyDown(KeyCode.Space) && canJump && GameManager.Instance.GetNumCurrentJumps() < GameManager.Instance.GetNumJumps())
+        //{
+        //    canJump = false;
+        //    jumpInput = true;
+        //    GameManager.Instance.AddOneMoreJump();
+        //    Debug.Log("Numero de saltos actuales es " + GameManager.Instance.GetNumCurrentJumps());
+        //    JumpingAndLanding();
+        //}
 
 
         //Vector3 boardOrient = arduinoConnection.GetOrientationFromBoard();
@@ -54,6 +56,16 @@ public class PlayerController : MonoBehaviour
         //    Debug.Log("Numero de saltos actuales es " + GameManager.Instance.GetNumCurrentJumps());
         //    JumpingAndLanding();
         //}
+
+        if (movementMade && canJump && GameManager.Instance.GetNumCurrentJumps() < GameManager.Instance.GetNumJumps())
+        {
+            canJump = false;
+            movementMade= false;
+            jumpInput = true;
+            GameManager.Instance.AddOneMoreJump();
+            Debug.Log("Numero de saltos actuales es " + GameManager.Instance.GetNumCurrentJumps());
+            JumpingAndLanding();
+        }
     }
 
     private void FixedUpdate()
@@ -182,5 +194,14 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(Vector3.up * impulseV, ForceMode.Impulse);
     }
 
-     
+    public void CheckIfCanJump(Quaternion mobileOrient)
+    {
+        Vector3 orient = mobileOrient.eulerAngles;
+
+        Debug.Log("El vector en angulos es: " + orient);
+        if(orient.x >= 80.0f)
+        {
+            movementMade= true;
+        }
+    }
 }
