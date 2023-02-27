@@ -5,6 +5,7 @@ using ExitGames.Client.Photon;
 
 public class Launcher : MonoBehaviourPunCallbacks, IOnEventCallback
 {
+    public const byte DisconnectEvent = 2;
     [SerializeField] private PhotonView pcClient;
     [SerializeField] private PlayerController playerController;
 
@@ -63,6 +64,9 @@ public class Launcher : MonoBehaviourPunCallbacks, IOnEventCallback
         }
     }
 
+ 
+    
+
     private void OnEnable()
     {
         PhotonNetwork.AddCallbackTarget(this);
@@ -73,5 +77,19 @@ public class Launcher : MonoBehaviourPunCallbacks, IOnEventCallback
         PhotonNetwork.RemoveCallbackTarget(this);
     }
 
- 
+    private void OnDestroy()
+    {
+        if (PhotonNetwork.IsConnected)
+        {
+            SendMessageToMovile();
+            PhotonNetwork.Disconnect();
+        }
+    }
+
+    private void SendMessageToMovile( )
+    {
+
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others };
+        PhotonNetwork.RaiseEvent(DisconnectEvent,null, raiseEventOptions, SendOptions.SendReliable);
+    }
 }

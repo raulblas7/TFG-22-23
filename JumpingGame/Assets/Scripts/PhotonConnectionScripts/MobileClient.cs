@@ -3,6 +3,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MobileClient : MonoBehaviourPunCallbacks
 {
@@ -10,8 +11,14 @@ public class MobileClient : MonoBehaviourPunCallbacks
     public const byte RotateEvent = 1;
 
     [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private Button connectButton;
 
     void Start()
+    {
+       // PhotonNetwork.ConnectUsingSettings();
+    }
+
+    public void StartConnexion()
     {
         PhotonNetwork.ConnectUsingSettings();
     }
@@ -32,6 +39,7 @@ public class MobileClient : MonoBehaviourPunCallbacks
     {
         Debug.Log("Joined a room succesfully: " + PhotonNetwork.CurrentRoom.Name);
         text.text = text.text + PhotonNetwork.CurrentRoom.Name;
+        connectButton.interactable = false;
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
@@ -60,5 +68,27 @@ public class MobileClient : MonoBehaviourPunCallbacks
 
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others };
         PhotonNetwork.RaiseEvent(RotateEvent, content, raiseEventOptions, SendOptions.SendReliable);
+    }
+    public void OnEvent(EventData photonEvent)
+    {
+        Debug.Log("Entro al OnEvent");
+        byte eventCode = photonEvent.Code;
+        if (eventCode == Launcher.DisconnectEvent && PhotonNetwork.IsConnected)
+        {
+
+            PhotonNetwork.Disconnect();
+            connectButton.interactable = true;
+         
+        }
+    }
+
+    private void OnEnable()
+    {
+        PhotonNetwork.AddCallbackTarget(this);
+    }
+
+    private void OnDisable()
+    {
+        PhotonNetwork.RemoveCallbackTarget(this);
     }
 }
