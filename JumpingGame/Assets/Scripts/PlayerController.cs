@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private enum Movement
+    {
+        MOVE_DONE =0,
+        WAITING,
+        RESTART
+    }
+
     [SerializeField] private Rigidbody rb;
     [SerializeField] private float impulseH;
     [SerializeField] private float impulseV;
@@ -17,7 +24,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 currentForce;
     private GameObject nextDest;
     private bool canJump;
-    private bool movementMade;
+    // private bool movementMade;
+    private Movement currentState;
 
     private bool jumpInput;
     private bool isGrounded;
@@ -31,7 +39,8 @@ public class PlayerController : MonoBehaviour
         nextDest = GameManager.Instance.getFirstCube();
         canJump = true;
         jumpInput = false;
-        movementMade= false;
+        // movementMade= false;
+        currentState = Movement.WAITING;
     }
 
     void Update()
@@ -57,13 +66,15 @@ public class PlayerController : MonoBehaviour
         //    JumpingAndLanding();
         //}
 
-        if (movementMade && canJump && GameManager.Instance.GetNumCurrentJumps() < GameManager.Instance.GetNumJumps())
+        if (currentState == Movement.MOVE_DONE && canJump && GameManager.Instance.GetNumCurrentJumps() < GameManager.Instance.GetNumJumps())
         {
+            
             canJump = false;
-            movementMade= false;
+            currentState = Movement.WAITING;
+            Debug.Log("WAITING");
             jumpInput = true;
             GameManager.Instance.AddOneMoreJump();
-            Debug.Log("Numero de saltos actuales es " + GameManager.Instance.GetNumCurrentJumps());
+            //Debug.Log("Numero de saltos actuales es " + GameManager.Instance.GetNumCurrentJumps());
             JumpingAndLanding();
         }
     }
@@ -199,9 +210,16 @@ public class PlayerController : MonoBehaviour
         Vector3 orient = mobileOrient.eulerAngles;
 
         Debug.Log("El vector en angulos es: " + orient);
-        if(orient.x >= 80.0f)
+      
+        if ((orient.x >= 350.0f || orient.x < 90.0f) && currentState == Movement.RESTART)
         {
-            movementMade= true;
+            currentState = Movement.MOVE_DONE;
+            Debug.Log("MOVE_DONE");
+        }
+        else if((orient.x < 350.0f && orient.x >180.0f)&& currentState == Movement.WAITING)
+        {
+            currentState = Movement.RESTART;
+            Debug.Log("RESTART");
         }
     }
 }
