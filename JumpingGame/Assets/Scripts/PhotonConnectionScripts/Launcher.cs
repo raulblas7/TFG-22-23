@@ -64,9 +64,6 @@ public class Launcher : MonoBehaviourPunCallbacks, IOnEventCallback
         }
     }
 
- 
-    
-
     private void OnEnable()
     {
         PhotonNetwork.AddCallbackTarget(this);
@@ -79,17 +76,17 @@ public class Launcher : MonoBehaviourPunCallbacks, IOnEventCallback
 
     private void OnDestroy()
     {
-        if (PhotonNetwork.IsConnected)
-        {
-            SendMessageToMovile();
-            PhotonNetwork.Disconnect();
-        }
+        Debug.Log("On destroy");
+        SendMessageToMobile();
+        PhotonNetwork.Disconnect();
     }
 
-    private void SendMessageToMovile( )
+    private void SendMessageToMobile( )
     {
-
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others };
-        PhotonNetwork.RaiseEvent(DisconnectEvent,null, raiseEventOptions, SendOptions.SendReliable);
+        if(!PhotonNetwork.RaiseEvent(DisconnectEvent, null, raiseEventOptions, SendOptions.SendReliable))
+        {
+            Debug.Log("No he podido mandar el mensaje");
+        }
     }
 }

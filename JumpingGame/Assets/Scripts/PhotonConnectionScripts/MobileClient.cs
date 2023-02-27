@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MobileClient : MonoBehaviourPunCallbacks
+public class MobileClient : MonoBehaviourPunCallbacks, IOnEventCallback
 {
     // If you have multiple custom events, it is recommended to define them in the used class
     public const byte RotateEvent = 1;
@@ -58,12 +58,12 @@ public class MobileClient : MonoBehaviourPunCallbacks
         // Aplicar la orientación al objeto
         Quaternion orientation = Quaternion.FromToRotation(Vector3.up, deviceAcceleration);
         Debug.Log("La orientacion es: " + orientation);
-        SendMessageToPlayer(0, orientation);
+        SendMessageToPlayer(orientation);
     }
 
-    public void SendMessageToPlayer(int playerId, Quaternion orient)
+    public void SendMessageToPlayer(Quaternion orient)
     {
-        text.text = "El quaternion de orientacion es: " + orient.ToString();
+        //text.text = "El quaternion de orientacion es: " + orient.ToString();
         object[] content = new object[] { orient };
 
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others };
@@ -71,14 +71,13 @@ public class MobileClient : MonoBehaviourPunCallbacks
     }
     public void OnEvent(EventData photonEvent)
     {
-        Debug.Log("Entro al OnEvent");
+        text.text = "Entro al onEvent";
         byte eventCode = photonEvent.Code;
-        if (eventCode == Launcher.DisconnectEvent && PhotonNetwork.IsConnected)
+        if (eventCode == Launcher.DisconnectEvent)
         {
-
+            text.text = "Me desconecto";
             PhotonNetwork.Disconnect();
             connectButton.interactable = true;
-         
         }
     }
 
