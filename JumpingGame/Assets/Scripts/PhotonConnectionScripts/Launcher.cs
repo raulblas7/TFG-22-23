@@ -74,19 +74,34 @@ public class Launcher : MonoBehaviourPunCallbacks, IOnEventCallback
         PhotonNetwork.RemoveCallbackTarget(this);
     }
 
-    private void OnDestroy()
+
+    public void DisconectOnChanceScene()
     {
-        Debug.Log("On destroy");
+        Debug.Log("Disconect Launcher");
         SendMessageToMobile();
+        //PhotonNetwork.Disconnect();
+        Invoke("DisconectLauncher", 3);
+    }
+    //private void OnDestroy()
+    //{
+    //    Debug.Log("On destroy");
+    //    SendMessageToMobile();
+    //    PhotonNetwork.Disconnect();
+    //}
+
+    public void DisconectLauncher()
+    {
         PhotonNetwork.Disconnect();
+        GameManager.Instance.LoadScene("MainMenu");
     }
 
-    private void SendMessageToMobile( )
+    public void SendMessageToMobile()
     {
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others };
-        if(!PhotonNetwork.RaiseEvent(DisconnectEvent, null, raiseEventOptions, SendOptions.SendReliable))
+        if (!PhotonNetwork.RaiseEvent(DisconnectEvent, null, raiseEventOptions, SendOptions.SendReliable))
         {
             Debug.Log("No he podido mandar el mensaje");
         }
+        else Debug.Log("Mensaje enviado");
     }
 }

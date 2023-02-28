@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadScene(string name)
     {
-        //SceneManager.LoadScene(name);
+        SceneManager.LoadScene(name);
     }
 
     public int GetNumJumps()

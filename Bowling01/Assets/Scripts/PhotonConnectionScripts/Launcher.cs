@@ -9,7 +9,7 @@ public class Launcher : MonoBehaviourPunCallbacks, IOnEventCallback
     //Instancia del launcher
     private static Launcher _instance;
 
-
+    public const byte DisconnectEvent = 2;
     [SerializeField] private PhotonView pcClient;
     [SerializeField] private Ball ball;
 
@@ -86,6 +86,32 @@ public class Launcher : MonoBehaviourPunCallbacks, IOnEventCallback
         }
     }
 
+
+    public void DisconectOnChanceScene()
+    {
+        Debug.Log("Disconect Launcher");
+        SendMessageToMobile();
+        //PhotonNetwork.Disconnect();
+        Invoke("DisconectLauncher", 3);
+    }
+
+
+    public void DisconectLauncher()
+    {
+        PhotonNetwork.Disconnect();
+        GameManager.Instance.ChangeScene("MainMenu");
+    }
+
+
+    public void SendMessageToMobile()
+    {
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others };
+        if (!PhotonNetwork.RaiseEvent(DisconnectEvent, null, raiseEventOptions, SendOptions.SendReliable))
+        {
+            Debug.Log("No he podido mandar el mensaje");
+        }
+        else Debug.Log("Mensaje enviado");
+    }
     private void OnEnable()
     {
         PhotonNetwork.AddCallbackTarget(this);
