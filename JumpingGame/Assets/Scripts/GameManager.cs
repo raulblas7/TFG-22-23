@@ -33,9 +33,14 @@ public class GameManager : MonoBehaviour
         else
         {
             _instance = this;
-            InitGame();
             DontDestroyOnLoad(_instance);
         }
+    }
+
+    public void StartGame()
+    {
+        LoadScene("JumpScene");
+        InitGame();
     }
 
     void InitGame()

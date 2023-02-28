@@ -75,7 +75,7 @@ public class Launcher : MonoBehaviourPunCallbacks, IOnEventCallback
     }
 
 
-    public void DisconectOnChanceScene()
+    public void DisconectOnChangeScene()
     {
         Debug.Log("Disconect Launcher");
         SendMessageToMobile();
