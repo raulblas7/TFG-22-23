@@ -45,14 +45,14 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.Space) && canJump && GameManager.Instance.GetNumCurrentJumps() < GameManager.Instance.GetNumJumps())
-        //{
-        //    canJump = false;
-        //    jumpInput = true;
-        //    GameManager.Instance.AddOneMoreJump();
-        //    Debug.Log("Numero de saltos actuales es " + GameManager.Instance.GetNumCurrentJumps());
-        //    JumpingAndLanding();
-        //}
+        if (Input.GetKeyDown(KeyCode.Space) && canJump && GameManager.Instance.GetNumCurrentJumps() < GameManager.Instance.GetNumJumps())
+        {
+            canJump = false;
+            jumpInput = true;
+            GameManager.Instance.AddOneMoreJump();
+            Debug.Log("Numero de saltos actuales es " + GameManager.Instance.GetNumCurrentJumps());
+            JumpingAndLanding();
+        }
 
 
         //Vector3 boardOrient = arduinoConnection.GetOrientationFromBoard();
@@ -66,17 +66,16 @@ public class PlayerController : MonoBehaviour
         //    JumpingAndLanding();
         //}
 
-        if (currentState == Movement.MOVE_DONE && canJump && GameManager.Instance.GetNumCurrentJumps() < GameManager.Instance.GetNumJumps())
-        {
-            
-            canJump = false;
-            currentState = Movement.WAITING;
-            Debug.Log("WAITING");
-            jumpInput = true;
-            GameManager.Instance.AddOneMoreJump();
-            //Debug.Log("Numero de saltos actuales es " + GameManager.Instance.GetNumCurrentJumps());
-            JumpingAndLanding();
-        }
+        //if (currentState == Movement.MOVE_DONE && canJump && GameManager.Instance.GetNumCurrentJumps() < GameManager.Instance.GetNumJumps())
+        //{
+        //    canJump = false;
+        //    currentState = Movement.WAITING;
+        //    Debug.Log("WAITING");
+        //    jumpInput = true;
+        //    GameManager.Instance.AddOneMoreJump();
+        //    Debug.Log("Numero de saltos actuales es " + GameManager.Instance.GetNumCurrentJumps());
+        //    JumpingAndLanding();
+        //}
     }
 
     private void FixedUpdate()
@@ -198,7 +197,7 @@ public class PlayerController : MonoBehaviour
     private void JumpWithPhysics()
     {
         Vector3 dir = nextDest.transform.position - transform.position;
-        impulseH = dir.magnitude;
+        impulseH = dir.magnitude - 0.5f;
         Vector3 force = dir.normalized * impulseH;
         currentForce = force;
         rb.AddForce(force, ForceMode.Impulse);

@@ -44,7 +44,6 @@ public class Launcher : MonoBehaviourPunCallbacks, IOnEventCallback
         if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
         {
             PhotonNetwork.CurrentRoom.IsOpen = false;
-            //PhotonNetwork.LoadLevel("MainScene");
         }
     }
 
@@ -74,20 +73,12 @@ public class Launcher : MonoBehaviourPunCallbacks, IOnEventCallback
         PhotonNetwork.RemoveCallbackTarget(this);
     }
 
-
     public void DisconectOnChangeScene()
     {
         Debug.Log("Disconect Launcher");
         SendMessageToMobile();
-        //PhotonNetwork.Disconnect();
         Invoke("DisconectLauncher", 3);
     }
-    //private void OnDestroy()
-    //{
-    //    Debug.Log("On destroy");
-    //    SendMessageToMobile();
-    //    PhotonNetwork.Disconnect();
-    //}
 
     public void DisconectLauncher()
     {

@@ -11,16 +11,19 @@ public class GameManager : MonoBehaviour
 
     private List<CubeController> cubes;
 
-    [SerializeField] private int maxCubes = 4;
-    [SerializeField] private Spawner spawner;
+    private int maxCubes = 4;
 
-    // TODO: esto vendra configurable desde el menú pero de momento lo ponemos por el inspector
-    [SerializeField] private int numJumps = 20;
+    private int numJumps = 20;
     private int numCurrentJumps;
 
+    private float speedDownSetting = 4f;
+
     private Transform finalIslandTR;
+    private Spawner spawner;
 
     private int numPoints;
+
+    private UIManager uiManager;
 
     public static GameManager Instance { get { return _instance; } }
 
@@ -37,16 +40,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void StartGame()
+    public void ImTheSpawner(Spawner spawner)
     {
-        LoadScene("JumpScene");
-        InitGame();
+        this.spawner = spawner;
+        if(this.spawner != null)
+        {
+            Debug.Log("Spawner no es null");
+            InitGame();
+        }
     }
 
     void InitGame()
     {
         cubes = new List<CubeController>();
-        // TODO: quitar de aqui cuando haya menus
         for (int i = 0; i < maxCubes; i++)
         {
             spawner.InstantiateNewCube();
@@ -107,5 +113,41 @@ public class GameManager : MonoBehaviour
     {
         numPoints += points;
         Debug.Log("Llevas " + numPoints + " puntos!");
+        if(uiManager != null)
+        {
+            uiManager.SetPointsText(numPoints);
+        }
+    }
+
+    public void SetNumJumps(int nJumps)
+    {
+        Debug.Log("Entro al setNumJumps en GameManager");
+        numJumps = nJumps;
+        Debug.Log("NumJumps es " + numJumps);
+        maxCubes = numJumps / 3;
+        if (maxCubes <= 0)
+        {
+            maxCubes = 1;
+        }
+    }
+
+    public void ImUiManager(UIManager uiManager)
+    {
+        this.uiManager = uiManager;
+    }
+
+    public void SetSpeedDownCubes(float s)
+    {
+        speedDownSetting = s;
+    }
+
+    public float GetSpeedDown()
+    {
+        return speedDownSetting;
+    }
+
+    public void QuitApplication()
+    {
+        Application.Quit();
     }
 }

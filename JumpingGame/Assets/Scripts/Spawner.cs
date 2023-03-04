@@ -28,6 +28,11 @@ public class Spawner : MonoBehaviour
     private int numCubesInstantiated;
     private int randomNum;
 
+    private void Awake()
+    {
+        GameManager.Instance.ImTheSpawner(this);
+    }
+
     public void InstantiateNewCube()
     {
         if (numCubesInstantiated != GameManager.Instance.GetNumJumps() + 1)
@@ -63,6 +68,7 @@ public class Spawner : MonoBehaviour
                 GameManager.Instance.SetFinalIslandTR(cube.transform);
             }
             numCubesInstantiated++;
+            cube.SetSpeedDown(GameManager.Instance.GetSpeedDown());
             GameManager.Instance.addCube(cube);
         }
     }
@@ -97,6 +103,6 @@ public class Spawner : MonoBehaviour
         Vector3 posLastCube = lastCube.transform.position;
         Vector3 jumpDir = posNewCube - posLastCube;
 
-        return new Vector3(posLastCube.x + (jumpDir.x / 2), posLastCube.y + 2f, posLastCube.z + (jumpDir.z / 2));
+        return new Vector3(posLastCube.x + (jumpDir.x / 2), posLastCube.y + 2.2f, posLastCube.z + (jumpDir.z / 2));
     }
 }

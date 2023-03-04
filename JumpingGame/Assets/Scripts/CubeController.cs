@@ -5,7 +5,6 @@ using UnityEngine;
 public class CubeController : MonoBehaviour
 {
     [SerializeField] private float speedUp;
-    [SerializeField] private float speedDown;
     [SerializeField] private float posYUp;
     [SerializeField] private float posYDown;
 
@@ -13,6 +12,7 @@ public class CubeController : MonoBehaviour
     private Vector3 targetPosUp;
     private Vector3 targetPosDown;
 
+    private float speedDown;
 
     void Start()
     {
@@ -36,5 +36,13 @@ public class CubeController : MonoBehaviour
     public void SetStartDiving()
     {
         startDiving = true;
+    }
+
+    public void SetSpeedDown(float time)
+    {
+        float dist = posYUp - posYDown;
+        Debug.Log("Dist es: " + dist);
+        speedDown = dist / time;
+        Debug.Log("Speed down es: " + speedDown);
     }
 }
