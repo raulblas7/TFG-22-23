@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
+
     private float verticalInput;
 
     private float currentBreakForce;
-    private bool isBreaking;
+    private bool isBreaking = true;
 
     private float currentSteerAngle;
 
@@ -33,9 +34,11 @@ public class CarController : MonoBehaviour
 
     [SerializeField] private float deadzoneAngle;
 
+    private const float INITIAL_DEGREES = 350.0f; 
+
     private void FixedUpdate()
     {
-        GetInput();
+        //GetInput();
         HandleMotor();
         HandleSteering();
         UpdateWheels();
@@ -43,8 +46,8 @@ public class CarController : MonoBehaviour
 
     private void HandleMotor()
     {
-        frontLeftWheelCollider.motorTorque = verticalInput * motorForce;
-        frontRightWheelCollider.motorTorque = verticalInput * motorForce;
+        frontLeftWheelCollider.motorTorque = /*verticalInput * */motorForce;
+        frontRightWheelCollider.motorTorque = /*verticalInput **/ motorForce;
         currentBreakForce = isBreaking ? breakForce : 0f;
         ApplyBreaking();
     }
@@ -116,4 +119,20 @@ public class CarController : MonoBehaviour
         }
     }
 
+    // Input desde el movil
+    public void GetRotationFromDevice(Quaternion mobileOrient)
+    {
+        Vector3 orient = mobileOrient.eulerAngles;
+
+        Debug.Log("El vector en angulos es: " + orient);
+
+        if (orient.x <= INITIAL_DEGREES - 20.0f)
+        {
+            isBreaking = false;
+        }
+        else
+        {
+            isBreaking = true;
+        }
+    }
 }
