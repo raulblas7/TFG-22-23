@@ -6,20 +6,16 @@ using TMPro;
 public class PuntuationUIManager : MonoBehaviour
 {
     [SerializeField] PanelPuntuation prefab;
-    [SerializeField] GameObject finalPanel;
-    [SerializeField] TextMeshProUGUI FinalPoints;
+  
 
     private List<PanelPuntuation> panels;
     void Start()
     {
-        //desactivamos el finalPanel
-        finalPanel.SetActive(false);
+      
         //inicializo la lista
         panels = new List<PanelPuntuation>();
-        //le digo al game manager que yo soy el puntuationManager
-        GameManager.Instance.SetPuntuationUIManager(this);
         //consulto el numero de rondas
-        int rounds = GameManager.Instance.getNumRounds();
+        int rounds = GameManager.Instance.GetNumRounds();
         //instancio un panel por cada ronda
         for (int i = 0; i < rounds; i++)
         {
@@ -45,10 +41,5 @@ public class PuntuationUIManager : MonoBehaviour
         panel.SetRoundPoints(totalRoundPoints);
     }
 
-    public void ActiveFinalPanel(int points)
-    {
-        //activamos el finalPanel
-        finalPanel.SetActive(true);
-        FinalPoints.text = points.ToString();
-    }
+ 
 }

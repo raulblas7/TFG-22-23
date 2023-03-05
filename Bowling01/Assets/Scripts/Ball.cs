@@ -13,36 +13,40 @@ public class Ball : MonoBehaviour
 
     [SerializeField] Rigidbody rb;
     [SerializeField] float force;
-    [SerializeField] int MaxAngle = 60;
-    [SerializeField] int MinAngle = -60;
     [SerializeField] float vel = 0.01f;
 
 
+    private int maxAngle;
+    private int minAngle;
     private bool thrownBall = false;
     private float currentAngle = 0;
     private int dir = 1;
     private Movement currentState;
     private bool throwInput = false;
+    private int exerciseAngle;
 
 
     private void Start()
     {
         currentState = Movement.WAITING;
         Launcher.Instance.SetBall(this);
+        maxAngle = GameManager.Instance.GetGameAngle();
+        minAngle = GameManager.Instance.GetGameAngle() * -1;
+        exerciseAngle = GameManager.Instance.GetExerciseAngle();
     }
 
     void Update()
     {
         //solo actualizamos el juego si esta activo(si aun no ha terminado la partida)
-        if (GameManager.Instance.IsGameActive()) 
+        if (GameManager.Instance.IsGameActive())
         {
             currentAngle += vel * dir * Time.deltaTime;
-            GameManager.Instance.setAngle(currentAngle);
-            if (currentAngle >= MaxAngle)
+            GameManager.Instance.SetAngle(currentAngle);
+            if (currentAngle >= maxAngle)
             {
                 dir = -1;
             }
-            if (currentAngle <= MinAngle)
+            if (currentAngle <= minAngle)
             {
                 dir = 1;
             }
@@ -58,7 +62,7 @@ public class Ball : MonoBehaviour
                 thrownBall = true;
             }
         }
-       
+
     }
     private void FixedUpdate()
     {
@@ -93,12 +97,14 @@ public class Ball : MonoBehaviour
         Debug.Log("El vector en angulos es: " + orient);
 
         //levantar el brazo unos 80 grados
-        if ((orient.x >= 350.0f || orient.x < 90.0f) && currentState == Movement.RESTART)
+        // if ((orient.x >= 350.0f || orient.x < 90.0f) && currentState == Movement.RESTART)
+        if ((orient.x >= 180.0f + exerciseAngle || orient.x < 90.0f) && currentState == Movement.RESTART)
         {
             currentState = Movement.MOVE_DONE;
             Debug.Log("MOVE_DONE");
         }
-        else if ((orient.x < 350.0f && orient.x > 180.0f) && currentState == Movement.WAITING)
+        // else if ((orient.x < 350.0f && orient.x > 180.0f) && currentState == Movement.WAITING)
+        else if ((orient.x < 180.0f + exerciseAngle -10.0f && orient.x > 90.0f) && currentState == Movement.WAITING)
         {
             currentState = Movement.RESTART;
             Debug.Log("RESTART");

@@ -7,19 +7,30 @@ public class GameManager : MonoBehaviour
 {
     //Instancia del gameManager
     private static GameManager _instance;
+
     //variables para la UI
-    private float _angle;
-    //variables del juego
+    private float _currentAngle;    //Angulo antual de la barra de la UI
+ 
+    //Managers
     private BolosManager _bolosManager;
     private SpawnerBall _spawnerBall;
     private SpawnerCleaner _spawnerCleaner;
-    private PuntuationUIManager _puntuationUIManager;
+    private GameUIManager _gameUIManager;
 
-    [SerializeField] private int _rounds;// cada ronda son dos tiradas
+    //variables del juego
     private bool firstPartCompleted = false;
     private int currentRound = 0;
     private int totalPoints = 0;
-    private bool isGameActive = true;
+    private bool isGameActive = false;
+
+    //variables configurables
+    [SerializeField] private int _rounds;   // cada ronda son dos tiradas
+    [SerializeField] private int _gameAngle;    //Angulo maximo de desviacion de la bola
+    [SerializeField] private int _exerciseAngle;
+
+    //Variable el guardado
+    ConfigurationSafeManager _configurationSafeManager;
+    
 
 
     public static GameManager Instance { get { return _instance; } }
@@ -40,7 +51,7 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-
+        _configurationSafeManager = new ConfigurationSafeManager();
     }
 
     public void ThrownBall()
@@ -109,7 +120,7 @@ public class GameManager : MonoBehaviour
     {
         //actualizamos la puntuacion
         int points = _bolosManager.CheckPoints(true);
-        _puntuationUIManager.FirstShootPuntuation(currentRound, points);
+        _gameUIManager.FirstShootPuntuation(currentRound, points);
         totalPoints += points;
     }
 
@@ -117,13 +128,13 @@ public class GameManager : MonoBehaviour
     {
         int points = _bolosManager.CheckPoints(false);
         totalPoints += points;
-        _puntuationUIManager.EndRoundPuntuation(currentRound, points, totalPoints);
+        _gameUIManager.EndRoundPuntuation(currentRound, points, totalPoints);
         currentRound++;
         if(currentRound == _rounds)
         {
             //finalizamos el juego
             isGameActive = false;
-            _puntuationUIManager.ActiveFinalPanel(totalPoints);
+            _gameUIManager.ActiveFinalPanel(totalPoints);
 
         }
     }
@@ -132,24 +143,52 @@ public class GameManager : MonoBehaviour
     public void SetBolosManager(BolosManager b) { _bolosManager = b; }
     public void SetSpawnerBall(SpawnerBall s) { _spawnerBall = s; }
     public void SetSpawnerCleaner(SpawnerCleaner s) { _spawnerCleaner = s; }
-    public void SetPuntuationUIManager(PuntuationUIManager p) { _puntuationUIManager = p; }
+    public void SetPuntuationUIManager(GameUIManager p) { _gameUIManager = p; }
 
     //metodos getter
     public bool IsGameActive() { return isGameActive; }
 
     //metodos para la UI
-    public void setAngle(float angle)
+
+    public void SetAngle(float angle)
     {
-        _angle = angle;
+        _currentAngle = angle;
     }
 
-    public float getAngle() { return _angle; }
+    public float GetAngle() { return _currentAngle; }
 
-    public int getNumRounds() { return _rounds; }
+    public int GetNumRounds() { return _rounds; }
 
     //metodos para la configuración
-    public void SetNumRound(int round) { _rounds = round + 1; }
+    //public void SetNumRound(int round) { _rounds = round + 1; }
     public void SetNumRound(float round) { _rounds = (int)round; }
+
+    public void SetGameAngle(float angle) { _gameAngle = (int)angle; }
+
+    public int GetGameAngle() { return _gameAngle; }
+
+    public void SetExerciseAngle(float angle) { _exerciseAngle = (int)angle; }
+    public int GetExerciseAngle() { return _exerciseAngle; }
+
+    public void SafeConfig()
+    {
+        ConfigurationData data = new ConfigurationData();
+        data.Rondas = _rounds;
+        data.AnguloDeJuego = _gameAngle;
+        data.AnguloDelEjercicio = _exerciseAngle;
+        _configurationSafeManager.Safe(data);
+    }
+
+    private void LoadConfig()
+    {
+        ConfigurationData data = _configurationSafeManager.Load();
+        if(data != null)
+        {
+            _rounds = data.Rondas;
+            _gameAngle = data.AnguloDeJuego;
+            _exerciseAngle = data.AnguloDelEjercicio;
+        }
+    }
 
     //gestion del juego
     public void ChangeScene(string scene)
@@ -162,8 +201,15 @@ public class GameManager : MonoBehaviour
         firstPartCompleted = false;
         currentRound = 0;
         totalPoints = 0;
+        //isGameActive = true;
+    }
+
+    public void InitGame()
+    {
         isGameActive = true;
     }
+
+    
 
   
 

@@ -12,6 +12,7 @@ public class Launcher : MonoBehaviourPunCallbacks, IOnEventCallback
     public const byte DisconnectEvent = 2;
     [SerializeField] private PhotonView pcClient;
     [SerializeField] private Ball ball;
+    [SerializeField] GameUIManager UIManager;
 
 
 
@@ -83,6 +84,14 @@ public class Launcher : MonoBehaviourPunCallbacks, IOnEventCallback
 
             //transform.rotation = rotateOrient;
             ball.CheckIfCanThrow(rotateOrient);
+        }
+        else if(eventCode == MobileClient.ConnectEvent)
+        {
+            //cuando el movil nos avise de que se ha conectado
+            //quitamos el panel de esperando conexion
+            UIManager.DesactiveWaitingConexion();
+            //iniciamos el juego
+            GameManager.Instance.InitGame();
         }
     }
 
