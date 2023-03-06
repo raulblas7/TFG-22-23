@@ -136,6 +136,11 @@ public class GameManager : MonoBehaviour
         this.uiManager = uiManager;
     }
 
+    public UIManager GetUIManager()
+    {
+        return uiManager;
+    }
+
     public void SetSpeedDownCubes(float s)
     {
         speedDownSetting = s;

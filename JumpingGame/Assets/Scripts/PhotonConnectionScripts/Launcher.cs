@@ -44,6 +44,8 @@ public class Launcher : MonoBehaviourPunCallbacks, IOnEventCallback
         if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
         {
             PhotonNetwork.CurrentRoom.IsOpen = false;
+            Debug.Log("Desactivo el panel");
+            GameManager.Instance.GetUIManager().DisablePanelWaiting();
         }
     }
 
@@ -58,7 +60,6 @@ public class Launcher : MonoBehaviourPunCallbacks, IOnEventCallback
             Quaternion rotateOrient = (Quaternion)data[0];
             Debug.Log("Rotate orient es: " + rotateOrient);
 
-            //transform.rotation = rotateOrient;
             playerController.CheckIfCanJump(rotateOrient);
         }
     }

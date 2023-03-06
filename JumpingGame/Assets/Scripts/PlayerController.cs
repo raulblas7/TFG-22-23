@@ -45,37 +45,40 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && canJump && GameManager.Instance.GetNumCurrentJumps() < GameManager.Instance.GetNumJumps())
+        if (!GameManager.Instance.GetUIManager().IsPanelWaitingEnabled())
         {
-            canJump = false;
-            jumpInput = true;
-            GameManager.Instance.AddOneMoreJump();
-            Debug.Log("Numero de saltos actuales es " + GameManager.Instance.GetNumCurrentJumps());
-            JumpingAndLanding();
+            //if (Input.GetKeyDown(KeyCode.Space) && canJump && GameManager.Instance.GetNumCurrentJumps() < GameManager.Instance.GetNumJumps())
+            //{
+            //    canJump = false;
+            //    jumpInput = true;
+            //    GameManager.Instance.AddOneMoreJump();
+            //    Debug.Log("Numero de saltos actuales es " + GameManager.Instance.GetNumCurrentJumps());
+            //    JumpingAndLanding();
+            //}
+
+
+            //Vector3 boardOrient = arduinoConnection.GetOrientationFromBoard();
+            //if(boardOrient.x <= -90.0f && canJump && GameManager.Instance.GetNumCurrentJumps() < GameManager.Instance.GetNumJumps())
+            //{
+            //    Debug.Log("La orientación en x del board es " + boardOrient.x);
+            //    canJump = false;
+            //    jumpInput = true;
+            //    GameManager.Instance.AddOneMoreJump();
+            //    Debug.Log("Numero de saltos actuales es " + GameManager.Instance.GetNumCurrentJumps());
+            //    JumpingAndLanding();
+            //}
+
+            if (currentState == Movement.MOVE_DONE && canJump && GameManager.Instance.GetNumCurrentJumps() < GameManager.Instance.GetNumJumps())
+            {
+                canJump = false;
+                currentState = Movement.WAITING;
+                Debug.Log("WAITING");
+                jumpInput = true;
+                GameManager.Instance.AddOneMoreJump();
+                Debug.Log("Numero de saltos actuales es " + GameManager.Instance.GetNumCurrentJumps());
+                JumpingAndLanding();
+            }
         }
-
-
-        //Vector3 boardOrient = arduinoConnection.GetOrientationFromBoard();
-        //if(boardOrient.x <= -90.0f && canJump && GameManager.Instance.GetNumCurrentJumps() < GameManager.Instance.GetNumJumps())
-        //{
-        //    Debug.Log("La orientación en x del board es " + boardOrient.x);
-        //    canJump = false;
-        //    jumpInput = true;
-        //    GameManager.Instance.AddOneMoreJump();
-        //    Debug.Log("Numero de saltos actuales es " + GameManager.Instance.GetNumCurrentJumps());
-        //    JumpingAndLanding();
-        //}
-
-        //if (currentState == Movement.MOVE_DONE && canJump && GameManager.Instance.GetNumCurrentJumps() < GameManager.Instance.GetNumJumps())
-        //{
-        //    canJump = false;
-        //    currentState = Movement.WAITING;
-        //    Debug.Log("WAITING");
-        //    jumpInput = true;
-        //    GameManager.Instance.AddOneMoreJump();
-        //    Debug.Log("Numero de saltos actuales es " + GameManager.Instance.GetNumCurrentJumps());
-        //    JumpingAndLanding();
-        //}
     }
 
     private void FixedUpdate()

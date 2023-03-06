@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
     // Variables de UI en JumpScene, solo tendrán valor en dicha escena
     [SerializeField] private Button exitButton;
     [SerializeField] private TextMeshProUGUI pointsText;
+    [SerializeField] private GameObject panelWaitingMobile;
 
     private void SetButtonsMainMenuListeners()
     {
@@ -161,5 +162,15 @@ public class UIManager : MonoBehaviour
     public void TellGameManagerQuitApp()
     {
         GameManager.Instance.QuitApplication();
+    }
+
+    public void DisablePanelWaiting()
+    {
+        panelWaitingMobile.SetActive(false);
+    }
+
+    public bool IsPanelWaitingEnabled()
+    {
+        return panelWaitingMobile.activeSelf;
     }
 }
