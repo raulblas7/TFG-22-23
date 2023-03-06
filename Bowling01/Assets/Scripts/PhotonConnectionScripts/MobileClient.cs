@@ -9,6 +9,7 @@ public class MobileClient : MonoBehaviourPunCallbacks, IOnEventCallback
 {
     // If you have multiple custom events, it is recommended to define them in the used class
     public const byte RotateEvent = 1;
+    public const byte ConnectEvent = 3;
 
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private Button connectButton;
@@ -40,6 +41,7 @@ public class MobileClient : MonoBehaviourPunCallbacks, IOnEventCallback
         Debug.Log("Joined a room succesfully: " + PhotonNetwork.CurrentRoom.Name);
         text.text = text.text + PhotonNetwork.CurrentRoom.Name;
         connectButton.interactable = false;
+        SendConnexionMessage();
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
@@ -68,6 +70,16 @@ public class MobileClient : MonoBehaviourPunCallbacks, IOnEventCallback
 
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others };
         PhotonNetwork.RaiseEvent(RotateEvent, content, raiseEventOptions, SendOptions.SendReliable);
+    }
+
+    public void SendConnexionMessage()
+    {
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others };
+        if (!PhotonNetwork.RaiseEvent(ConnectEvent, null, raiseEventOptions, SendOptions.SendReliable))
+        {
+            Debug.Log("No he podido mandar el mensaje");
+        }
+        else Debug.Log("Mensaje enviado");
     }
     public void OnEvent(EventData photonEvent)
     {
