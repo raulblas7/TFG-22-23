@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
 
     private int numPoints;
 
+    private string ID_PRIVATE_ROOM;
+
     private UIManager uiManager;
 
     public static GameManager Instance { get { return _instance; } }
