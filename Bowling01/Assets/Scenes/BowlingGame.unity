@@ -3709,7 +3709,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pcClient: {fileID: 4041450454705000677, guid: 3c33f8c709f64374299b6f463384ffe2, type: 3}
   ball: {fileID: 1030071649}
-  UIManager: {fileID: 0}
+  UIManager: {fileID: 1210353141}
 --- !u!4 &1068169251
 Transform:
   m_ObjectHideFlags: 0
@@ -5673,7 +5673,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 138.3
+  m_fontSize: 83.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -6470,7 +6470,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1068169250}
         m_TargetAssemblyTypeName: Launcher, Assembly-CSharp
-        m_MethodName: DisconectOnChanceScene
+        m_MethodName: DisconectOnChangeScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -54,7 +54,7 @@ public class Launcher : MonoBehaviourPunCallbacks, IOnEventCallback
 
         id = id_room + n1 + "-" + n2;
 
-      UIManager.SetCodeRoomText(id);
+        UIManager.SetCodeRoomText(id);
         JoinOrCreatePrivateRoom(id);
     }
 
@@ -122,6 +122,7 @@ public class Launcher : MonoBehaviourPunCallbacks, IOnEventCallback
                 Debug.Log("Desactivo el panel");
 
                 UIManager.DesactiveWaitingConexion();
+                GameManager.Instance.InitGame();
             }
             else
             {
