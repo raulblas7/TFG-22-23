@@ -59,10 +59,10 @@ public class MobileClient : MonoBehaviourPunCallbacks, IOnEventCallback
         PhotonNetwork.JoinRoom(id);
     }
 
-    public override void OnJoinRandomFailed(short returnCode, string message)
+    public override void OnJoinRoomFailed(short returnCode, string message)
     {
-        Debug.Log("There are no clients");
-        PhotonNetwork.CreateRoom(null, new RoomOptions { PublishUserId = true, MaxPlayers = 2 });
+        text.text = "No existe una sala privada con el código introducido, por favor introduce un código válido";
+        PhotonNetwork.Disconnect();
     }
 
     public override void OnJoinedRoom()
@@ -90,7 +90,7 @@ public class MobileClient : MonoBehaviourPunCallbacks, IOnEventCallback
 
     public override void OnDisconnected(DisconnectCause cause)
     {
-        text.text = "Has sido desconectado de la sala, introduce de nuevo el id de la sala";
+        text.text = "Has sido desconectado del servidor o has introducido mal el id de la sala, introduce de nuevo el id";
 
         codeRoomInputField.text = "";
         id = "";
@@ -138,7 +138,6 @@ public class MobileClient : MonoBehaviourPunCallbacks, IOnEventCallback
 
     public void OnEvent(EventData photonEvent)
     {
-        text.text = "Entro al onEvent";
         byte eventCode = photonEvent.Code;
         if (eventCode == Launcher.DisconnectEvent)
         {

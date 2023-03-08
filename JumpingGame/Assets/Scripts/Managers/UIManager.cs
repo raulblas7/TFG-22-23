@@ -145,7 +145,7 @@ public class UIManager : MonoBehaviour
                 break;
             case "JumpScene":
                 SetUIManagerInGameManager();
-                SetButtonExitListener();
+                //SetButtonExitListener();
                 break;
             default:
                 break;

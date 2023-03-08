@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour
 
     void InitGame()
     {
+        numCurrentJumps = 0;
         cubes = new List<CubeController>();
         for (int i = 0; i < maxCubes; i++)
         {

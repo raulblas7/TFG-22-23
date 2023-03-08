@@ -67,9 +67,10 @@ public class PlayerController : MonoBehaviour
             //    Debug.Log("Numero de saltos actuales es " + GameManager.Instance.GetNumCurrentJumps());
             //    JumpingAndLanding();
             //}
-
+            Debug.Log("El panel está desactivado");
             if (currentState == Movement.MOVE_DONE && canJump && GameManager.Instance.GetNumCurrentJumps() < GameManager.Instance.GetNumJumps())
             {
+                Debug.Log("Puedo saltar");
                 canJump = false;
                 currentState = Movement.WAITING;
                 Debug.Log("WAITING");

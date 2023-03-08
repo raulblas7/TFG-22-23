@@ -11,10 +11,10 @@ public class Launcher : MonoBehaviourPunCallbacks, IOnEventCallback
     [SerializeField] private PlayerController playerController;
 
     private Player playerConnected;
-    private const string id_room = "JumpingGame-";
+    private const string id_room = "JG-";
     private string id;
 
-    private const string id_validate_room = "ValidateJumpingGame-";
+    private const string id_validate_room = "VJG-";
     private string idValidate;
 
     void Start()
@@ -123,10 +123,10 @@ public class Launcher : MonoBehaviourPunCallbacks, IOnEventCallback
     {
         Debug.Log("Disconect Launcher");
         SendMessageToMobile(DisconnectEvent);
-        Invoke("DisconectLauncher", 3);
+        Invoke("DisconectLauncher", 3.0f);
     }
 
-    public void DisconectLauncher()
+    private void DisconectLauncher()
     {
         PhotonNetwork.Disconnect();
         GameManager.Instance.LoadScene("MainMenu");
