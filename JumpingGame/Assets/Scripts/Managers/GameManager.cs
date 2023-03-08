@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
 
     private int numPoints;
 
+    private string ID_PRIVATE_ROOM;
+
     private UIManager uiManager;
 
     public static GameManager Instance { get { return _instance; } }
@@ -52,6 +54,7 @@ public class GameManager : MonoBehaviour
 
     void InitGame()
     {
+        numCurrentJumps = 0;
         cubes = new List<CubeController>();
         for (int i = 0; i < maxCubes; i++)
         {

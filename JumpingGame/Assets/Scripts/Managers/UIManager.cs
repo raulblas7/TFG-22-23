@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button exitButton;
     [SerializeField] private TextMeshProUGUI pointsText;
     [SerializeField] private GameObject panelWaitingMobile;
+    [SerializeField] private TextMeshProUGUI textCodeRoom;
 
     private void SetButtonsMainMenuListeners()
     {
@@ -144,7 +145,7 @@ public class UIManager : MonoBehaviour
                 break;
             case "JumpScene":
                 SetUIManagerInGameManager();
-                SetButtonExitListener();
+                //SetButtonExitListener();
                 break;
             default:
                 break;
@@ -172,5 +173,10 @@ public class UIManager : MonoBehaviour
     public bool IsPanelWaitingEnabled()
     {
         return panelWaitingMobile.activeSelf;
+    }
+
+    public void SetCodeRoomText(string room)
+    {
+        textCodeRoom.text = room;
     }
 }
