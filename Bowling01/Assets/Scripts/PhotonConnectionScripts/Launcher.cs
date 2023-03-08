@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using ExitGames.Client.Photon;
@@ -13,6 +13,12 @@ public class Launcher : MonoBehaviourPunCallbacks, IOnEventCallback
     [SerializeField] private PhotonView pcClient;
     [SerializeField] private Ball ball;
     [SerializeField] GameUIManager UIManager;
+    private Player playerConnected;
+    private const string id_room = "BG-";
+    private string id;
+
+    private const string id_validate_room = "VBG-";
+    private string idValidate;
 
 
 
@@ -29,9 +35,10 @@ public class Launcher : MonoBehaviourPunCallbacks, IOnEventCallback
         {
             _instance = this;
 
-           // DontDestroyOnLoad(_instance);
+   
         }
     }
+
     void Start()
     {
         // Se conecta a photon usando el appId asignado en el PUN Wizard de Unity
@@ -41,7 +48,14 @@ public class Launcher : MonoBehaviourPunCallbacks, IOnEventCallback
     public override void OnConnectedToMaster()
     {
         Debug.Log("connected to master");
-        PhotonNetwork.JoinRandomRoom();
+        //PhotonNetwork.JoinRandomRoom();
+        int n1 = Random.Range(0, 9999);
+        int n2 = Random.Range(0, 9999);
+
+        id = id_room + n1 + "-" + n2;
+
+      UIManager.SetCodeRoomText(id);
+        JoinOrCreatePrivateRoom(id);
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)
@@ -67,8 +81,23 @@ public class Launcher : MonoBehaviourPunCallbacks, IOnEventCallback
         if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
         {
             PhotonNetwork.CurrentRoom.IsOpen = false;
-            //PhotonNetwork.LoadLevel("MainScene");
+
+            int n1 = Random.Range(0, 9999);
+            int n2 = Random.Range(0, 9999);
+
+            idValidate = id_validate_room + n1 + "-" + n2;
+            // Mostramos el codigo de validacion en el UI
+            UIManager.SetCodeRoomText(idValidate);
+
+            playerConnected = newPlayer;
         }
+    }
+
+    private void JoinOrCreatePrivateRoom(string nameEveryFriendKnows)
+    {
+        RoomOptions roomOptions = new RoomOptions { MaxPlayers = 2 };
+        roomOptions.IsVisible = false;
+        PhotonNetwork.JoinOrCreateRoom(nameEveryFriendKnows, roomOptions, null);
     }
 
     public void OnEvent(EventData photonEvent)
@@ -77,50 +106,32 @@ public class Launcher : MonoBehaviourPunCallbacks, IOnEventCallback
         byte eventCode = photonEvent.Code;
         if (eventCode == MobileClient.RotateEvent)
         {
-            Debug.Log("El event code coincide");
             object[] data = (object[])photonEvent.CustomData;
             Quaternion rotateOrient = (Quaternion)data[0];
             Debug.Log("Rotate orient es: " + rotateOrient);
 
-            //transform.rotation = rotateOrient;
             ball.CheckIfCanThrow(rotateOrient);
         }
-        else if(eventCode == MobileClient.ConnectEvent)
+        if (eventCode == MobileClient.ValidateEvent)
         {
-            //cuando el movil nos avise de que se ha conectado
-            //quitamos el panel de esperando conexion
-            UIManager.DesactiveWaitingConexion();
-            //iniciamos el juego
-            GameManager.Instance.InitGame();
+            object[] data = (object[])photonEvent.CustomData;
+            string validateId = (string)data[0];
+
+            if (validateId.Equals(idValidate))
+            {
+                Debug.Log("Desactivo el panel");
+
+                UIManager.DesactiveWaitingConexion();
+            }
+            else
+            {
+                SendMessageToMobile(DisconnectEvent);
+                PhotonNetwork.CurrentRoom.IsOpen = true;
+                UIManager.SetCodeRoomText(id);
+            }
         }
     }
 
-
-    public void DisconectOnChanceScene()
-    {
-        Debug.Log("Disconect Launcher");
-        SendMessageToMobile();
-        //PhotonNetwork.Disconnect();
-        Invoke("DisconectLauncher", 3);
-    }
-
-
-    public void DisconectLauncher()
-    {
-        PhotonNetwork.Disconnect();
-        GameManager.Instance.ChangeScene("MainMenu");
-    }
-
-
-    public void SendMessageToMobile()
-    {
-        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others };
-        if (!PhotonNetwork.RaiseEvent(DisconnectEvent, null, raiseEventOptions, SendOptions.SendReliable))
-        {
-            Debug.Log("No he podido mandar el mensaje");
-        }
-        else Debug.Log("Mensaje enviado");
-    }
     private void OnEnable()
     {
         PhotonNetwork.AddCallbackTarget(this);
@@ -131,6 +142,30 @@ public class Launcher : MonoBehaviourPunCallbacks, IOnEventCallback
         PhotonNetwork.RemoveCallbackTarget(this);
     }
 
+    public void DisconectOnChangeScene()
+    {
+        Debug.Log("Disconect Launcher");
+        SendMessageToMobile(DisconnectEvent);
+        UIManager.ActiveDesconexionPanel();
+        Invoke("DisconectLauncher", 3.0f);
+    }
+
+    private void DisconectLauncher()
+    {
+        PhotonNetwork.Disconnect();
+        GameManager.Instance.ChangeScene("MainMenu");
+    }
+
+    public void SendMessageToMobile(byte eventToSend)
+    {
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others };
+        if (!PhotonNetwork.RaiseEvent(eventToSend, null, raiseEventOptions, SendOptions.SendReliable))
+        {
+            Debug.Log("No he podido mandar el mensaje");
+        }
+        else Debug.Log("Mensaje enviado");
+    }
+
     public void SetBall(Ball b)
     {
         ball = b;
@@ -138,3 +173,15 @@ public class Launcher : MonoBehaviourPunCallbacks, IOnEventCallback
 
  
 }
+
+
+
+
+
+
+
+
+
+
+
+

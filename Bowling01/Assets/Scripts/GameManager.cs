@@ -46,13 +46,16 @@ public class GameManager : MonoBehaviour
         else
         {
             _instance = this;
-
+            _configurationSafeManager = new ConfigurationSafeManager();
+            LoadConfig();
             DontDestroyOnLoad(_instance);
         }
+
+        
     }
     void Start()
     {
-        _configurationSafeManager = new ConfigurationSafeManager();
+     
     }
 
     public void ThrownBall()

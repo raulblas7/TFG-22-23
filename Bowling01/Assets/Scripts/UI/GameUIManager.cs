@@ -10,6 +10,7 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI finalPoints;
     [SerializeField] private GameObject waitingConexionPanel;
     [SerializeField] private GameObject desconexionPanel;
+    [SerializeField] private TextMeshProUGUI codeText;
 
 
     void Start()
@@ -68,5 +69,9 @@ public class GameUIManager : MonoBehaviour
         GameManager.Instance.ChangeScene(scene);
     }
 
+    public void SetCodeRoomText(string id)
+    {
+        codeText.text = id;
+    }
 
 }

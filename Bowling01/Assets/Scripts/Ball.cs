@@ -33,6 +33,26 @@ public class Ball : MonoBehaviour
         maxAngle = GameManager.Instance.GetGameAngle();
         minAngle = GameManager.Instance.GetGameAngle() * -1;
         exerciseAngle = GameManager.Instance.GetExerciseAngle();
+        int difficulty = GameManager.Instance.GetDifficulty();
+        switch (difficulty)
+        {
+            case 0:
+                vel = 4;
+                break;
+            case 1:
+                vel = 6;
+                break;
+            case 2:
+                vel = 8;
+                break;
+            case 3:
+                vel = 10;
+                break;
+            case 4:
+                vel = 13;
+                break;
+
+        }
     }
 
     void Update()
