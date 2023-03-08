@@ -8,5 +8,6 @@ public class ConfigurationData
     public int Rondas;
     public int AnguloDeJuego;
     public int AnguloDelEjercicio;
+    public int Dificultad;
     
 }

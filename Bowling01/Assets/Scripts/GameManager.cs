@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _rounds;   // cada ronda son dos tiradas
     [SerializeField] private int _gameAngle;    //Angulo maximo de desviacion de la bola
     [SerializeField] private int _exerciseAngle;
+    [SerializeField] private int _difficulty;  // dificultad del juego que determinara la velocidad a la que se mueve la barra
 
     //Variable el guardado
     ConfigurationSafeManager _configurationSafeManager;
@@ -170,12 +171,16 @@ public class GameManager : MonoBehaviour
     public void SetExerciseAngle(float angle) { _exerciseAngle = (int)angle; }
     public int GetExerciseAngle() { return _exerciseAngle; }
 
+    public void SetDifficulty(float dif) { _difficulty = (int)dif; }
+    public int GetDifficulty() { return _difficulty; }
+
     public void SafeConfig()
     {
         ConfigurationData data = new ConfigurationData();
         data.Rondas = _rounds;
         data.AnguloDeJuego = _gameAngle;
         data.AnguloDelEjercicio = _exerciseAngle;
+        data.Dificultad = _difficulty;
         _configurationSafeManager.Safe(data);
     }
 
@@ -187,6 +192,7 @@ public class GameManager : MonoBehaviour
             _rounds = data.Rondas;
             _gameAngle = data.AnguloDeJuego;
             _exerciseAngle = data.AnguloDelEjercicio;
+            _difficulty = data.Dificultad;
         }
     }
 
