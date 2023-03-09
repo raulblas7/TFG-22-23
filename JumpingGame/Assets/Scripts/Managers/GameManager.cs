@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
 
     private int numPoints;
 
-    private string ID_PRIVATE_ROOM;
+    private float angleToDoIt = 90.0f;
 
     private UIManager uiManager;
 
@@ -121,6 +121,18 @@ public class GameManager : MonoBehaviour
             uiManager.SetPointsText(numPoints);
         }
     }
+    public void QuitPoints(int points)
+    {
+        if (numPoints - points >= 0)
+        {
+            numPoints -= points;
+            Debug.Log("Llevas " + numPoints + " puntos!");
+            if (uiManager != null)
+            {
+                uiManager.SetPointsText(numPoints);
+            }
+        }
+    }
 
     public void SetNumJumps(int nJumps)
     {
@@ -157,5 +169,15 @@ public class GameManager : MonoBehaviour
     public void QuitApplication()
     {
         Application.Quit();
+    }
+
+    public void SetAngleToDoIt(float angle)
+    {
+        angleToDoIt = angle;
+    }
+
+    public float GetAngleToDoIt()
+    {
+        return angleToDoIt;
     }
 }

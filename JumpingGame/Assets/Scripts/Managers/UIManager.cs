@@ -12,14 +12,24 @@ public class UIManager : MonoBehaviour
     // Variables Menu Settings, solo tendrán valor en dicho menu
     [SerializeField] private TextMeshProUGUI textInvalidInput;
     [SerializeField] private TextMeshProUGUI textInvalidInput2;
+    [SerializeField] private TextMeshProUGUI textInvalidInput3;
     [SerializeField] private TMP_InputField mainInputField;
     [SerializeField] private TMP_InputField speedField;
+    [SerializeField] private TMP_InputField angleField;
 
     // Variables de UI en JumpScene, solo tendrán valor en dicha escena
     [SerializeField] private Button exitButton;
     [SerializeField] private TextMeshProUGUI pointsText;
     [SerializeField] private GameObject panelWaitingMobile;
+    [SerializeField] private GameObject panelDisconnecting;
+    [SerializeField] private GameObject panelWinning;
     [SerializeField] private TextMeshProUGUI textCodeRoom;
+
+    private void Start()
+    {
+        if(panelDisconnecting != null) panelDisconnecting.SetActive(false);
+        if(panelWinning != null) panelWinning.SetActive(false);
+    }
 
     private void SetButtonsMainMenuListeners()
     {
@@ -58,6 +68,11 @@ public class UIManager : MonoBehaviour
         {
             speedField.onValueChanged.AddListener(delegate { ValueChangeCheckSpeed(); });
         }
+        // Añade un listener onValueChanged al inputField de la velocidad de las rocas si existe
+        if (angleField != null)
+        {
+            angleField.onValueChanged.AddListener(delegate { ValueChangeCheckAngle(); });
+        }
     }
 
     // Invoked when the value of the text field changes.
@@ -79,11 +94,24 @@ public class UIManager : MonoBehaviour
         try
         {
             float n = float.Parse(speedField.text);
-            GameManager.Instance.SetSpeedDownCubes(n);
+            GameManager.Instance.SetAngleToDoIt(n);
         }
         catch
         {
             textInvalidInput2.enabled = true;
+        }
+    }
+
+    public void ValueChangeCheckAngle()
+    {
+        try
+        {
+            float n = float.Parse(angleField.text);
+            GameManager.Instance.SetAngleToDoIt(n);
+        }
+        catch
+        {
+            textInvalidInput3.enabled = true;
         }
     }
 
@@ -98,15 +126,6 @@ public class UIManager : MonoBehaviour
         catch
         {
             textInvalidInput.text = "Has introducido un valor que no es válido, introduce un número correcto y regresa al menú para jugar";
-        }
-    }
-
-    private void SetButtonExitListener()
-    {
-        // Añade un listener onClick al boton exit si existe
-        if (exitButton != null)
-        {
-            exitButton.onClick.AddListener(delegate { OnClickExit(); });
         }
     }
 
@@ -145,7 +164,6 @@ public class UIManager : MonoBehaviour
                 break;
             case "JumpScene":
                 SetUIManagerInGameManager();
-                //SetButtonExitListener();
                 break;
             default:
                 break;
@@ -178,5 +196,10 @@ public class UIManager : MonoBehaviour
     public void SetCodeRoomText(string room)
     {
         textCodeRoom.text = room;
+    }
+
+    public void ActivatePanelDisconnecting()
+    {
+        panelDisconnecting.SetActive(true);
     }
 }

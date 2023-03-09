@@ -123,6 +123,7 @@ public class Launcher : MonoBehaviourPunCallbacks, IOnEventCallback
     {
         Debug.Log("Disconect Launcher");
         SendMessageToMobile(DisconnectEvent);
+        GameManager.Instance.GetUIManager().ActivatePanelDisconnecting();
         Invoke("DisconectLauncher", 3.0f);
     }
 

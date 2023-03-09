@@ -31,10 +31,13 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     private bool wasGrounded;
 
+    private float angle;
+
     private List<Collider> collisions = new List<Collider>();
 
     void Start()
     {
+        angle = GameManager.Instance.GetAngleToDoIt();
         transform.position = new Vector3(0.0f, 1.0f, 0.0f);
         nextDest = GameManager.Instance.getFirstCube();
         canJump = true;
@@ -99,6 +102,10 @@ public class PlayerController : MonoBehaviour
         {
             GameManager.Instance.AddPoints(pointsPerChest);
             Destroy(other.gameObject);
+        }
+        else if (other.gameObject.CompareTag("Water"))
+        {
+            GameManager.Instance.QuitPoints(50);
         }
         else
         {
@@ -214,7 +221,7 @@ public class PlayerController : MonoBehaviour
 
         Debug.Log("El vector en angulos es: " + orient);
       
-        if ((orient.x >= 350.0f || orient.x < 90.0f) && currentState == Movement.RESTART)
+        if ((orient.x >= 270.0f + angle || orient.x < 90.0f) && currentState == Movement.RESTART)
         {
             currentState = Movement.MOVE_DONE;
             Debug.Log("MOVE_DONE");
