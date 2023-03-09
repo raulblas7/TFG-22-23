@@ -4,12 +4,7 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    private enum Movement
-    {
-        MOVE_DONE = 0,
-        WAITING,
-        RESTART
-    }
+ 
 
     [SerializeField] Rigidbody rb;
     [SerializeField] float force;
@@ -21,18 +16,16 @@ public class Ball : MonoBehaviour
     private bool thrownBall = false;
     private float currentAngle = 0;
     private int dir = 1;
-    private Movement currentState;
     private bool throwInput = false;
-    private int exerciseAngle;
-
+ 
 
     private void Start()
     {
-        currentState = Movement.WAITING;
-        Launcher.Instance.SetBall(this);
+     
+
         maxAngle = GameManager.Instance.GetGameAngle();
         minAngle = GameManager.Instance.GetGameAngle() * -1;
-        exerciseAngle = GameManager.Instance.GetExerciseAngle();
+ 
         int difficulty = GameManager.Instance.GetDifficulty();
         switch (difficulty)
         {
@@ -75,9 +68,9 @@ public class Ball : MonoBehaviour
             //    throwInput = true;
             //    thrownBall = true;
             //}
-            if (!thrownBall && currentState == Movement.MOVE_DONE)
+            if (!thrownBall && PlayerMovement.Instance.GetCurrentState() == Movement.MOVE_DONE)
             {
-                currentState = Movement.WAITING;
+                PlayerMovement.Instance.SetState( Movement.WAITING);
                 throwInput = true;
                 thrownBall = true;
             }
@@ -110,25 +103,6 @@ public class Ball : MonoBehaviour
         }
     }
 
-    public void CheckIfCanThrow(Quaternion mobileOrient)
-    {
-        Vector3 orient = mobileOrient.eulerAngles;
 
-        Debug.Log("El vector en angulos es: " + orient);
-
-        //levantar el brazo unos 80 grados
-        // if ((orient.x >= 350.0f || orient.x < 90.0f) && currentState == Movement.RESTART)
-        if ((orient.x >= 180.0f + exerciseAngle || orient.x < 90.0f) && currentState == Movement.RESTART)
-        {
-            currentState = Movement.MOVE_DONE;
-            Debug.Log("MOVE_DONE");
-        }
-        // else if ((orient.x < 350.0f && orient.x > 180.0f) && currentState == Movement.WAITING)
-        else if ((orient.x < 180.0f + exerciseAngle -10.0f && orient.x > 90.0f) && currentState == Movement.WAITING)
-        {
-            currentState = Movement.RESTART;
-            Debug.Log("RESTART");
-        }
-    }
 }
 

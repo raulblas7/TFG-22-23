@@ -16,6 +16,7 @@ public class GameUIManager : MonoBehaviour
     void Start()
     {
         //desactivamos el finalPanel
+        GameManager.Instance.SetGameUIManager(this);
         finalPanel.SetActive(false);
         ActiveWaitingConexion();
         desconexionPanel.SetActive(false);

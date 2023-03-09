@@ -147,7 +147,7 @@ public class GameManager : MonoBehaviour
     public void SetBolosManager(BolosManager b) { _bolosManager = b; }
     public void SetSpawnerBall(SpawnerBall s) { _spawnerBall = s; }
     public void SetSpawnerCleaner(SpawnerCleaner s) { _spawnerCleaner = s; }
-    public void SetPuntuationUIManager(GameUIManager p) { _gameUIManager = p; }
+    public void SetGameUIManager(GameUIManager p) { _gameUIManager = p; }
 
     //metodos getter
     public bool IsGameActive() { return isGameActive; }

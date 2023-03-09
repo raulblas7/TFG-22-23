@@ -6,12 +6,11 @@ using ExitGames.Client.Photon;
 public class Launcher : MonoBehaviourPunCallbacks, IOnEventCallback
 {
 
-    //Instancia del launcher
-    private static Launcher _instance;
+  
 
     public const byte DisconnectEvent = 2;
     [SerializeField] private PhotonView pcClient;
-    [SerializeField] private Ball ball;
+    [SerializeField] private PlayerMovement player;
     [SerializeField] GameUIManager UIManager;
     private Player playerConnected;
     private const string id_room = "BG-";
@@ -22,22 +21,7 @@ public class Launcher : MonoBehaviourPunCallbacks, IOnEventCallback
 
 
 
-    public static Launcher Instance { get { return _instance; } }
-
-    private void Awake()
-    {
-        if (_instance != null)
-        {
-            Destroy(this.gameObject);
-
-        }
-        else
-        {
-            _instance = this;
-
    
-        }
-    }
 
     void Start()
     {
@@ -110,7 +94,7 @@ public class Launcher : MonoBehaviourPunCallbacks, IOnEventCallback
             Quaternion rotateOrient = (Quaternion)data[0];
             Debug.Log("Rotate orient es: " + rotateOrient);
 
-            ball.CheckIfCanThrow(rotateOrient);
+            player.CheckIfCanThrow(rotateOrient);
         }
         if (eventCode == MobileClient.ValidateEvent)
         {
@@ -167,10 +151,7 @@ public class Launcher : MonoBehaviourPunCallbacks, IOnEventCallback
         else Debug.Log("Mensaje enviado");
     }
 
-    public void SetBall(Ball b)
-    {
-        ball = b;
-    }
+  
 
  
 }
