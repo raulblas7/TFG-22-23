@@ -1608,7 +1608,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 47.2
+  m_fontSize: 31.15
   m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2310,7 +2310,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 46.05
+  m_fontSize: 31.4
   m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2656,7 +2656,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 42.4
+  m_fontSize: 30.55
   m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3020,7 +3020,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 58.75
+  m_fontSize: 38.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3542,7 +3542,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50.4
+  m_fontSize: 35.35
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3964,11 +3964,16 @@ MonoBehaviour:
   settingsButton: {fileID: 0}
   textInvalidInput: {fileID: 1185225895}
   textInvalidInput2: {fileID: 1610118057}
+  textInvalidInput3: {fileID: 0}
   mainInputField: {fileID: 443436858}
   speedField: {fileID: 1937385897}
+  angleField: {fileID: 29400480}
   exitButton: {fileID: 0}
   pointsText: {fileID: 0}
   panelWaitingMobile: {fileID: 0}
+  panelDisconnecting: {fileID: 0}
+  panelWinning: {fileID: 0}
+  textCodeRoom: {fileID: 0}
 --- !u!1 &1914947444
 GameObject:
   m_ObjectHideFlags: 0
@@ -4480,7 +4485,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 58.9
+  m_fontSize: 41.45
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4737,7 +4742,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: tiempo entre repeticiones
+  m_text: angulo a realizar
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4764,7 +4769,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 58.5
+  m_fontSize: 44.5
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
