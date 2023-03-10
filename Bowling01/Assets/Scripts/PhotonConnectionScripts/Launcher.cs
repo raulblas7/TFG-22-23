@@ -105,8 +105,9 @@ public class Launcher : MonoBehaviourPunCallbacks, IOnEventCallback
             {
                 Debug.Log("Desactivo el panel");
 
-                UIManager.DesactiveWaitingConexion();
-                GameManager.Instance.InitGame();
+                //UIManager.DesactiveWaitingConexion();
+                //GameManager.Instance.InitGame();
+                UIManager.StartCountDown();
             }
             else
             {
