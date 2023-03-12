@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
 
@@ -19,6 +17,7 @@ public class PlayerController : MonoBehaviour
     [DllImport("PS4Controller")]
     private static extern void closePlugin();
 
+    private float x, y, z;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +27,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //getAccelerometerV1(ref x, ref y, ref z);
+        //Debug.Log("X: " + x + "Y: " + y + "Z: " + z);
+
+        //Debug.Log(getAccelerometerV2());
+
+        getAccelerometerV4(ref x, ref y, ref z);
+        Debug.Log("X: " + x + "Y: " + y + "Z: " + z);
     }
 }
