@@ -1,0 +1,4 @@
+﻿  SDLplugin.cpp
+     Creando biblioteca D:\AURORA\UNIVERSIDAD\Cuarto DV- 2022-23\TFG\TFG-22-23\SDL_PS4Controller\PS4Controller\x64\Release\PS4Controller.lib y objeto D:\AURORA\UNIVERSIDAD\Cuarto DV- 2022-23\TFG\TFG-22-23\SDL_PS4Controller\PS4Controller\x64\Release\PS4Controller.exp
+SDL2main.lib(SDL_windows_main.obj) : error LNK2001: símbolo externo SDL_main sin resolver
+D:\AURORA\UNIVERSIDAD\Cuarto DV- 2022-23\TFG\TFG-22-23\SDL_PS4Controller\PS4Controller\x64\Release\PS4Controller.exe : fatal error LNK1120: 1 externos sin resolver
