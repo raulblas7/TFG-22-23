@@ -2,16 +2,37 @@
 
 extern "C" {
 
-	int ACCEL_PLUGIN module_start(size_t sz, const void* arg) {
-		std::streambuf *psbuf, *backup;
-		std::ofstream filestr;
-		filestr.open("output.txt");
+	//int  module_start(size_t sz, const void* arg) {
+	//	
 
-		backup = std::cout.rdbuf();     // back up cout's streambuf
+	//	std::cout << "=========================" << std::endl;
+	//	std::cout << "Se llama al cargar la dll" << std::endl;
+	//	std::cout << "=========================" << std::endl;
 
-		psbuf = filestr.rdbuf();        // get file's streambuf
-		std::cout.rdbuf(psbuf);         // assign streambuf to cout
+	//	if (SDL_Init(SDL_INIT_JOYSTICK) < 0) {
+	//		// Error al inicializar SDL
+	//		return 1;
+	//	}
+	//	// Crear una instancia de SDL_Joystick para el mando de PS4
+	//	/*SDL_Joystick* joystick = SDL_JoystickOpen(0);*/
 
+	//	return 0;
+	//}
+
+
+	int ACCEL_PLUGIN InitPlugin() {
+
+		//std::streambuf* psbuf, * backup;
+		//std::ofstream filestr;
+		//filestr.open("output.txt");
+
+		//backup = std::cout.rdbuf();     // back up cout's streambuf
+
+		//psbuf = filestr.rdbuf();        // get file's streambuf
+		//std::cout.rdbuf(psbuf);         // assign streambuf to cout
+		// 
+		//AllocConsole();
+		//freopen("CONOUT$", "w", stdout);
 		std::cout << "=========================" << std::endl;
 		std::cout << "Se llama al cargar la dll" << std::endl;
 		std::cout << "=========================" << std::endl;
@@ -64,6 +85,10 @@ extern "C" {
 	}
 
 	void ACCEL_PLUGIN getAccelerometerV4(float& x, float& y, float& z) {
+
+		
+
+		//---------------------------------------------------------------------
 		// Configurar el subsistema de joystick
 		SDL_GameControllerEventState(SDL_ENABLE);
 		SDL_GameController* gameController = SDL_GameControllerOpen(0);
@@ -71,7 +96,7 @@ extern "C" {
 		// Leer los valores del acelerómetro del mando de PS4
 		float* accel = (float*)malloc(sizeof(float) * 3);
 		//float accelX, accelY, accelZ;
-
+		std::cout << "prueba de salida de consola" << std::endl;
 		if (SDL_GameControllerHasSensor(gameController, SDL_SENSOR_ACCEL) == SDL_TRUE) {
 			std::cout << "El controller tiene Accelerometro" << std::endl;
 		}

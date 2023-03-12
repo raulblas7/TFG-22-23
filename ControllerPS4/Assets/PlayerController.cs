@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour
 
     //Lets make our calls from the Plugin
     [DllImport("PS4Controller")]
+    private static extern int InitPlugin();
+    [DllImport("PS4Controller")]
     private static extern int getAccelerometerV1(ref float x, ref float y, ref float z);
 
     [DllImport("PS4Controller")]
@@ -21,7 +23,11 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if(InitPlugin() == 0)
+        {
+            Debug.Log("inicializado SDL");
+        }
+        else Debug.Log("Error inicio SDL");
     }
 
     // Update is called once per frame

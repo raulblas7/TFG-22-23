@@ -8,8 +8,8 @@
 #define ACCEL_PLUGIN __declspec (dllexport)
 
 extern "C" {
-	int ACCEL_PLUGIN module_start(size_t sz, const void* arg);
-
+	//int  module_start(size_t sz, const void* arg);
+	int ACCEL_PLUGIN InitPlugin();
 	void ACCEL_PLUGIN getAccelerometerV1(float& x, float& y, float& z);
 	int ACCEL_PLUGIN getAccelerometerV2();
 	void ACCEL_PLUGIN getAccelerometerV4(float& x, float& y, float& z);
