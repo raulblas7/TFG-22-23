@@ -12,15 +12,15 @@ public class UDPClient
 
     public void StartUdpClient(string ipAddress, int port)
     {
-        udpClient = new UdpClient();
-        reciverEndPoint = new IPEndPoint(IPAddress.Parse(ipAddress), port);// direccion y puerto del destinatario
+        reciverEndPoint = new IPEndPoint(IPAddress.Parse(ipAddress), port); // direccion y puerto del destinatario
+        udpClient = new UdpClient(port);
         this.ipAddress = ipAddress;
         this.port = port;
     }
 
     public void SendMessageToServer(string message)
     {
-        Byte[] sendBytes = Encoding.ASCII.GetBytes(message);
+        byte[] sendBytes = Encoding.ASCII.GetBytes(message);
         //udpClient.Send(sendBytes, sendBytes.Length, ipAddress, port);
         udpClient.Send(sendBytes, sendBytes.Length, reciverEndPoint);
     }
