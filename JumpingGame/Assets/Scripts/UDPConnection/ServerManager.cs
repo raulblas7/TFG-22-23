@@ -23,6 +23,11 @@ public class ServerManager : MonoBehaviour
         serverThread.Start();
     }
 
+    private void Update()
+    {
+        //pruebas
+       Debug.Log( udpServer.GetData());
+    }
     public string GetIpAddress()
     {
         return ipAddress;

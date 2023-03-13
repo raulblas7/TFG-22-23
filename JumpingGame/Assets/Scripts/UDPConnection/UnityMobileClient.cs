@@ -42,7 +42,7 @@ public class UnityMobileClient : MonoBehaviour
             // Aplicar la orientación al objeto
             Quaternion orientation = Quaternion.FromToRotation(Vector3.up, deviceAcceleration);
             Debug.Log("La orientacion es: " + orientation);
-            udpClient.SendMessageToServer(orientation.x.ToString());
+            udpClient.SendMessageToServer(orientation.eulerAngles.x.ToString());
         }
     }
 
