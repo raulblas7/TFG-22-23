@@ -8,14 +8,14 @@ public class UDPServer
     private volatile bool serverActive = true;
     //pruebas
     private string receivedData = "prueba";
-    private volatile string localAddress;
-    private volatile int localPort;
+    private volatile string localAddress = "----";
+    private volatile int localPort = -1;
 
-    public void StartUdpServer(int port)
+    public void StartUdpServer(string ipAddress , int port)
     {
-        //IPEndPoint IpEndPoint = new IPEndPoint(IPAddress.Parse(ipAddress), port);
+        IPEndPoint IpEndPoint = new IPEndPoint(IPAddress.Parse(ipAddress), port);
         //UdpClient udpServer = new UdpClient(port);
-        UdpClient udpServer = new UdpClient();
+        UdpClient udpServer = new UdpClient(IpEndPoint);
 
         // Obtener la dirección IP y el puerto local del UDPClient
         IPEndPoint localEndPoint = (IPEndPoint)udpServer.Client.LocalEndPoint;
@@ -33,6 +33,8 @@ public class UDPServer
     }
     //metodo de prueba
     public string GetData() { return receivedData; }
+    public string GetIp() { return localAddress; }
+    public int GetPort() { return localPort; }
     public void StopUdpServer()
     {
         serverActive = false;

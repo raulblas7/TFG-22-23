@@ -19,14 +19,17 @@ public class ServerManager : MonoBehaviour
         GameManager.Instance.GetUIManager().SetIPText(ipAddress);
         GameManager.Instance.GetUIManager().SetPORTText(port.ToString());
         // Create a new thread for the server
-        Thread serverThread = new Thread(() => udpServer.StartUdpServer(port));
+        Thread serverThread = new Thread(() => udpServer.StartUdpServer(ipAddress, port));
         serverThread.Start();
+
     }
 
     private void Update()
     {
         //pruebas
-       Debug.Log( udpServer.GetData());
+        Debug.Log(udpServer.GetData());
+        Debug.Log(udpServer.GetIp());
+        Debug.Log(udpServer.GetPort());
     }
     public string GetIpAddress()
     {
