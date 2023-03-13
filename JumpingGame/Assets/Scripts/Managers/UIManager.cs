@@ -24,6 +24,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject panelDisconnecting;
     [SerializeField] private GameObject panelWinning;
     [SerializeField] private TextMeshProUGUI textCodeRoom;
+    [SerializeField] private TextMeshProUGUI textCodeRoom2;
 
     private void Start()
     {
@@ -196,6 +197,26 @@ public class UIManager : MonoBehaviour
     public void SetCodeRoomText(string room)
     {
         textCodeRoom.text = room;
+    }
+
+    public void SetIPText(string room)
+    {
+        textCodeRoom.text = room;
+    }
+
+    public void SetPORTText(string room)
+    {
+        textCodeRoom2.text = room;
+    }
+
+    public string GetIPText()
+    {
+        return textCodeRoom.text;
+    }
+
+    public string GetPORTText()
+    {
+        return textCodeRoom2.text;
     }
 
     public void ActivatePanelDisconnecting()

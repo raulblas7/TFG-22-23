@@ -12,7 +12,7 @@ extern "C" {
 	int ACCEL_PLUGIN InitPlugin();
 	void ACCEL_PLUGIN getAccelerometerV1(float& x, float& y, float& z);
 	int ACCEL_PLUGIN getAccelerometerV2();
-	void ACCEL_PLUGIN getAccelerometerV4(float& x, float& y, float& z);
+	int ACCEL_PLUGIN getAccelerometerV4();
 
 	void ACCEL_PLUGIN closePlugin();
 }

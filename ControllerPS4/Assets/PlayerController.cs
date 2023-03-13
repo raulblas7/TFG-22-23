@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     private static extern int getAccelerometerV2();
 
     [DllImport("PS4Controller")]
-    private static extern void getAccelerometerV4(ref float x, ref float y, ref float z);
+    private static extern int getAccelerometerV4();
 
     [DllImport("PS4Controller")]
     private static extern void closePlugin();
@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
 
         //Debug.Log(getAccelerometerV2());
 
-        getAccelerometerV4(ref x, ref y, ref z);
-        Debug.Log("X: " + x + "Y: " + y + "Z: " + z);
+        
+        Debug.Log("X: " + getAccelerometerV4());
     }
 }

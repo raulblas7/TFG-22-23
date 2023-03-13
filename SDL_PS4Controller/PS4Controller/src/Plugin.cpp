@@ -37,10 +37,13 @@ extern "C" {
 		std::cout << "Se llama al cargar la dll" << std::endl;
 		std::cout << "=========================" << std::endl;
 
-		if (SDL_Init(SDL_INIT_JOYSTICK) < 0) {
-			// Error al inicializar SDL
+		if (SDL_Init(SDL_INIT_GAMECONTROLLER | SDL_INIT_SENSOR) < 0) {
 			return 1;
 		}
+		//if (SDL_Init(SDL_INIT_JOYSTICK) < 0) {
+		//	// Error al inicializar SDL
+		//	return 1;
+		//}
 		// Crear una instancia de SDL_Joystick para el mando de PS4
 		/*SDL_Joystick* joystick = SDL_JoystickOpen(0);*/
 
@@ -84,43 +87,85 @@ extern "C" {
 		return accelValue;
 	}
 
-	void ACCEL_PLUGIN getAccelerometerV4(float& x, float& y, float& z) {
+	int ACCEL_PLUGIN getAccelerometerV4() {
 
 		
+		//float x;
+		////---------------------------------------------------------------------
+		//// Configurar el subsistema de joystick
+		//SDL_GameControllerEventState(SDL_ENABLE);
+		//SDL_GameController* gameController = SDL_GameControllerOpen(0);
 
-		//---------------------------------------------------------------------
-		// Configurar el subsistema de joystick
-		SDL_GameControllerEventState(SDL_ENABLE);
-		SDL_GameController* gameController = SDL_GameControllerOpen(0);
+		//// Leer los valores del acelerómetro del mando de PS4
+		//float* accel = (float*)malloc(sizeof(float) * 3);
+		////float accelX, accelY, accelZ;
+		//std::cout << "prueba de salida de consola" << std::endl;
+		//if (SDL_GameControllerHasSensor(gameController, SDL_SENSOR_ACCEL) == SDL_TRUE) {
+		//	std::cout << "El controller tiene Accelerometro" << std::endl;
+		//	x = -30;
+		//}
+		//if (SDL_GameControllerIsSensorEnabled(gameController, SDL_SENSOR_ACCEL) == SDL_TRUE) {
+		//	std::cout << "Sensor Enabled" << std::endl;
+		//	x = 
 
-		// Leer los valores del acelerómetro del mando de PS4
-		float* accel = (float*)malloc(sizeof(float) * 3);
-		//float accelX, accelY, accelZ;
-		std::cout << "prueba de salida de consola" << std::endl;
-		if (SDL_GameControllerHasSensor(gameController, SDL_SENSOR_ACCEL) == SDL_TRUE) {
-			std::cout << "El controller tiene Accelerometro" << std::endl;
-		}
-		if (SDL_GameControllerIsSensorEnabled(gameController, SDL_SENSOR_ACCEL) == SDL_TRUE) {
-			std::cout << "Sensor Enabled" << std::endl;
-
-		}
-		//TODO: enviar y procesar los datos
-
-		if (SDL_GameControllerGetSensorData(gameController, SDL_SENSOR_ACCEL, accel, 3) > -1) {
-			x = accel[0];
-			y = accel[1];
-			z = accel[2];
-		}
+		//}
+		////TODO: enviar y procesar los datos
+		//x = -10;
+		//if (SDL_GameControllerGetSensorData(gameController, SDL_SENSOR_ACCEL, accel, 3) > -1) {
+		//	x = accel[0];
+		//	//y = accel[1];
+		//	//z = accel[2];
+		//}
+		//SDL_GameControllerClose(gameController);
 
 		// Cerrar el joystick y detener el subsistema de joystick
 		//SDL_JoystickClose(SDL_JoystickOpen(0));
-		SDL_GameControllerClose(gameController);
 		//SDL_QuitSubSystem(SDL_INIT_JOYSTICK);
 
 		// Imprimir los valores del acelerómetro
 		//printf("Acelerómetro X: %f\n", accelX);
 		//printf("Acelerómetro Y: %f\n", accelY);
 		//printf("Acelerómetro Z: %f\n", accelZ);
+
+		SDL_JoystickEventState(SDL_ENABLE);
+
+		SDL_SetHint(SDL_HINT_JOYSTICK_HIDAPI_PS4_RUMBLE, "1");
+		SDL_SetHint(SDL_HINT_JOYSTICK_HIDAPI_PS5_RUMBLE, "1");
+
+		// Initializing the controller
+		SDL_GameController* gc = SDL_GameControllerOpen(0);
+
+		SDL_GameControllerSetSensorEnabled(gc, SDL_SENSOR_ACCEL, SDL_TRUE);
+		SDL_GameControllerSetSensorEnabled(gc, SDL_SENSOR_GYRO, SDL_TRUE);
+
+		if (SDL_GameControllerIsSensorEnabled(gc, SDL_SENSOR_GYRO) && SDL_GameControllerIsSensorEnabled(gc, SDL_SENSOR_ACCEL)) {
+			return -4;
+		}
+		else if (!SDL_GameControllerIsSensorEnabled(gc, SDL_SENSOR_GYRO) && SDL_GameControllerIsSensorEnabled(gc, SDL_SENSOR_ACCEL)) {
+			return -3;
+		}
+		else if (SDL_GameControllerIsSensorEnabled(gc, SDL_SENSOR_GYRO) && !SDL_GameControllerIsSensorEnabled(gc, SDL_SENSOR_ACCEL)) {
+			return -2;
+		}
+		else return -1;
+
+		// Polling the controller
+		if (SDL_GameControllerHasSensor(gc, SDL_SENSOR_GYRO) && SDL_GameControllerHasSensor(gc, SDL_SENSOR_ACCEL))
+		{
+			return 1;
+		}
+		else if(!SDL_GameControllerHasSensor(gc, SDL_SENSOR_GYRO) && SDL_GameControllerHasSensor(gc, SDL_SENSOR_ACCEL))
+		{
+			return 2;
+		}
+		else if (SDL_GameControllerHasSensor(gc, SDL_SENSOR_GYRO) && !SDL_GameControllerHasSensor(gc, SDL_SENSOR_ACCEL)) {
+			return 3;
+		}
+		else{
+			return 4;
+		}
+
+		//return x;
 	}
 
 	void ACCEL_PLUGIN closePlugin() {
