@@ -3997,7 +3997,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2069046600}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67e19b85396e9ba4883fb4088422bfbc, type: 3}
   m_Name: 
@@ -4006,6 +4006,23 @@ MonoBehaviour:
   connectButton: {fileID: 15772827}
   ipInputField: {fileID: 2033663981}
   portInputField: {fileID: 798491378}
+--- !u!114 &2069046603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2069046600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ce200aa8243d784ca177a9cf69db7f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ip: 192.168.1.46
+  port: 7777
+  text: {fileID: 2099208990}
+  connectButton: {fileID: 15772827}
+  codeRoomInputField: {fileID: 2033663981}
 --- !u!1 &2099208988
 GameObject:
   m_ObjectHideFlags: 0
