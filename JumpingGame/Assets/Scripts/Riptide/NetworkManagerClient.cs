@@ -99,6 +99,7 @@ public class NetworkManagerClient : MonoBehaviour
     public void StartConnexion()
     {
         Client.Connect($"{ip}:{port}");
+        text.text = "Conectandose a la ip: " + ip;
     }
 
     public void ValueChangeCheck()
@@ -115,12 +116,14 @@ public class NetworkManagerClient : MonoBehaviour
 
     private void DidConnect(object sender, EventArgs e)
     {
-        
+        text.text = "conectado ";
     }
 
     private void FailedToConnect(object sender, EventArgs e)
     {
         
+        text.text = "Fallo al conectar";
+
     }
 
     private void DidDisconnect(object sender, EventArgs e)
