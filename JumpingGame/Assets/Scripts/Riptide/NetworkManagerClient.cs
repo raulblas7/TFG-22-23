@@ -104,19 +104,20 @@ public class NetworkManagerClient : MonoBehaviour
 
     public void ValueChangeCheck()
     {
-        //try
-        //{
-        //    id = codeRoomInputField.text;
-        //}
-        //catch
-        //{
-        //    Debug.Log("Algo ha ido mal introduciendo el texto del código de sala");
-        //}
+        try
+        {
+            ip = codeRoomInputField.text;
+        }
+        catch
+        {
+            Debug.Log("Algo ha ido mal introduciendo la IP");
+        }
     }
 
     private void DidConnect(object sender, EventArgs e)
     {
         text.text = "conectado ";
+        connectButton.interactable = false;
     }
 
     private void FailedToConnect(object sender, EventArgs e)
@@ -128,14 +129,17 @@ public class NetworkManagerClient : MonoBehaviour
 
     private void DidDisconnect(object sender, EventArgs e)
     {
-
+        text.text = "Te has desconectado \n" + " Escribe debajo la ip que sale en tu ordenador:";
+        connectButton.interactable = true;
     }
 
     private void SendMessageToPlayer(Quaternion orientation)
     {
         // Cambiarlo a unreliable
         Message message = Message.Create(MessageSendMode.reliable, (ushort)MessageID.orientation);
-        message.AddFloat(orientation.x);
+        message.AddFloat(orientation.eulerAngles.x);
         Client.Send(message);
     }
+
+
 }

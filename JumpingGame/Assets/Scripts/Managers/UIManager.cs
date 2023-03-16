@@ -23,12 +23,15 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject panelWaitingMobile;
     [SerializeField] private GameObject panelDisconnecting;
     [SerializeField] private GameObject panelWinning;
-    [SerializeField] private TextMeshProUGUI textCodeRoom;
+    [SerializeField] private TextMeshProUGUI codeText;
+    [SerializeField] private TextMeshProUGUI countDownText;
+    [SerializeField] private TextMeshProUGUI infoText;
     [SerializeField] private TextMeshProUGUI textCodeRoom2;
 
     private void Start()
     {
         if(panelDisconnecting != null) panelDisconnecting.SetActive(false);
+        if (countDownText != null) countDownText.gameObject.SetActive(false);
         if(panelWinning != null) panelWinning.SetActive(false);
     }
 
@@ -196,12 +199,12 @@ public class UIManager : MonoBehaviour
 
     public void SetCodeRoomText(string room)
     {
-        textCodeRoom.text = room;
+        codeText.text = room;
     }
 
-    public void SetIPText(string room)
+    public void SetIPText(string ip)
     {
-        textCodeRoom.text = room;
+        codeText.text = ip;
     }
 
     public void SetPORTText(string room)
@@ -211,7 +214,7 @@ public class UIManager : MonoBehaviour
 
     public string GetIPText()
     {
-        return textCodeRoom.text;
+        return codeText.text;
     }
 
     public string GetPORTText()
@@ -222,5 +225,39 @@ public class UIManager : MonoBehaviour
     public void ActivatePanelDisconnecting()
     {
         panelDisconnecting.SetActive(true);
+    }
+
+    public void StartCountDown()
+    {
+        infoText.text = "Coloquese en la posicion inicial";
+        countDownText.gameObject.SetActive(true);
+        codeText.gameObject.SetActive(false);
+        InvokeRepeating("UpdateCountDown", 1.0f, 1.0f);
+
+    }
+
+    public void UpdateCountDown()
+    {
+        try
+        {
+            int aux = int.Parse(countDownText.text);
+            aux--;
+            if (aux > 0)
+            {
+                countDownText.text = aux.ToString();
+            }
+            else
+            {
+                //Desactivamos la cuenta atras
+                CancelInvoke("UpdateCountDown");
+                //desactivamos el panel de espera
+                DisablePanelWaiting();
+               
+            }
+        }
+        catch
+        {
+            Debug.Log("Error al actualizar la cuenta atras");
+        }
     }
 }
