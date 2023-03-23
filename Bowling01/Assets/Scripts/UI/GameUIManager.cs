@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class GameUIManager : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI infoText;
     [SerializeField] private TextMeshProUGUI countDownText;
     [SerializeField] private GameObject desconexionPanel;
+    [SerializeField] private Button restartButton;
 
 
     void Start()
@@ -52,6 +54,7 @@ public class GameUIManager : MonoBehaviour
     {
         waitingConexionPanel.SetActive(true);
         countDownText.gameObject.SetActive(false);
+        restartButton.gameObject.SetActive(false);
     }
 
     public void DesactiveWaitingConexion()
@@ -107,9 +110,24 @@ public class GameUIManager : MonoBehaviour
         GameManager.Instance.ChangeScene(scene);
     }
 
+    //Deprecated
     public void SetCodeRoomText(string id)
     {
         codeText.text = id;
+    }
+    public void SetIPText(string ip)
+    {
+        codeText.text = ip;
+    }
+
+    public void ChangeInfoTest(string info)
+    {
+        infoText.text = info;
+    }
+
+    public void ActiveRestartButton()
+    {
+        restartButton.gameObject.SetActive(true);
     }
 
 }
