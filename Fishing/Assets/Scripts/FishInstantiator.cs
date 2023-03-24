@@ -26,7 +26,7 @@ public class FishInstantiator : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("Lista fish count es " + fishList.Count);
+       // Debug.Log("Lista fish count es " + fishList.Count);
         while(fishList.Count < numMaxOfFishInGame)
         {
             InstantiateFish();

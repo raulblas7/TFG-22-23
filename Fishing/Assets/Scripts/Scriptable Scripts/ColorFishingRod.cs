@@ -8,6 +8,6 @@ public class ColorFishingRod : ScriptableObject
 {
 
     public Color noFishColor;
-    public Color FishColor;
+    public Color fishColor;
     
 }

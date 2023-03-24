@@ -16,7 +16,7 @@ enum Sides
 public class Fish : MonoBehaviour
 {
 
-    [SerializeField] private float changeDirTime;
+   // [SerializeField] private float changeDirTime;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private float vel;
     [SerializeField] private FishVision fishVision;
@@ -62,11 +62,11 @@ public class Fish : MonoBehaviour
             //fishInstantiator.DeleteFishFromList(this);
         }
     }
-    private void ChangeDir()
-    {
-        int side = Random.Range(0, 5);
-        UTurn((Sides)side);
-    }
+    //private void ChangeDir()
+    //{
+    //    int side = Random.Range(0, 5);
+    //    UTurn((Sides)side);
+    //}
 
     private void GoToFishingRod()
     {
@@ -306,6 +306,7 @@ public class Fish : MonoBehaviour
                 this.gameObject.layer = layerIndexWhenCatched;
 
                 Invoke("QuitFromFishingRod", waitTimeInRod);
+                GameManager.Instance.GetUIManager().ActiveCountDown(waitTimeInRod);
             }
         }
     }
