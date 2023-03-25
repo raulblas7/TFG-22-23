@@ -70,7 +70,7 @@ public class Ball : MonoBehaviour
             //}
             if (!thrownBall && PlayerMovement.Instance.GetCurrentState() == Movement.MOVE_DONE)
             {
-                PlayerMovement.Instance.SetState( Movement.WAITING);
+                PlayerMovement.Instance.SetState( Movement.DOWN);
                 throwInput = true;
                 thrownBall = true;
             }

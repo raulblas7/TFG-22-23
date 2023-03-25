@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class ConfigurationSafeManager 
+public class ConfigurationSaveManager 
 {
     string path = Path.Combine(Application.dataPath, "configuracion.json");
     //si estamos en el editor de unity lo guardara en la carpeta del proyecto

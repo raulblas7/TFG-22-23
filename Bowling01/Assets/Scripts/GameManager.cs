@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _difficulty;  // dificultad del juego que determinara la velocidad a la que se mueve la barra
 
     //Variable el guardado
-    ConfigurationSafeManager _configurationSafeManager;
+    ConfigurationSaveManager _configurationSafeManager;
     
 
 
@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
         else
         {
             _instance = this;
-            _configurationSafeManager = new ConfigurationSafeManager();
+            _configurationSafeManager = new ConfigurationSaveManager();
             LoadConfig();
             DontDestroyOnLoad(_instance);
         }
@@ -216,6 +216,11 @@ public class GameManager : MonoBehaviour
     public void InitGame()
     {
         isGameActive = true;
+    }
+
+    public void DesactiveGame()
+    {
+        isGameActive = false;
     }
 
     
