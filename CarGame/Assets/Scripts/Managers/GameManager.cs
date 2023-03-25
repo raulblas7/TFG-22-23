@@ -8,6 +8,10 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance { get { return _instance; } }
 
+    private UIManager uiManager;
+    private float angleToDoIt = 30.0f;
+    private int laps = 3;
+
     private void Awake()
     {
         if (_instance != null)
@@ -29,5 +33,35 @@ public class GameManager : MonoBehaviour
     public void QuitApplication()
     {
         Application.Quit();
+    }
+
+    public void ImUiManager(UIManager uiManager)
+    {
+        this.uiManager = uiManager;
+    }
+
+    public UIManager GetUIManager()
+    {
+        return uiManager;
+    }
+
+    public void SetAngleToDoIt(float angle)
+    {
+        angleToDoIt = angle;
+    }
+
+    public float GetAngleToDoIt()
+    {
+        return angleToDoIt;
+    }
+
+    public void SetNumLaps(int laps)
+    {
+        this.laps = laps;
+    }
+
+    public float GetLaps()
+    {
+        return laps;
     }
 }

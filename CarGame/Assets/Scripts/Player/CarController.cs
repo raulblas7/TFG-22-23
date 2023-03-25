@@ -39,9 +39,12 @@ public class CarController : MonoBehaviour
     private void FixedUpdate()
     {
         //GetInput();
-        HandleMotor();
-        HandleSteering();
-        UpdateWheels();
+        if (!GameManager.Instance.GetUIManager().IsPanelWaitingEnabled())
+        {
+            HandleMotor();
+            HandleSteering();
+            UpdateWheels();
+        }
     }
 
     private void HandleMotor()
@@ -126,13 +129,13 @@ public class CarController : MonoBehaviour
 
         Debug.Log("El vector en angulos es: " + orient);
 
-        if (orient.x <= INITIAL_DEGREES - 20.0f)
+        if (orient.x <= INITIAL_DEGREES - GameManager.Instance.GetAngleToDoIt())
         {
             isBreaking = false;
         }
         else
         {
             isBreaking = true;
-        }
+        } 
     }
 }
