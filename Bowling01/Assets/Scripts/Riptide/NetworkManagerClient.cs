@@ -9,7 +9,9 @@ using UnityEngine.UI;
 
 public enum MessageID
 {
-    orientation = 1,
+    orientationX = 1,
+    orientationZ = 2,
+    orientationY = 3,
 }
 public class NetworkManagerClient : MonoBehaviour
 {
@@ -24,7 +26,7 @@ public class NetworkManagerClient : MonoBehaviour
     [SerializeField] private TMP_InputField codeRoomInputField;
 
     private string ip;
-    private int idMessage = 0;
+   
 
     private void Awake()
     {
@@ -122,9 +124,16 @@ public class NetworkManagerClient : MonoBehaviour
     {
         // Cambiarlo a unreliable
         //Message message = Message.Create(MessageSendMode.reliable, (ushort)MessageID.orientation);
-        Message message = Message.Create(MessageSendMode.unreliable, (ushort)MessageID.orientation);
+        Message message = Message.Create(MessageSendMode.unreliable, (ushort)MessageID.orientationX);
         message.AddFloat(orientation.eulerAngles.x);
         Client.Send(message);
+        message = Message.Create(MessageSendMode.unreliable, (ushort)MessageID.orientationY);
+        message.AddFloat(orientation.eulerAngles.y);
+        Client.Send(message);
+        message = Message.Create(MessageSendMode.unreliable, (ushort)MessageID.orientationZ);
+        message.AddFloat(orientation.eulerAngles.z);
+        Client.Send(message);
+
     }
 
 
