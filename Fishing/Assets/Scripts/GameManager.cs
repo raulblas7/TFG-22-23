@@ -12,9 +12,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _maxFish;   // indica la catidad maxima de peces que podemos pescar
     //Managers
     private GameUIManager _UIManager;
+    private NetworkManager _networkManager;
     //variables
     private int _points = 0;
     private int _currentFish = 0;           //numero de peces que se han pescado
+    private bool _gameActive = false;
 
 
     public static GameManager Instance { get { return _instance; } }
@@ -52,7 +54,10 @@ public class GameManager : MonoBehaviour
         _UIManager.UpdateFishCount(_currentFish);
         if (_currentFish == _maxFish)
         {
-            //TODO fin del juego
+            //fin del juego
+            DesactiveGame();
+            NetworkManager.Instance.StopServer();
+            _UIManager.ActiveFinalPanel(_points);
 
         }
 
@@ -81,8 +86,23 @@ public class GameManager : MonoBehaviour
     public void SetUImanager(GameUIManager manager) { _UIManager = manager; }
     public GameUIManager GetUIManager() { return _UIManager; }
 
+   // public void SetNetworkManager(NetworkManager n) { _networkManager = n; }
+
+
+    //gestion del juego
+
     public void ChangeScene(string Scene)
     {
         SceneManager.LoadScene(Scene);
     }
+    public bool IsGameActive() { return _gameActive; }
+    public void InitGame() 
+    { 
+        _gameActive = true; 
+    }
+    public void DesactiveGame()
+    {
+        _gameActive = false;     
+    }
+
 }

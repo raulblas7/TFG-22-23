@@ -306,7 +306,7 @@ public class Fish : MonoBehaviour
                 this.gameObject.layer = layerIndexWhenCatched;
 
                 Invoke("QuitFromFishingRod", waitTimeInRod);
-                GameManager.Instance.GetUIManager().ActiveCountDown(waitTimeInRod);
+                GameManager.Instance.GetUIManager().ActiveFishCountDown(waitTimeInRod);
             }
         }
     }

@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class FishingRod : MonoBehaviour
 {
+    private enum Movement
+    {
+        UP =0,
+        DOWN,
+        MOVEDONE,
+    }
+
     [SerializeField] private GameObject baitGO;
     [SerializeField] private Rigidbody rbFirstRopePart;
     [SerializeField] private float speed;
@@ -68,5 +75,10 @@ public class FishingRod : MonoBehaviour
         {
             SetFishAtBait(false);
         }
+    }
+
+    public void CheckIfApplyForce(Quaternion orientQuaternion)
+    {
+
     }
 }
