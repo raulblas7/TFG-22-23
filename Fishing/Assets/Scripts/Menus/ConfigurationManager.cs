@@ -14,12 +14,14 @@ public class ConfigurationManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI placeholderRepeat;
 
     [SerializeField] Button button;
+    [SerializeField] SliderConfig slider;
 
     // Start is called before the first frame update
     void Start()
     {
         placeholderRepeat.text = GameManager.Instance.GetMaxFish().ToString();
         placeholderTime.text = GameManager.Instance.GetMaxTime().ToString();
+        slider.SetValue(GameManager.Instance.GetGameAngle());
         errorTextRepeat.gameObject.SetActive(false);
         errorTextTime.gameObject.SetActive(false);
 
@@ -44,6 +46,7 @@ public class ConfigurationManager : MonoBehaviour
             errorTextTime.gameObject.SetActive(false);
             
             float t = float.Parse(time);
+            Debug.Log(t);
             GameManager.Instance.SetMaxTime(t);
             button.interactable = true;
         }
@@ -72,6 +75,6 @@ public class ConfigurationManager : MonoBehaviour
 
     public void SafeConfig()
     {
-       // GameManager.Instance.SafeConfig();
+        GameManager.Instance.SafeConfig();
     }
 }

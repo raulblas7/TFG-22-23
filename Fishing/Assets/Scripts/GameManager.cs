@@ -21,6 +21,10 @@ public class GameManager : MonoBehaviour
     private int _currentFish = 0;           //numero de peces que se han pescado
     private bool _gameActive = false;
 
+    //Variable el guardado
+    ConfigurationSaveManager _configurationSafeManager;
+    SaveData _saveData;
+
 
     public static GameManager Instance { get { return _instance; } }
 
@@ -34,7 +38,9 @@ public class GameManager : MonoBehaviour
         else
         {
             _instance = this;
-
+            _configurationSafeManager = new ConfigurationSaveManager();
+            _saveData = new SaveData();
+            LoadConfig();
             DontDestroyOnLoad(_instance);
         }
     }
@@ -105,11 +111,13 @@ public class GameManager : MonoBehaviour
     {
         //instanciamos los primeros peces
         _instantiator.StartInstantiate();
-        _gameActive = true; 
+        _gameActive = true;
+        InitSave();
     }
     public void DesactiveGame()
     {
-        _gameActive = false;     
+        _gameActive = false;
+        FinishSave();
     }
 
     //Configuracion
@@ -121,7 +129,42 @@ public class GameManager : MonoBehaviour
 
     public int GetGameAngle() { return _gameAngle; }
     public void SetGameAngle(int Angle) { _gameAngle = Angle; }
+    public void SafeConfig()
+    {
+        ConfigurationData data = new ConfigurationData();
+        data.Numerorepeticiones = _maxFish;
+        data.AnguloDeJuego = _gameAngle;
+        data.TiempoRepeticiones = _maxTime;
+        _configurationSafeManager.Safe(data);
+    }
 
+    private void LoadConfig()
+    {
+        ConfigurationData data = _configurationSafeManager.Load();
+        if (data != null)
+        {
+            _maxFish = data.Numerorepeticiones;
+            _maxTime = data.TiempoRepeticiones;
+            _gameAngle = data.AnguloDeJuego;
+        }
+    }
+
+    //guardado
+
+    private void InitSave()
+    {
+        _saveData.InitSave();
+    }
+
+    public void WriteData(string data)
+    {
+        _saveData.WriteData(data);
+    }
+
+    private void FinishSave()
+    {
+        _saveData.FinishSave();
+    }
 
 
 }

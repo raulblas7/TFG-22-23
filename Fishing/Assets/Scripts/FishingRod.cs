@@ -107,5 +107,7 @@ public class FishingRod : MonoBehaviour
         {
             state = Movement.UP;
         }
+
+        GameManager.Instance.WriteData(orient.ToString());
     }
 }

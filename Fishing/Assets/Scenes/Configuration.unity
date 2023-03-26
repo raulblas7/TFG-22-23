@@ -893,6 +893,7 @@ MonoBehaviour:
   errorTextRepeat: {fileID: 1802956517}
   placeholderRepeat: {fileID: 1337172428}
   button: {fileID: 1333814478}
+  slider: {fileID: 667507788}
 --- !u!1 &620671419
 GameObject:
   m_ObjectHideFlags: 0
@@ -2597,7 +2598,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Error en los datos.
 
-    por favor introduzca un numero. Ej: 12.81'
+    por favor introduzca un numero. Ej: 12,81'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ab89512bcca0ee1478b611ab0b69985d, type: 2}
   m_sharedMaterial: {fileID: -2827747072216374223, guid: ab89512bcca0ee1478b611ab0b69985d, type: 2}
@@ -2732,7 +2733,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Finish
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ab89512bcca0ee1478b611ab0b69985d, type: 2}
   m_sharedMaterial: {fileID: -2827747072216374223, guid: ab89512bcca0ee1478b611ab0b69985d, type: 2}

@@ -5,9 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public class ConfigurationData
 {
-    public int Rondas;
+    public int Numerorepeticiones;
     public int AnguloDeJuego;
-    public int AnguloDelEjercicio;
-    public int Dificultad;
+    public float TiempoRepeticiones;
     
 }
