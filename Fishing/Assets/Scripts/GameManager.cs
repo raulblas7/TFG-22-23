@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -79,4 +80,9 @@ public class GameManager : MonoBehaviour
     //managers
     public void SetUImanager(GameUIManager manager) { _UIManager = manager; }
     public GameUIManager GetUIManager() { return _UIManager; }
+
+    public void ChangeScene(string Scene)
+    {
+        SceneManager.LoadScene(Scene);
+    }
 }

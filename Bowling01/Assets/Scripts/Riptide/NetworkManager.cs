@@ -17,6 +17,8 @@ public class NetworkManager : MonoBehaviour
     [SerializeField] private ushort maxClientCount;
     [SerializeField] private GameUIManager UiManager;
     private static float orientationX = 0;
+    private static float orientationY = 0;
+    private static float orientationZ = 0;
 
 
     private void Awake()
@@ -33,6 +35,7 @@ public class NetworkManager : MonoBehaviour
 
     private void Start()
     {
+        GameManager.Instance.SetNetworkManager(this);
         RiptideLogger.Initialize(Debug.Log, Debug.Log, Debug.LogWarning, Debug.LogError, false);
         Server = new Server();
         Server.Start(port, maxClientCount);
@@ -48,10 +51,10 @@ public class NetworkManager : MonoBehaviour
 
     private void Update()
     {
-        if(Server.ClientCount == 1)
+        if(Server.ClientCount == 1 && GameManager.Instance.IsGameActive())
         {
             Quaternion q = new Quaternion();
-            Vector3 aux = new Vector3(orientationX, 0, 0);
+            Vector3 aux = new Vector3(orientationX, orientationY, orientationZ);
             q.eulerAngles = aux;
             PlayerMovement.Instance.CheckIfCanThrow(q);
            
@@ -97,13 +100,31 @@ public class NetworkManager : MonoBehaviour
 
 
     //recibir el mensaje con la orientacion
-    [MessageHandler((ushort)MessageID.orientation)]
-    private static void ReceiveOrientationFromDevice(ushort fromClientId, Message message)
+    [MessageHandler((ushort)MessageID.orientationX)]
+    private static void ReceiveOrientationXFromDevice(ushort fromClientId, Message message)
     {
         //Debug.Log("mensaje recibido " + message.GetFloat());
         orientationX = message.GetFloat();
         //Debug.Log("Orientacion en x es: " + message.GetFloat());
      
+    }
+
+    [MessageHandler((ushort)MessageID.orientationY)]
+    private static void ReceiveOrientationYFromDevice(ushort fromClientId, Message message)
+    {
+        //Debug.Log("mensaje recibido " + message.GetFloat());
+        orientationY = message.GetFloat();
+        //Debug.Log("Orientacion en x es: " + message.GetFloat());
+
+    }
+
+    [MessageHandler((ushort)MessageID.orientationZ)]
+    private static void ReceiveOrientationZFromDevice(ushort fromClientId, Message message)
+    {
+        //Debug.Log("mensaje recibido " + message.GetFloat());
+        orientationZ = message.GetFloat();
+        //Debug.Log("Orientacion en x es: " + message.GetFloat());
+
     }
 
 

@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     private SpawnerBall _spawnerBall;
     private SpawnerCleaner _spawnerCleaner;
     private GameUIManager _gameUIManager;
+    private NetworkManager _networkManager;
 
     //variables del juego
     private bool firstPartCompleted = false;
@@ -31,6 +32,7 @@ public class GameManager : MonoBehaviour
 
     //Variable el guardado
     ConfigurationSaveManager _configurationSafeManager;
+    SaveData _saveData;
     
 
 
@@ -47,6 +49,7 @@ public class GameManager : MonoBehaviour
         {
             _instance = this;
             _configurationSafeManager = new ConfigurationSaveManager();
+            _saveData = new SaveData();
             LoadConfig();
             DontDestroyOnLoad(_instance);
         }
@@ -137,8 +140,9 @@ public class GameManager : MonoBehaviour
         if(currentRound == _rounds)
         {
             //finalizamos el juego
-            isGameActive = false;
+            DesactiveGame();
             _gameUIManager.ActiveFinalPanel(totalPoints);
+            _networkManager.StopServer();
 
         }
     }
@@ -148,6 +152,7 @@ public class GameManager : MonoBehaviour
     public void SetSpawnerBall(SpawnerBall s) { _spawnerBall = s; }
     public void SetSpawnerCleaner(SpawnerCleaner s) { _spawnerCleaner = s; }
     public void SetGameUIManager(GameUIManager p) { _gameUIManager = p; }
+    public void SetNetworkManager(NetworkManager n) { _networkManager = n; }
 
     //metodos getter
     public bool IsGameActive() { return isGameActive; }
@@ -164,7 +169,7 @@ public class GameManager : MonoBehaviour
     public int GetNumRounds() { return _rounds; }
 
     //metodos para la configuración
-    //public void SetNumRound(int round) { _rounds = round + 1; }
+
     public void SetNumRound(float round) { _rounds = (int)round; }
 
     public void SetGameAngle(float angle) { _gameAngle = (int)angle; }
@@ -199,7 +204,24 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //gestion del juego
+    //guardado
+
+    private void InitSave()
+    {
+        _saveData.InitSave();
+    }
+
+    public void WriteData(string data)
+    {
+        _saveData.WriteData(data);
+    }
+
+    private void FinishSave()
+    {
+        _saveData.FinishSave();
+    }
+
+    //gestion del juego -------------------------------------------------------------------------------
     public void ChangeScene(string scene)
     {
         SceneManager.LoadScene(scene);
@@ -216,11 +238,15 @@ public class GameManager : MonoBehaviour
     public void InitGame()
     {
         isGameActive = true;
+        //iniciamos el guardado
+        InitSave();
+
     }
 
     public void DesactiveGame()
     {
         isGameActive = false;
+        FinishSave();
     }
 
     

@@ -8,7 +8,7 @@ public class SaveData
     private string path = Path.Combine(Application.dataPath, "data.txt");
     private StreamWriter writer = null;
 
-    public void initSave()
+    public void InitSave()
     {
         //por el momento solo tendremos un archivo
         if (File.Exists(path))
