@@ -1228,6 +1228,7 @@ MonoBehaviour:
   speed: 200
   baitRenderer: {fileID: 1426539402}
   baitColors: {fileID: 11400000, guid: f842328b4db175643be27814f722ff7f, type: 2}
+  playerAngle: 80
 --- !u!59 &249973396
 HingeJoint:
   m_ObjectHideFlags: 0
@@ -1293,7 +1294,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1880483bcc09c5b47a3282b58151ea3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxFish: 10
+  _maxFish: 2
+  _maxTime: 3
 --- !u!4 &392296679
 Transform:
   m_ObjectHideFlags: 0
@@ -4541,7 +4543,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1700225524}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 17.4, z: 0}
+  m_LocalPosition: {x: 0, y: 12.3, z: 0}
   m_LocalScale: {x: 30, y: 1, z: 30}
   m_ConstrainProportionsScale: 0
   m_Children: []

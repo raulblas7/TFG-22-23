@@ -10,27 +10,39 @@ public class FishInstantiator : MonoBehaviour
 
     [SerializeField] private Transform[] spawners;
     [SerializeField] private Skin fishSkins;
-    
+
 
     private List<Fish> fishList;
-  
+
 
     void Start()
     {
+        GameManager.Instance.SetInstatiator(this);
         fishList = new List<Fish>();
-        for(int i = 0; i < numMaxOfFishInGame; i++)
+        //for (int i = 0; i < numMaxOfFishInGame; i++)
+        //{
+        //    InstantiateFish();
+        //}
+    }
+
+    public void StartInstantiate()
+    {
+        for (int i = 0; i < numMaxOfFishInGame; i++)
         {
             InstantiateFish();
         }
     }
 
+
     void Update()
     {
-       // Debug.Log("Lista fish count es " + fishList.Count);
-        while(fishList.Count < numMaxOfFishInGame)
+        // Debug.Log("Lista fish count es " + fishList.Count);
+        while (GameManager.Instance.IsGameActive() && fishList.Count < numMaxOfFishInGame)
         {
             InstantiateFish();
         }
+
+
     }
 
     private void InstantiateFish()

@@ -16,15 +16,15 @@ enum Sides
 public class Fish : MonoBehaviour
 {
 
-   // [SerializeField] private float changeDirTime;
+    // [SerializeField] private float changeDirTime;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private float vel;
     [SerializeField] private FishVision fishVision;
-    [SerializeField] private float waitTimeInRod;
     [SerializeField] private MeshRenderer meshRenderer;
     [SerializeField] private int layerIndexWhenCatched;
     [SerializeField] private int layerIndexWhenNOTCatched;
 
+    private float waitTimeInRod;
     private float lifeTime;
     private bool goToFishingRod = false;
     private bool alreadyAtFishingRod = false;
@@ -35,23 +35,31 @@ public class Fish : MonoBehaviour
 
     void Start()
     {
-
+        waitTimeInRod = GameManager.Instance.GetMaxTime();
         Invoke("DeadFish", lifeTime);
         // InvokeRepeating("ChangeDir", 0f, changeDirTime);
     }
 
     void Update()
     {
-        if (!goToFishingRod && fishVision.IsSawFishingRod())
+        //if (GameManager.Instance.IsGameActive())
         {
-            // Ir hacia la caña
-            GoToFishingRod();
+
+            if (!goToFishingRod && fishVision.IsSawFishingRod())
+            {
+                // Ir hacia la caña
+                GoToFishingRod();
+            }
         }
     }
 
     private void FixedUpdate()
     {
-        if (!alreadyAtFishingRod) rb.AddForce(transform.right * vel);
+        //if (GameManager.Instance.IsGameActive())
+        {
+
+            if (!alreadyAtFishingRod) rb.AddForce(transform.right * vel);
+        }
     }
 
     private void DeadFish()
@@ -62,88 +70,12 @@ public class Fish : MonoBehaviour
             //fishInstantiator.DeleteFishFromList(this);
         }
     }
-    //private void ChangeDir()
-    //{
-    //    int side = Random.Range(0, 5);
-    //    UTurn((Sides)side);
-    //}
+
 
     private void GoToFishingRod()
     {
         Transform fishingRodPosTR = fishVision.GetFishingRodTr();
         dir = fishingRodPosTR.position - transform.position;
-
-
-        //float angle = Vector3.Angle(transform.right, Vector3.right);
-        //float angleFishRod = Vector3.Angle(transform.right, dir);
-
-        //// saber si el pez esta a la derecha o a la izquierda del eje x
-        //if (AngleDir(Vector3.right, transform.right, Vector3.up) >= 0)
-        //{
-        //    Debug.Log("Derecha de vector right");
-        //    //invertimos el angulo
-        //    angle = 360 - angle;
-
-        //}
-        //else
-        //{
-        //    Debug.Log("Izquierda de vector right");
-        //}
-
-
-        //Debug.Log("Angulo goTo before: " + angle);
-        ////mirar si la caña esta a la izquierda o a la derecha de el pez
-        //if (AngleDir(transform.right, dir, Vector3.up) >= 0)
-        //{
-        //    Debug.Log("Derecha de el pez");
-        //    angle -= angleFishRod;
-        //}
-        //else
-        //{
-        //    Debug.Log("Izquierda de el pez");
-        //    angle += angleFishRod;
-        //}
-
-        //float angleUpDown =  angleFishRod;
-        //if (AngleDir(Vector3.right, transform.right, Vector3.forward) >= 0)
-        //{
-        //    Debug.Log("Arriba");
-        //}
-        //else
-        //{
-        //    Debug.Log("Abajo");
-        //    angleUpDown = 360-angleUpDown;
-        //}
-        ////mirar si la caña esta a la izquierda o a la derecha de el pez
-        //if (AngleDir(transform.right, dir, Vector3.forward) >= 0)
-        //{
-        //    Debug.Log("Abajo de el pez");
-        //    angleUpDown -= angleFishRod;
-        //}
-        //else
-        //{
-        //    Debug.Log("Arriba de el pez");
-        //    angleUpDown += angleFishRod;
-        //}
-
-        //Debug.Log("Angulo goTo: " + angle);
-        //Debug.Log("Angulo up down: " + angleUpDown);
-        //Debug.Log("Angulo pez,caña: " + angleFishRod);
-
-
-
-        //Quaternion q = Quaternion.AngleAxis(-angle, transform.up);
-        //Vector3 aux;
-        //aux = q.eulerAngles;
-        //aux.x = transform.rotation.eulerAngles.x;
-        //aux.z = transform.rotation.eulerAngles.z;
-
-        //q = Quaternion.AngleAxis(-angleUpDown, transform.forward);
-
-        //aux.z = q.eulerAngles.z;
-        //aux.x = transform.rotation.eulerAngles.x;
-
-        //q.eulerAngles = aux;
 
         MakeRotationInDir(dir);
         goToFishingRod = true;

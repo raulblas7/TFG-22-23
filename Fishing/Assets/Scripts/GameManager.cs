@@ -10,9 +10,12 @@ public class GameManager : MonoBehaviour
 
 
     [SerializeField] private int _maxFish;   // indica la catidad maxima de peces que podemos pescar
+    [SerializeField] private float _maxTime;
+    [SerializeField] private int _gameAngle;
     //Managers
     private GameUIManager _UIManager;
-    private NetworkManager _networkManager;
+    private FishInstantiator _instantiator;
+
     //variables
     private int _points = 0;
     private int _currentFish = 0;           //numero de peces que se han pescado
@@ -64,7 +67,7 @@ public class GameManager : MonoBehaviour
     }
     public int GetPoints() { return _points; }
 
-    public int GetMaxFish() { return _maxFish; }
+   
 
     //public void AddFish()
     //{
@@ -88,6 +91,8 @@ public class GameManager : MonoBehaviour
 
    // public void SetNetworkManager(NetworkManager n) { _networkManager = n; }
 
+    public void SetInstatiator(FishInstantiator i) { _instantiator = i; }
+
 
     //gestion del juego
 
@@ -97,12 +102,26 @@ public class GameManager : MonoBehaviour
     }
     public bool IsGameActive() { return _gameActive; }
     public void InitGame() 
-    { 
+    {
+        //instanciamos los primeros peces
+        _instantiator.StartInstantiate();
         _gameActive = true; 
     }
     public void DesactiveGame()
     {
         _gameActive = false;     
     }
+
+    //Configuracion
+    public int GetMaxFish() { return _maxFish; }
+    public void SetMAxFish(int num) { _maxFish = num; }
+
+    public float GetMaxTime() { return _maxTime; }
+    public void SetMaxTime(float time) { _maxTime = time; }
+
+    public int GetGameAngle() { return _gameAngle; }
+    public void SetGameAngle(int Angle) { _gameAngle = Angle; }
+
+
 
 }
