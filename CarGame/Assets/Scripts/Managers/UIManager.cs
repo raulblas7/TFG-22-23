@@ -32,6 +32,11 @@ public class UIManager : MonoBehaviour
     {
         if (panelDisconnecting != null) panelDisconnecting.SetActive(false);
         if (panelWinning != null) panelWinning.SetActive(false);
+        if (lapsText != null)
+        {
+            lapsText.text = lapsText.text + GameManager.Instance.GetLaps();
+            lapsText.enabled = false;
+        }
     }
 
     private void SetButtonsMainMenuListeners()
@@ -155,11 +160,11 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void SetlapsText(int points)
+    public void SetlapsText(int laps)
     {
         if (lapsText != null)
         {
-            lapsText.text = "" + points;
+            lapsText.text = lapsText.text + laps;
         }
     }
 
@@ -171,6 +176,7 @@ public class UIManager : MonoBehaviour
     public void DisablePanelWaiting()
     {
         panelWaitingMobile.SetActive(false);
+        lapsText.enabled = true;
     }
 
     public bool IsPanelWaitingEnabled()
