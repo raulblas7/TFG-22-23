@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     private UIManager uiManager;
     private float angleToDoIt = 30.0f;
     private int laps = 3;
+    private int currentLaps = 0;
 
     private void Awake()
     {
@@ -55,13 +56,26 @@ public class GameManager : MonoBehaviour
         return angleToDoIt;
     }
 
-    public void SetNumLaps(int laps)
+    public void AddLaps()
     {
-        this.laps = laps;
+        if (currentLaps + 1 <= laps)
+        {
+            currentLaps++;
+            uiManager.SetlapsText();
+        }
     }
 
-    public float GetLaps()
+    public void SetNumLaps(int l)
+    {
+        laps = l;
+    }
+
+    public int GetLaps()
     {
         return laps;
+    }
+    public int GetCurrentLaps()
+    {
+        return currentLaps;
     }
 }

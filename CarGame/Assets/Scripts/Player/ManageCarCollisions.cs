@@ -51,6 +51,10 @@ public class ManageCarCollisions : MonoBehaviour
         { 
             SetPositionToLastCheckPoint();
         }
+        if (other.gameObject.CompareTag("LapsCounter"))
+        {
+            GameManager.Instance.AddLaps();
+        }
     }
 
     public void SetPositionToLastCheckPoint()

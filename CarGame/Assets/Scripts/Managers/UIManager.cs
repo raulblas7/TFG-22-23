@@ -12,12 +12,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button settingsButton;
 
     // Variables Menu Settings, solo tendrán valor en dicho menu
-    [SerializeField] private TextMeshProUGUI textInvalidInput;
-    [SerializeField] private TextMeshProUGUI textInvalidInput2;
-    [SerializeField] private TextMeshProUGUI textInvalidInput3;
-    [SerializeField] private TMP_InputField mainInputField;
-    [SerializeField] private TMP_InputField speedField;
+    [SerializeField] private TMP_InputField lapsField;
     [SerializeField] private TMP_InputField angleField;
+    [SerializeField] private TMP_Dropdown difficultyDropdown;
+    [SerializeField] private Button returnToMenu;
 
     // Variables de UI en CircuitGameScene, solo tendrán valor en dicha escena
     [SerializeField] private Button exitButton;
@@ -34,8 +32,7 @@ public class UIManager : MonoBehaviour
         if (panelWinning != null) panelWinning.SetActive(false);
         if (lapsText != null)
         {
-            lapsText.text = lapsText.text + GameManager.Instance.GetLaps();
-            lapsText.enabled = false;
+            lapsText.text = lapsText.text + GameManager.Instance.GetCurrentLaps() + " de " + GameManager.Instance.GetLaps();
         }
     }
 
@@ -64,17 +61,26 @@ public class UIManager : MonoBehaviour
         GameManager.Instance.LoadScene("SettingsMenu");
     }
 
+    public void OnClickReturnToMenu()
+    {
+        GameManager.Instance.LoadScene("MainMenu");
+    }
+
     public void SetInputFieldListener()
     {
         // Añade un listener onValueChanged al inputField de settings si existe
-        if (mainInputField != null)
+        if (lapsField != null)
         {
-            mainInputField.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
+            lapsField.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
         }
         // Añade un listener onValueChanged al inputField de la velocidad de las rocas si existe
         if (angleField != null)
         {
             angleField.onValueChanged.AddListener(delegate { ValueChangeCheckAngle(); });
+        }
+        if (returnToMenu != null)
+        {
+            returnToMenu.onClick.AddListener(delegate { OnClickReturnToMenu(); });
         }
     }
 
@@ -83,12 +89,12 @@ public class UIManager : MonoBehaviour
     {
         try
         {
-            int n = int.Parse(mainInputField.text);
+            int n = int.Parse(lapsField.text);
             GameManager.Instance.SetNumLaps(n);
         }
         catch
         {
-            textInvalidInput.enabled = true;
+            Debug.Log("Valor introducido no valido");
         }
     }
 
@@ -101,21 +107,7 @@ public class UIManager : MonoBehaviour
         }
         catch
         {
-            textInvalidInput3.enabled = true;
-        }
-    }
-
-    public void ReturnToMenu()
-    {
-        try
-        {
-            //TODO: cambiar
-            int n = int.Parse(mainInputField.text);
-            GameManager.Instance.LoadScene("MainMenu");
-        }
-        catch
-        {
-            textInvalidInput.text = "Has introducido un valor que no es válido, introduce un número correcto y regresa al menú para jugar";
+            Debug.Log("Valor introducido no valido");
         }
     }
 
@@ -160,11 +152,11 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void SetlapsText(int laps)
+    public void SetlapsText()
     {
         if (lapsText != null)
         {
-            lapsText.text = lapsText.text + laps;
+            lapsText.text = "vueltas " + GameManager.Instance.GetCurrentLaps() + " de " + GameManager.Instance.GetLaps();
         }
     }
 
@@ -176,7 +168,7 @@ public class UIManager : MonoBehaviour
     public void DisablePanelWaiting()
     {
         panelWaitingMobile.SetActive(false);
-        lapsText.enabled = true;
+        lapsText.gameObject.SetActive(true);
     }
 
     public bool IsPanelWaitingEnabled()

@@ -129,7 +129,7 @@ public class CarController : MonoBehaviour
 
         Debug.Log("El vector en angulos es: " + orient);
 
-        if (orient.x <= INITIAL_DEGREES - GameManager.Instance.GetAngleToDoIt())
+        if (orient.x >= 270.0f && orient.x <= INITIAL_DEGREES - GameManager.Instance.GetAngleToDoIt())
         {
             isBreaking = false;
         }

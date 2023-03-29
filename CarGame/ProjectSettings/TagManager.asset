@@ -11,6 +11,7 @@ TagManager:
   - DeadZone
   - DeadObstacle
   - CheckPoint
+  - LapsCounter
   layers:
   - Default
   - TransparentFX
