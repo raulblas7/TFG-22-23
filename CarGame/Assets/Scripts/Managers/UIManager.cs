@@ -72,15 +72,22 @@ public class UIManager : MonoBehaviour
         if (lapsField != null)
         {
             lapsField.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
+            lapsField.text = "" + GameManager.Instance.GetLaps();
         }
         // Añade un listener onValueChanged al inputField de la velocidad de las rocas si existe
         if (angleField != null)
         {
             angleField.onValueChanged.AddListener(delegate { ValueChangeCheckAngle(); });
+            angleField.text = " " + GameManager.Instance.GetAngleToDoIt();
+        }
+        if(difficultyDropdown != null)
+        {
+            difficultyDropdown.value = GameManager.Instance.GetDifficulty();
         }
         if (returnToMenu != null)
         {
             returnToMenu.onClick.AddListener(delegate { OnClickReturnToMenu(); });
+            returnToMenu.onClick.AddListener(delegate { OnClickSafeConfig(); });
         }
     }
 
@@ -102,7 +109,7 @@ public class UIManager : MonoBehaviour
     {
         try
         {
-            float n = float.Parse(angleField.text);
+            int n = int.Parse(angleField.text);
             GameManager.Instance.SetAngleToDoIt(n);
         }
         catch
@@ -114,6 +121,10 @@ public class UIManager : MonoBehaviour
     public void OnClickExit()
     {
         GameManager.Instance.LoadScene("MainMenu");
+    }
+    public void OnClickSafeConfig()
+    {
+        GameManager.Instance.SafeConfig();
     }
 
     private void SetUIManagerInGameManager()
@@ -171,6 +182,12 @@ public class UIManager : MonoBehaviour
         lapsText.gameObject.SetActive(true);
     }
 
+    public void EnablePanelWaiting()
+    {
+        panelWaitingMobile.SetActive(true);
+        lapsText.gameObject.SetActive(false);
+    }
+
     public bool IsPanelWaitingEnabled()
     {
         return panelWaitingMobile.activeSelf;
@@ -205,6 +222,11 @@ public class UIManager : MonoBehaviour
         InvokeRepeating("UpdateCountDown", 1.0f, 1.0f);
     }
 
+    public void SetTextMobileDisconnected()
+    {
+        infoText.text = "El móvil se ha desconectado \n Es necesario Reiniciar el juego";
+    }
+
     public void UpdateCountDown()
     {
         try
@@ -221,6 +243,7 @@ public class UIManager : MonoBehaviour
                 CancelInvoke("UpdateCountDown");
                 //desactivamos el panel de espera
                 DisablePanelWaiting();
+                GameManager.Instance.InitSave();
             }
         }
         catch

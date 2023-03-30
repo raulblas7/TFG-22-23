@@ -136,6 +136,7 @@ public class CarController : MonoBehaviour
         else
         {
             isBreaking = true;
-        } 
+        }
+        GameManager.Instance.WriteData(orient.ToString());
     }
 }

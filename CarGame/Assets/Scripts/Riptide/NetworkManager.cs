@@ -72,8 +72,9 @@ public class NetworkManager : MonoBehaviour
 
     private void ClientLeft(object sender, ClientDisconnectedEventArgs e)
     {
-        //TODO
-        //hacer algo
+        GameManager.Instance.GetUIManager().EnablePanelWaiting();
+        GameManager.Instance.GetUIManager().SetTextMobileDisconnected();
+        GameManager.Instance.FinishSave();
     }
 
     private void ClientConnect(object sender, ServerClientConnectedEventArgs e)
@@ -82,8 +83,6 @@ public class NetworkManager : MonoBehaviour
         Debug.Log("cliente conectado");
         GameManager.Instance.GetUIManager().StartCountDown();
     }
-
-
 
     //recibir el mensaje con la orientacion
     [MessageHandler((ushort)MessageID.orientation)]

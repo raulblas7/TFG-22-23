@@ -30,6 +30,6 @@ public class SaveData
 
     public void FinishSave()
     {
-        writer.Close();
+        if (writer != null) writer.Close();
     }
 }

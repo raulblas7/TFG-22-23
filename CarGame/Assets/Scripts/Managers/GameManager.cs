@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,9 +10,14 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get { return _instance; } }
 
     private UIManager uiManager;
-    private float angleToDoIt = 30.0f;
+    private int angleToDoIt = 30;
     private int laps = 3;
     private int currentLaps = 0;
+    private int difficulty;
+
+    // Variables de guardado
+    ConfigurationSaveManager _configurationSafeManager;
+    SaveData _saveData;
 
     private void Awake()
     {
@@ -22,6 +28,9 @@ public class GameManager : MonoBehaviour
         else
         {
             _instance = this;
+            _configurationSafeManager = new ConfigurationSaveManager();
+            _saveData = new SaveData();
+            LoadConfig();
             DontDestroyOnLoad(_instance);
         }
     }
@@ -46,7 +55,7 @@ public class GameManager : MonoBehaviour
         return uiManager;
     }
 
-    public void SetAngleToDoIt(float angle)
+    public void SetAngleToDoIt(int angle)
     {
         angleToDoIt = angle;
     }
@@ -77,5 +86,50 @@ public class GameManager : MonoBehaviour
     public int GetCurrentLaps()
     {
         return currentLaps;
+    }
+
+    public void SetDifficulty(int dif) { difficulty = dif; }
+    public int GetDifficulty() { return difficulty; }
+
+    private void LoadConfig()
+    {
+        ConfigurationData data = _configurationSafeManager.Load();
+        if (data != null)
+        {
+            laps = data.Laps;
+            angleToDoIt = data.AnguloDeJuego;
+            difficulty = data.Dificultad; 
+        }
+    }
+
+    public void SafeConfig()
+    {
+        ConfigurationData data = new ConfigurationData();
+        data.Laps = laps;
+        data.AnguloDeJuego = angleToDoIt;
+        data.Dificultad = difficulty;
+        _configurationSafeManager.Safe(data);
+    }
+
+    //guardado
+
+    public void InitSave()
+    {
+        _saveData.InitSave();
+    }
+
+    public void WriteData(string data)
+    {
+        _saveData.WriteData(data);
+    }
+
+    public void FinishSave()
+    {
+        _saveData.FinishSave();
+    }
+
+    private void OnApplicationQuit()
+    {
+        FinishSave();
     }
 }
