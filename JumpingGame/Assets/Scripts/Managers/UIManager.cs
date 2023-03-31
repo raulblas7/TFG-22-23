@@ -66,17 +66,25 @@ public class UIManager : MonoBehaviour
         if (mainInputField != null)
         {
             mainInputField.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
+            mainInputField.text = "" + GameManager.Instance.GetNumJumps();
         }
         // Añade un listener onValueChanged al inputField de la velocidad de las rocas si existe
         if (speedField != null)
         {
             speedField.onValueChanged.AddListener(delegate { ValueChangeCheckSpeed(); });
+            speedField.text = "" + GameManager.Instance.GetSpeedDown();
         }
         // Añade un listener onValueChanged al inputField de la velocidad de las rocas si existe
         if (angleField != null)
         {
             angleField.onValueChanged.AddListener(delegate { ValueChangeCheckAngle(); });
+            angleField.text = "" + GameManager.Instance.GetAngleToDoIt();
         }
+    }
+
+    public void CallSaveConfig()
+    {
+        GameManager.Instance.SafeConfig();
     }
 
     // Invoked when the value of the text field changes.
@@ -98,7 +106,7 @@ public class UIManager : MonoBehaviour
         try
         {
             float n = float.Parse(speedField.text);
-            GameManager.Instance.SetAngleToDoIt(n);
+            GameManager.Instance.SetSpeedDownCubes(n);
         }
         catch
         {
@@ -110,7 +118,7 @@ public class UIManager : MonoBehaviour
     {
         try
         {
-            float n = float.Parse(angleField.text);
+            int n = int.Parse(angleField.text);
             GameManager.Instance.SetAngleToDoIt(n);
         }
         catch
@@ -192,6 +200,11 @@ public class UIManager : MonoBehaviour
         panelWaitingMobile.SetActive(false);
     }
 
+    public void EnablePanelWaiting()
+    {
+        panelWaitingMobile.SetActive(true);
+    }
+
     public bool IsPanelWaitingEnabled()
     {
         return panelWaitingMobile.activeSelf;
@@ -252,12 +265,17 @@ public class UIManager : MonoBehaviour
                 CancelInvoke("UpdateCountDown");
                 //desactivamos el panel de espera
                 DisablePanelWaiting();
-               
+                GameManager.Instance.InitSave();
             }
         }
         catch
         {
             Debug.Log("Error al actualizar la cuenta atras");
         }
+    }
+
+    public void SetMobileDisconnectedText()
+    {
+        infoText.text = "El móvil se ha desconectado \n Es necesario Reiniciar el juego";
     }
 }

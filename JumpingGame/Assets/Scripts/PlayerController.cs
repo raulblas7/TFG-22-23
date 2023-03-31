@@ -70,13 +70,10 @@ public class PlayerController : MonoBehaviour
             //    Debug.Log("Numero de saltos actuales es " + GameManager.Instance.GetNumCurrentJumps());
             //    JumpingAndLanding();
             //}
-            Debug.Log("El panel está desactivado");
             if (currentState == Movement.MOVE_DONE && canJump && GameManager.Instance.GetNumCurrentJumps() < GameManager.Instance.GetNumJumps())
             {
-                Debug.Log("Puedo saltar");
                 canJump = false;
                 currentState = Movement.WAITING;
-                Debug.Log("WAITING");
                 jumpInput = true;
                 GameManager.Instance.AddOneMoreJump();
                 Debug.Log("Numero de saltos actuales es " + GameManager.Instance.GetNumCurrentJumps());
@@ -224,12 +221,12 @@ public class PlayerController : MonoBehaviour
         if ((orient.x >= 270.0f + angle || orient.x < 90.0f) && currentState == Movement.RESTART)
         {
             currentState = Movement.MOVE_DONE;
-            Debug.Log("MOVE_DONE");
         }
         else if((orient.x < (350.0f -30.0f) && orient.x >180.0f)&& currentState == Movement.WAITING)
         {
             currentState = Movement.RESTART;
-            Debug.Log("RESTART");
         }
+
+        GameManager.Instance.WriteData(orient.ToString());
     }
 }

@@ -5,8 +5,13 @@ using UnityEngine;
 public class HummerObstacle : MonoBehaviour
 {
     [SerializeField] Rigidbody[] hummersRbs;
-    [SerializeField] float force;
+    [SerializeField] int force;
     [SerializeField] Vector3 dir;
+
+    private void Start()
+    {
+        force = GameManager.Instance.GetDifficulty() + 1;
+    }
 
     private void FixedUpdate()
     {

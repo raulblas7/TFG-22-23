@@ -23,9 +23,13 @@ public class GameManager : MonoBehaviour
 
     private int numPoints;
 
-    private float angleToDoIt = 90.0f;
+    private int angleToDoIt = 90;
 
     private UIManager uiManager;
+
+    // Variables de guardado
+    ConfigurationSaveManager _configurationSafeManager;
+    SaveData _saveData;
 
     public static GameManager Instance { get { return _instance; } }
 
@@ -38,6 +42,9 @@ public class GameManager : MonoBehaviour
         else
         {
             _instance = this;
+            _configurationSafeManager = new ConfigurationSaveManager();
+            _saveData = new SaveData();
+            LoadConfig();
             DontDestroyOnLoad(_instance);
         }
     }
@@ -171,7 +178,7 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
-    public void SetAngleToDoIt(float angle)
+    public void SetAngleToDoIt(int angle)
     {
         angleToDoIt = angle;
     }
@@ -179,5 +186,46 @@ public class GameManager : MonoBehaviour
     public float GetAngleToDoIt()
     {
         return angleToDoIt;
+    }
+
+    private void LoadConfig()
+    {
+        ConfigurationData data = _configurationSafeManager.Load();
+        if (data != null)
+        {
+            numJumps = data.Jumps;
+            angleToDoIt = data.AngleToDo;
+            speedDownSetting = data.TimeBetweenReps;
+        }
+    }
+
+    public void SafeConfig()
+    {
+        ConfigurationData data = new ConfigurationData();
+        data.Jumps = numJumps;
+        data.AngleToDo = angleToDoIt;
+        data.TimeBetweenReps = speedDownSetting;
+        _configurationSafeManager.Safe(data);
+    }
+
+    //guardado
+    public void InitSave()
+    {
+        _saveData.InitSave();
+    }
+
+    public void WriteData(string data)
+    {
+        _saveData.WriteData(data);
+    }
+
+    public void FinishSave()
+    {
+        _saveData.FinishSave();
+    }
+
+    private void OnApplicationQuit()
+    {
+        FinishSave();
     }
 }

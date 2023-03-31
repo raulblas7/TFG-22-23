@@ -82,6 +82,7 @@ public class UIManager : MonoBehaviour
         }
         if(difficultyDropdown != null)
         {
+            difficultyDropdown.onValueChanged.AddListener(delegate { ValueChangeDropdown(); });
             difficultyDropdown.value = GameManager.Instance.GetDifficulty();
         }
         if (returnToMenu != null)
@@ -103,6 +104,11 @@ public class UIManager : MonoBehaviour
         {
             Debug.Log("Valor introducido no valido");
         }
+    }
+
+    public void ValueChangeDropdown()
+    {
+        GameManager.Instance.SetDifficulty(difficultyDropdown.value);
     }
 
     public void ValueChangeCheckAngle()
