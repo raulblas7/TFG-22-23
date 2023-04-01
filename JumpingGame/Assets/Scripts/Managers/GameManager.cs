@@ -107,6 +107,7 @@ public class GameManager : MonoBehaviour
     public void AddOneMoreJump()
     {
         numCurrentJumps++;
+        uiManager.SetJumpsText();
     }
 
     public void SetFinalIslandTR(Transform tr)

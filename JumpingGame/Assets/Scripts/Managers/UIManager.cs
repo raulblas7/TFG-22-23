@@ -20,6 +20,7 @@ public class UIManager : MonoBehaviour
     // Variables de UI en JumpScene, solo tendrán valor en dicha escena
     [SerializeField] private Button exitButton;
     [SerializeField] private TextMeshProUGUI pointsText;
+    [SerializeField] private TextMeshProUGUI jumpsText;
     [SerializeField] private GameObject panelWaitingMobile;
     [SerializeField] private GameObject panelDisconnecting;
     [SerializeField] private GameObject panelWinning;
@@ -33,6 +34,10 @@ public class UIManager : MonoBehaviour
         if(panelDisconnecting != null) panelDisconnecting.SetActive(false);
         if (countDownText != null) countDownText.gameObject.SetActive(false);
         if(panelWinning != null) panelWinning.SetActive(false);
+        if(jumpsText != null)
+        {
+            SetJumpsText();
+        }
     }
 
     private void SetButtonsMainMenuListeners()
@@ -125,6 +130,11 @@ public class UIManager : MonoBehaviour
         {
             textInvalidInput3.enabled = true;
         }
+    }
+
+    public void SetJumpsText()
+    {
+        jumpsText.text = "Saltos " + GameManager.Instance.GetNumCurrentJumps() + " de " + GameManager.Instance.GetNumJumps();
     }
 
     public void ReturnToMenu()
