@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.43596905, g: 0.55358094, b: 0.5430385, a: 1}
+  m_IndirectSpecularColor: {r: 0.24765554, g: 0.36358643, b: 0.44259873, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1779,7 +1779,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 48.35
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4018,8 +4018,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ce200aa8243d784ca177a9cf69db7f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ip: 192.168.1.129
-  port: 7777
+  port: 5000
   text: {fileID: 2099208990}
   connectButton: {fileID: 15772827}
   codeRoomInputField: {fileID: 2033663981}
