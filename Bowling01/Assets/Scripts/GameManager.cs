@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     private int currentRound = 0;
     private int totalPoints = 0;
     private bool isGameActive = false;
+    private bool pleno = false;
 
     //variables configurables
     [SerializeField] private int _rounds;   // cada ronda son dos tiradas
@@ -67,7 +68,7 @@ public class GameManager : MonoBehaviour
         {
             //firstPartCompleted = true;
 
-            Invoke("FirstPartPuntuation", 3);
+            Invoke("FirstPartPuntuation", 4);
             //iniciamos la segunda parte de la ronda
             SetRoundPartTwo();
 
@@ -92,7 +93,7 @@ public class GameManager : MonoBehaviour
     //metodos para pasar a la segunda parte de la ronda
     public void SetRoundPartTwo()
     {
-        Invoke("StartSecondPart", 3);
+        Invoke("StartSecondPart", 4);
     }
 
     private void StartSecondPart()
@@ -112,6 +113,11 @@ public class GameManager : MonoBehaviour
         {
             firstPartCompleted = true;
             _bolosManager.LetBolosFall();
+            if (pleno)
+            {
+                _bolosManager.instatiateBolos();
+               
+            }
         }
         else
         {
@@ -127,13 +133,25 @@ public class GameManager : MonoBehaviour
     {
         //actualizamos la puntuacion
         int points = _bolosManager.CheckPoints(true);
+        //si se tiran todos los bolos
+        if(points == 10)
+        {
+            pleno = true;
+        }
         _gameUIManager.FirstShootPuntuation(currentRound, points);
         totalPoints += points;
     }
 
     private void SecondPartPunctuation()
     {
-        int points = _bolosManager.CheckPoints(false);
+        int points;
+        if (pleno)
+        {
+            points = _bolosManager.CheckPoints(true);
+            pleno = false;
+        }
+        else points = _bolosManager.CheckPoints(false);
+      
         totalPoints += points;
         _gameUIManager.EndRoundPuntuation(currentRound, points, totalPoints);
         currentRound++;
