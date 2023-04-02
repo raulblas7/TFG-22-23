@@ -126,8 +126,15 @@ public class UIManager : MonoBehaviour
 
     public void OnClickExit()
     {
+        ActivatePanelDisconnecting();
+        Invoke("GoToMenuAfterDisconnect", 3.0f);
+    }
+
+    public void GoToMenuAfterDisconnect()
+    {
         GameManager.Instance.LoadScene("MainMenu");
     }
+
     public void OnClickSafeConfig()
     {
         GameManager.Instance.SafeConfig();
@@ -216,6 +223,10 @@ public class UIManager : MonoBehaviour
 
     public void ActivatePanelDisconnecting()
     {
+        if (panelWaitingMobile.activeSelf)
+        {
+            panelWaitingMobile.SetActive(false);
+        }
         panelDisconnecting.SetActive(true);
     }
 
