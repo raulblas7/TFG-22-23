@@ -92,8 +92,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5938331391629465412}
+  - component: {fileID: 935817424257866440}
   - component: {fileID: 6188941553132466346}
-  - component: {fileID: 6188941553132466345}
   - component: {fileID: 4893162397419204795}
   m_Layer: 0
   m_Name: Bolo
@@ -119,6 +119,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!65 &935817424257866440
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6422942707514101246}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5429748, y: 0.5697286, z: 1.8752034}
+  m_Center: {x: 0.012601793, y: 0.011210263, z: 0.9512583}
 --- !u!54 &6188941553132466346
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -135,19 +148,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &6188941553132466345
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6422942707514101246}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.7554147, y: 0.6551568, z: 1.9307194}
-  m_Center: {x: 0, y: -7.9776443e-16, z: 0.9438621}
 --- !u!114 &4893162397419204795
 MonoBehaviour:
   m_ObjectHideFlags: 0

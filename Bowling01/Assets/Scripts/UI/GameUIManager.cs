@@ -130,4 +130,9 @@ public class GameUIManager : MonoBehaviour
         restartButton.gameObject.SetActive(true);
     }
 
+    public void DesactiveGame()
+    {
+        GameManager.Instance.DesactiveGame();
+    }
+
 }
