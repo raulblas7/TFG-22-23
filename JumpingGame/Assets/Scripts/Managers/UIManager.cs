@@ -19,11 +19,13 @@ public class UIManager : MonoBehaviour
 
     // Variables de UI en JumpScene, solo tendrán valor en dicha escena
     [SerializeField] private Button exitButton;
+    [SerializeField] private Button restartButton;
     [SerializeField] private TextMeshProUGUI pointsText;
     [SerializeField] private TextMeshProUGUI jumpsText;
     [SerializeField] private GameObject panelWaitingMobile;
     [SerializeField] private GameObject panelDisconnecting;
     [SerializeField] private GameObject panelWinning;
+    [SerializeField] private TextMeshProUGUI waitingText;
     [SerializeField] private TextMeshProUGUI codeText;
     [SerializeField] private TextMeshProUGUI countDownText;
     [SerializeField] private TextMeshProUGUI infoText;
@@ -153,6 +155,12 @@ public class UIManager : MonoBehaviour
 
     public void OnClickExit()
     {
+        ActivatePanelDisconnecting();
+        Invoke("GoToMenuAfterDisconnect", 3.0f);
+    }
+
+    public void GoToMenuAfterDisconnect()
+    {
         GameManager.Instance.LoadScene("MainMenu");
     }
 
@@ -218,6 +226,11 @@ public class UIManager : MonoBehaviour
     public bool IsPanelWaitingEnabled()
     {
         return panelWaitingMobile.activeSelf;
+    }
+
+    public void ActivatePanelWinning()
+    {
+        panelWinning.SetActive(true);
     }
 
     public void SetCodeRoomText(string room)
@@ -286,6 +299,10 @@ public class UIManager : MonoBehaviour
 
     public void SetMobileDisconnectedText()
     {
-        infoText.text = "El móvil se ha desconectado \n Es necesario Reiniciar el juego";
+        waitingText.text = "El móvil se ha desconectado \n Es necesario Reiniciar el juego";
+        infoText.gameObject.SetActive(false);
+        countDownText.gameObject.SetActive(false);
+        restartButton.gameObject.SetActive(true);
+        restartButton.onClick.AddListener(delegate { OnClickExit(); });
     }
 }

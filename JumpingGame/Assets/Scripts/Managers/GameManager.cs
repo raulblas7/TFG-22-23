@@ -148,9 +148,9 @@ public class GameManager : MonoBehaviour
         numJumps = nJumps;
         Debug.Log("NumJumps es " + numJumps);
         maxCubes = numJumps / 3;
-        if (maxCubes <= 0)
+        if (maxCubes <= 1)
         {
-            maxCubes = 1;
+            maxCubes = 2;
         }
     }
 

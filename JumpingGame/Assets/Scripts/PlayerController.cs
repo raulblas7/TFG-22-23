@@ -100,9 +100,9 @@ public class PlayerController : MonoBehaviour
             GameManager.Instance.AddPoints(pointsPerChest);
             Destroy(other.gameObject);
         }
-        else if (other.gameObject.CompareTag("Water"))
+        else if (other.gameObject.CompareTag("FinalJump"))
         {
-            GameManager.Instance.QuitPoints(50);
+            GameManager.Instance.GetUIManager().ActivatePanelWinning();
         }
         else
         {
@@ -129,9 +129,9 @@ public class PlayerController : MonoBehaviour
             CubeController cube = collision.gameObject.GetComponent<CubeController>();
             cube.SetStartDiving();
         }
-        if (collision.gameObject.CompareTag("Water"))
+        else if (collision.gameObject.CompareTag("Water"))
         {
-            //GameManager.Instance.LoadScene("LoseScene");
+            GameManager.Instance.QuitPoints(50);
         }
 
         ContactPoint[] contactPoints = collision.contacts;
