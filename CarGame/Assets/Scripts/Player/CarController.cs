@@ -34,16 +34,24 @@ public class CarController : MonoBehaviour
 
     [SerializeField] private float deadzoneAngle;
 
-    private const float INITIAL_DEGREES = 350.0f; 
+    private const float INITIAL_DEGREES = 350.0f;
+
+    private bool gameFinished = false;
 
     private void FixedUpdate()
     {
         //GetInput();
-        if (!GameManager.Instance.GetUIManager().IsPanelWaitingEnabled())
+        if (!GameManager.Instance.GetUIManager().IsPanelWaitingEnabled() && !GameManager.Instance.GetUIManager().IsPanelWinningEnabled())
         {
             HandleMotor();
             HandleSteering();
             UpdateWheels();
+        }
+        else if(!gameFinished && GameManager.Instance.GetUIManager().IsPanelWinningEnabled())
+        {
+            gameFinished = true;
+            currentBreakForce= breakForce;
+            ApplyBreaking();
         }
     }
 

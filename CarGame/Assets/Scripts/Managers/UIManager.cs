@@ -83,7 +83,7 @@ public class UIManager : MonoBehaviour
         if(difficultyDropdown != null)
         {
             difficultyDropdown.onValueChanged.AddListener(delegate { ValueChangeDropdown(); });
-            difficultyDropdown.value = GameManager.Instance.GetDifficulty();
+            difficultyDropdown.value = (int)GameManager.Instance.GetDifficulty();
         }
         if (returnToMenu != null)
         {
@@ -180,7 +180,7 @@ public class UIManager : MonoBehaviour
     {
         if (lapsText != null)
         {
-            lapsText.text = "vueltas " + GameManager.Instance.GetCurrentLaps() + " de " + GameManager.Instance.GetLaps();
+            lapsText.text = "vuelta " + GameManager.Instance.GetCurrentLaps() + " de " + GameManager.Instance.GetLaps();
         }
     }
 
@@ -206,6 +206,11 @@ public class UIManager : MonoBehaviour
         return panelWaitingMobile.activeSelf;
     }
 
+    public bool IsPanelWinningEnabled()
+    {
+        return panelWinning.activeSelf;
+    }
+
     public void SetCodeRoomText(string room)
     {
         ipAndCountDownText.text = room;
@@ -226,6 +231,10 @@ public class UIManager : MonoBehaviour
         if (panelWaitingMobile.activeSelf)
         {
             panelWaitingMobile.SetActive(false);
+        }
+        if (panelWinning.activeSelf)
+        {
+            panelWinning.SetActive(false);
         }
         panelDisconnecting.SetActive(true);
     }
@@ -267,5 +276,10 @@ public class UIManager : MonoBehaviour
         {
             Debug.Log("Error al actualizar la cuenta atras");
         }
+    }
+
+    public void GameFinished()
+    {
+        panelWinning.SetActive(true);
     }
 }

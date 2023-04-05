@@ -7,5 +7,5 @@ public class ConfigurationData
 {
     public int Laps;
     public int AnguloDeJuego;
-    public int Dificultad;
+    public float Dificultad;
 }
