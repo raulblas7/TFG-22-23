@@ -250,7 +250,8 @@ public class UIManager : MonoBehaviour
 
     public void SetTextMobileDisconnected()
     {
-        infoText.text = "El móvil se ha desconectado \n Es necesario Reiniciar el juego";
+        infoText.text = "El movil se ha desconectado \n Es necesario Reiniciar el juego, pulsa el botón de salir";
+        ipAndCountDownText.gameObject.SetActive(false);
     }
 
     public void UpdateCountDown()
