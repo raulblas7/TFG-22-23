@@ -8,10 +8,10 @@ public class ConfigurationManager : MonoBehaviour
 {
 
     [SerializeField] TextMeshProUGUI errorTextTime;
-    [SerializeField] TextMeshProUGUI placeholderTime;
+    [SerializeField] TMP_InputField textTime;
 
     [SerializeField] TextMeshProUGUI errorTextRepeat;
-    [SerializeField] TextMeshProUGUI placeholderRepeat;
+    [SerializeField] TMP_InputField textRepeat;
 
     [SerializeField] Button button;
     [SerializeField] SliderConfig slider;
@@ -19,8 +19,8 @@ public class ConfigurationManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        placeholderRepeat.text = GameManager.Instance.GetMaxFish().ToString();
-        placeholderTime.text = GameManager.Instance.GetMaxTime().ToString();
+        textRepeat.text = GameManager.Instance.GetMaxFish().ToString();
+        textTime.text = GameManager.Instance.GetMaxTime().ToString();
         slider.SetValue(GameManager.Instance.GetGameAngle());
         errorTextRepeat.gameObject.SetActive(false);
         errorTextTime.gameObject.SetActive(false);
@@ -44,7 +44,7 @@ public class ConfigurationManager : MonoBehaviour
         try
         {
             errorTextTime.gameObject.SetActive(false);
-            
+
             float t = float.Parse(time);
             Debug.Log(t);
             GameManager.Instance.SetMaxTime(t);

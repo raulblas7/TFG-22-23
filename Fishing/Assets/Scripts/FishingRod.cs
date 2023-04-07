@@ -83,13 +83,7 @@ public class FishingRod : MonoBehaviour
         return addForce;
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("DeadZone"))
-        {
-            SetFishAtBait(false);
-        }
-    }
+ 
 
     public void CheckIfApplyForce(Quaternion orientQuaternion)
     {
