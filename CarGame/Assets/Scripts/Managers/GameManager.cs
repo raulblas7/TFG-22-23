@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     private int angleToDoIt = 30;
     private int laps = 3;
     private int currentLaps = 0;
-    private int difficulty;
+    private float difficulty;
 
     // Variables de guardado
     ConfigurationSaveManager _configurationSafeManager;
@@ -72,6 +72,10 @@ public class GameManager : MonoBehaviour
             currentLaps++;
             uiManager.SetlapsText();
         }
+        else
+        {
+            uiManager.GameFinished();
+        }
     }
 
     public void SetNumLaps(int l)
@@ -89,7 +93,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void SetDifficulty(int dif) { difficulty = dif; }
-    public int GetDifficulty() { return difficulty; }
+    public float GetDifficulty() { return difficulty; }
 
     private void LoadConfig()
     {

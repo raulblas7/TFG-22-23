@@ -25,8 +25,8 @@ public class ServerManager : MonoBehaviour
 
     private void AddTexts()
     {
-        GameManager.Instance.GetUIManager().SetIPText(udpServer.GetIp().ToString());
-        GameManager.Instance.GetUIManager().SetPORTText(port.ToString());
+        //GameManager.Instance.GetUIManager().SetIPText(udpServer.GetIp().ToString());
+        //GameManager.Instance.GetUIManager().SetPORTText(port.ToString());
     }
 
     private void Update()
