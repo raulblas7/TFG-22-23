@@ -2862,7 +2862,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'vueltas '
+  m_text: 'vuelta '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e07e03e28e42b664d92dab48dd060c66, type: 2}
   m_sharedMaterial: {fileID: -1438256139739239277, guid: e07e03e28e42b664d92dab48dd060c66, type: 2}

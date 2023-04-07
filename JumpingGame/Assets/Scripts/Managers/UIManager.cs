@@ -27,9 +27,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject panelWinning;
     [SerializeField] private TextMeshProUGUI waitingText;
     [SerializeField] private TextMeshProUGUI codeText;
-    [SerializeField] private TextMeshProUGUI countDownText;
-    [SerializeField] private TextMeshProUGUI infoText;
-    [SerializeField] private TextMeshProUGUI textCodeRoom2;
+    [SerializeField] private TextMeshProUGUI countDownText;    
 
     private void Start()
     {
@@ -161,6 +159,7 @@ public class UIManager : MonoBehaviour
 
     public void GoToMenuAfterDisconnect()
     {
+        GameManager.Instance.ResetPoints();
         GameManager.Instance.LoadScene("MainMenu");
     }
 
@@ -243,29 +242,23 @@ public class UIManager : MonoBehaviour
         codeText.text = ip;
     }
 
-    public void SetPORTText(string room)
-    {
-        textCodeRoom2.text = room;
-    }
-
     public string GetIPText()
     {
         return codeText.text;
     }
 
-    public string GetPORTText()
-    {
-        return textCodeRoom2.text;
-    }
-
     public void ActivatePanelDisconnecting()
     {
+        if(panelWinning.activeSelf)
+        {
+            panelWinning.SetActive(false);
+        }
         panelDisconnecting.SetActive(true);
     }
 
     public void StartCountDown()
     {
-        infoText.text = "Coloquese en la posicion inicial";
+        waitingText.text = "Coloquese en la posicion inicial";
         countDownText.gameObject.SetActive(true);
         codeText.gameObject.SetActive(false);
         InvokeRepeating("UpdateCountDown", 1.0f, 1.0f);
@@ -300,7 +293,6 @@ public class UIManager : MonoBehaviour
     public void SetMobileDisconnectedText()
     {
         waitingText.text = "El móvil se ha desconectado \n Es necesario Reiniciar el juego";
-        infoText.gameObject.SetActive(false);
         countDownText.gameObject.SetActive(false);
         restartButton.gameObject.SetActive(true);
         restartButton.onClick.AddListener(delegate { OnClickExit(); });

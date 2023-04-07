@@ -154,6 +154,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void ResetPoints()
+    {
+        numPoints = 0;
+    }
+
     public void ImUiManager(UIManager uiManager)
     {
         this.uiManager = uiManager;
