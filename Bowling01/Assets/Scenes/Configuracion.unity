@@ -734,7 +734,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Niv\xE9l de dificultad para apuntar\n"
+  m_text: 'Nivel de dificultad para apuntar
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3a1fa3277e573474ba85e34c3e4ef5ab, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 3a1fa3277e573474ba85e34c3e4ef5ab, type: 2}
