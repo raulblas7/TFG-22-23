@@ -139,6 +139,10 @@ public class CarController : MonoBehaviour
 
         if (orient.x >= 270.0f && orient.x <= INITIAL_DEGREES - GameManager.Instance.GetAngleToDoIt())
         {
+            if(isBreaking)
+            {
+                GameManager.Instance.AddReps();
+            }
             isBreaking = false;
         }
         else
