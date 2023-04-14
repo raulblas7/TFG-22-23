@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     private UIManager uiManager;
     private int angleToDoIt = 30;
     private int laps = 3;
+    private int reps = 10;
+    private int currentReps = 10;
     private int currentLaps = 0;
     private float difficulty;
 
@@ -65,12 +67,35 @@ public class GameManager : MonoBehaviour
         return angleToDoIt;
     }
 
+    public void SetNumReps(int r)
+    {
+        reps = r;
+    }
+
+    public int GetReps()
+    {
+        return reps;
+    }
+
     public void AddLaps()
     {
         if (currentLaps + 1 <= laps)
         {
             currentLaps++;
             uiManager.SetlapsText();
+        }
+        else
+        {
+            uiManager.GameFinished();
+        }
+    }
+
+    public void AddReps()
+    {
+        if (currentReps + 1 <= reps)
+        {
+            currentReps++;
+            uiManager.SetRepsText();
         }
         else
         {
@@ -92,6 +117,11 @@ public class GameManager : MonoBehaviour
         return currentLaps;
     }
 
+    public int GetCurrentReps()
+    {
+        return currentReps;
+    }
+
     public void SetDifficulty(int dif) { difficulty = dif; }
     public float GetDifficulty() { return difficulty; }
 
@@ -100,6 +130,7 @@ public class GameManager : MonoBehaviour
         ConfigurationData data = _configurationSafeManager.Load();
         if (data != null)
         {
+            reps = data.Reps;
             laps = data.Laps;
             angleToDoIt = data.AnguloDeJuego;
             difficulty = data.Dificultad; 
@@ -109,6 +140,7 @@ public class GameManager : MonoBehaviour
     public void SafeConfig()
     {
         ConfigurationData data = new ConfigurationData();
+        data.Reps = reps;
         data.Laps = laps;
         data.AnguloDeJuego = angleToDoIt;
         data.Dificultad = difficulty;

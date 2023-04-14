@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button settingsButton;
 
     // Variables Menu Settings, solo tendrán valor en dicho menu
+    [SerializeField] private TMP_InputField repsField;
     [SerializeField] private TMP_InputField lapsField;
     [SerializeField] private TMP_InputField angleField;
     [SerializeField] private TMP_Dropdown difficultyDropdown;
@@ -20,6 +21,7 @@ public class UIManager : MonoBehaviour
     // Variables de UI en CircuitGameScene, solo tendrán valor en dicha escena
     [SerializeField] private Button exitButton;
     [SerializeField] private TextMeshProUGUI lapsText;
+    [SerializeField] private TextMeshProUGUI repsText;
     [SerializeField] private GameObject panelWaitingMobile;
     [SerializeField] private GameObject panelDisconnecting;
     [SerializeField] private GameObject panelWinning;
@@ -33,6 +35,10 @@ public class UIManager : MonoBehaviour
         if (lapsText != null)
         {
             lapsText.text = lapsText.text + GameManager.Instance.GetCurrentLaps() + " de " + GameManager.Instance.GetLaps();
+        }
+        if (repsText != null)
+        {
+            repsText.text = repsText.text + GameManager.Instance.GetCurrentReps() + " de " + GameManager.Instance.GetReps();
         }
     }
 
@@ -68,6 +74,11 @@ public class UIManager : MonoBehaviour
 
     public void SetInputFieldListener()
     {
+        if (repsField != null)
+        {
+            repsField.onValueChanged.AddListener(delegate { ValueChangeRepsCheck(); });
+            repsField.text = "" + GameManager.Instance.GetReps();
+        }
         // Añade un listener onValueChanged al inputField de settings si existe
         if (lapsField != null)
         {
@@ -89,6 +100,19 @@ public class UIManager : MonoBehaviour
         {
             returnToMenu.onClick.AddListener(delegate { OnClickReturnToMenu(); });
             returnToMenu.onClick.AddListener(delegate { OnClickSafeConfig(); });
+        }
+    }
+
+    public void ValueChangeRepsCheck()
+    {
+        try
+        {
+            int n = int.Parse(repsField.text);
+            GameManager.Instance.SetNumReps(n);
+        }
+        catch
+        {
+            Debug.Log("Valor introducido no valido");
         }
     }
 
@@ -184,6 +208,14 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void SetRepsText()
+    {
+        if (repsText != null)
+        {
+            repsText.text = "Repeticion " + GameManager.Instance.GetCurrentReps() + " de " + GameManager.Instance.GetReps();
+        }
+    }
+
     public void TellGameManagerQuitApp()
     {
         GameManager.Instance.QuitApplication();
@@ -193,12 +225,14 @@ public class UIManager : MonoBehaviour
     {
         panelWaitingMobile.SetActive(false);
         lapsText.gameObject.SetActive(true);
+        repsText.gameObject.SetActive(true);
     }
 
     public void EnablePanelWaiting()
     {
         panelWaitingMobile.SetActive(true);
         lapsText.gameObject.SetActive(false);
+        repsText.gameObject.SetActive(false);
     }
 
     public bool IsPanelWaitingEnabled()
