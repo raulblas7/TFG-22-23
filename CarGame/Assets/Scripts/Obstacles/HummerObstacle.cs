@@ -10,7 +10,18 @@ public class HummerObstacle : MonoBehaviour
 
     private void Start()
     {
-        force = GameManager.Instance.GetDifficulty() + 0.3f;
+        switch (GameManager.Instance.GetDifficulty())
+        {
+            case 0:
+                force = 0.3f;
+                break;
+            case 1:
+                force = 1f;
+                break;
+            case 2:
+                force = 1.5f;
+                break;
+        }
     }
 
     private void FixedUpdate()

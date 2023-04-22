@@ -1244,6 +1244,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playButton: {fileID: 0}
   settingsButton: {fileID: 0}
+  infoButton: {fileID: 0}
+  exitInMenuButton: {fileID: 0}
   repsField: {fileID: 0}
   lapsField: {fileID: 0}
   angleField: {fileID: 0}
@@ -1543,7 +1545,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Llegaste a la meta
+  m_text: 'Lo lograste
 
     Pulsa el boton de salir
 
@@ -2857,8 +2859,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 1745202823}
     m_Modifications:
     - target: {fileID: 215362339, guid: 133308cdb8794744caaef026bde9e1f0, type: 3}
+      propertyPath: breakForce
+      value: 50000
+      objectReference: {fileID: 0}
+    - target: {fileID: 215362339, guid: 133308cdb8794744caaef026bde9e1f0, type: 3}
       propertyPath: motorForce
-      value: 1000
+      value: 20000
       objectReference: {fileID: 0}
     - target: {fileID: 215362339, guid: 133308cdb8794744caaef026bde9e1f0, type: 3}
       propertyPath: deadzoneAngle
