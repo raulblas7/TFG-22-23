@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
     // Variables Menu Main, solo tendrán valor en dicho menu
     [SerializeField] private Button playButton;
     [SerializeField] private Button settingsButton;
+    [SerializeField] private Button infoButton;
 
     // Variables Menu Settings, solo tendrán valor en dicho menu
     [SerializeField] private TextMeshProUGUI textInvalidInput;
@@ -52,6 +53,11 @@ public class UIManager : MonoBehaviour
         if (settingsButton != null)
         {
             settingsButton.onClick.AddListener(delegate { OnClickSettings(); });
+        }
+
+        if (infoButton != null)
+        {
+            infoButton.onClick.AddListener(delegate { GameManager.Instance.LoadScene("InfoScene"); });
         }
     }
 
@@ -139,16 +145,7 @@ public class UIManager : MonoBehaviour
 
     public void ReturnToMenu()
     {
-        try
-        {
-            //TODO: cambiar
-            int n = int.Parse(mainInputField.text);
-            GameManager.Instance.LoadScene("MainMenu");
-        }
-        catch
-        {
-            textInvalidInput.text = "Has introducido un valor que no es válido, introduce un número correcto y regresa al menú para jugar";
-        }
+        GameManager.Instance.LoadScene("MainMenu");
     }
 
     public void OnClickExit()
