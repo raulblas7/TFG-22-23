@@ -10,6 +10,8 @@ public class UIManager : MonoBehaviour
     // Variables Menu Main, solo tendrán valor en dicho menu
     [SerializeField] private Button playButton;
     [SerializeField] private Button settingsButton;
+    [SerializeField] private Button infoButton;
+    [SerializeField] private Button exitInMenuButton;
 
     // Variables Menu Settings, solo tendrán valor en dicho menu
     [SerializeField] private TMP_InputField repsField;
@@ -55,6 +57,16 @@ public class UIManager : MonoBehaviour
         {
             settingsButton.onClick.AddListener(delegate { OnClickSettings(); });
         }
+
+        if (infoButton != null)
+        {
+            infoButton.onClick.AddListener(delegate { OnClickInfo(); });
+        }
+
+        if (exitInMenuButton != null)
+        {
+            exitInMenuButton.onClick.AddListener(delegate { GameManager.Instance.QuitApplication(); });
+        }
     }
 
     public void OnClickPlay()
@@ -65,6 +77,11 @@ public class UIManager : MonoBehaviour
     public void OnClickSettings()
     {
         GameManager.Instance.LoadScene("SettingsMenu");
+    }
+
+    public void OnClickInfo()
+    {
+        GameManager.Instance.LoadScene("InfoScene");
     }
 
     public void OnClickReturnToMenu()
@@ -89,7 +106,7 @@ public class UIManager : MonoBehaviour
         if (angleField != null)
         {
             angleField.onValueChanged.AddListener(delegate { ValueChangeCheckAngle(); });
-            angleField.text = " " + GameManager.Instance.GetAngleToDoIt();
+            angleField.text = "" + GameManager.Instance.GetAngleToDoIt();
         }
         if(difficultyDropdown != null)
         {
@@ -98,8 +115,16 @@ public class UIManager : MonoBehaviour
         }
         if (returnToMenu != null)
         {
-            returnToMenu.onClick.AddListener(delegate { OnClickReturnToMenu(); });
             returnToMenu.onClick.AddListener(delegate { OnClickSafeConfig(); });
+            returnToMenu.onClick.AddListener(delegate { OnClickReturnToMenu(); });
+        }
+    }
+
+    public void SetInfoSceneListeners()
+    {
+        if (returnToMenu != null)
+        {
+            returnToMenu.onClick.AddListener(delegate { OnClickReturnToMenu(); });
         }
     }
 
@@ -156,6 +181,8 @@ public class UIManager : MonoBehaviour
 
     public void GoToMenuAfterDisconnect()
     {
+        GameManager.Instance.SetNumCurrentLaps(0);
+        GameManager.Instance.SetCurrentReps(0);
         GameManager.Instance.LoadScene("MainMenu");
     }
 
@@ -191,6 +218,9 @@ public class UIManager : MonoBehaviour
                 break;
             case "SettingsMenu":
                 SetInputFieldListener();
+                break;
+            case "InfoScene":
+                SetInfoSceneListeners();
                 break;
             case "CircuitGameScene":
                 SetUIManagerInGameManager();

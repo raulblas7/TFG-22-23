@@ -245,7 +245,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playButton: {fileID: 0}
   settingsButton: {fileID: 0}
-  repsField: {fileID: 0}
+  repsField: {fileID: 1582077642}
   lapsField: {fileID: 2100923736}
   angleField: {fileID: 628913193}
   difficultyDropdown: {fileID: 979966559}

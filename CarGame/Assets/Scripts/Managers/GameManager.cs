@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     private int angleToDoIt = 30;
     private int laps = 3;
     private int reps = 10;
-    private int currentReps = 10;
+    private int currentReps = 0;
     private int currentLaps = 0;
     private float difficulty;
 
@@ -79,12 +79,9 @@ public class GameManager : MonoBehaviour
 
     public void AddLaps()
     {
-        if (currentLaps + 1 <= laps)
-        {
-            currentLaps++;
-            uiManager.SetlapsText();
-        }
-        else
+        currentLaps++;
+        if(currentLaps <= laps) uiManager.SetlapsText();
+        if (currentLaps == laps)
         {
             uiManager.GameFinished();
         }
@@ -92,12 +89,9 @@ public class GameManager : MonoBehaviour
 
     public void AddReps()
     {
-        if (currentReps + 1 <= reps)
-        {
-            currentReps++;
-            uiManager.SetRepsText();
-        }
-        else
+        currentReps++;
+        if(currentReps <= reps) uiManager.SetRepsText();
+        if (currentReps == reps)
         {
             uiManager.GameFinished();
         }
@@ -106,6 +100,16 @@ public class GameManager : MonoBehaviour
     public void SetNumLaps(int l)
     {
         laps = l;
+    }
+
+    public void SetNumCurrentLaps(int l)
+    {
+        currentLaps = l;
+    }
+
+    public void SetCurrentReps(int r)
+    {
+        currentReps = r;
     }
 
     public int GetLaps()

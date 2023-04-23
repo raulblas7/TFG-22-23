@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Movement
+{
+    MOVE_DONE = 0,
+    DOWN,
+    UP
+}
+
 public class CarController : MonoBehaviour
 {
 
@@ -13,6 +20,8 @@ public class CarController : MonoBehaviour
     private float currentSteerAngle;
 
     private Vector3 currentDir;
+
+    private int rep = 0;
 
     [SerializeField] private FollowPath followPath;
 
@@ -137,17 +146,22 @@ public class CarController : MonoBehaviour
 
         Debug.Log("El vector en angulos es: " + orient);
 
-        if (orient.x >= 270.0f && orient.x <= INITIAL_DEGREES - GameManager.Instance.GetAngleToDoIt())
+        if (isBreaking && orient.x >= 270.0f && orient.x <= INITIAL_DEGREES - GameManager.Instance.GetAngleToDoIt())
         {
-            if(isBreaking)
-            {
-                GameManager.Instance.AddReps();
-            }
             isBreaking = false;
+            rep++;
+            Debug.Log("Acelerar completado");
         }
-        else
+        else if(!isBreaking && orient.x >= INITIAL_DEGREES - 10.0f)
         {
             isBreaking = true;
+            rep++;
+            Debug.Log("Frenar completado");
+        }
+        if(rep == 2)
+        {
+            GameManager.Instance.AddReps();
+            rep = 0;
         }
         GameManager.Instance.WriteData(orient.ToString());
     }
