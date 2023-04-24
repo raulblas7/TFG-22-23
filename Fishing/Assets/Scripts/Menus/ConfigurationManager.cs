@@ -48,7 +48,10 @@ public class ConfigurationManager : MonoBehaviour
             float t = float.Parse(time);
             Debug.Log(t);
             GameManager.Instance.SetMaxTime(t);
-            button.interactable = true;
+            if (!errorTextTime.gameObject.activeSelf && !errorTextRepeat.gameObject.activeSelf)
+            {
+                button.interactable = true;
+            }
         }
         catch
         {
@@ -64,7 +67,10 @@ public class ConfigurationManager : MonoBehaviour
             errorTextRepeat.gameObject.SetActive(false);
             int n = int.Parse(num);
             GameManager.Instance.SetMAxFish(n);
-            button.interactable = true;
+            if (!errorTextTime.gameObject.activeSelf && !errorTextRepeat.gameObject.activeSelf)
+            {
+                button.interactable = true;
+            }
         }
         catch
         {
