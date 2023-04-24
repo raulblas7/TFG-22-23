@@ -222,7 +222,7 @@ public class PlayerController : MonoBehaviour
         {
             currentState = Movement.MOVE_DONE;
         }
-        else if((orient.x < (350.0f -30.0f) && orient.x >180.0f)&& currentState == Movement.WAITING)
+        else if((orient.x < 287.0f && orient.x > 180.0f)&& currentState == Movement.WAITING)
         {
             currentState = Movement.RESTART;
         }
