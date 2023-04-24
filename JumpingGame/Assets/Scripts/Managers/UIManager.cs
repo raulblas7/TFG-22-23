@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_InputField mainInputField;
     [SerializeField] private TMP_InputField speedField;
     [SerializeField] private TMP_InputField angleField;
+    [SerializeField] private Button returnButton;
 
     // Variables de UI en JumpScene, solo tendrán valor en dicha escena
     [SerializeField] private Button exitButton;
@@ -105,10 +106,16 @@ public class UIManager : MonoBehaviour
         {
             int n = int.Parse(mainInputField.text);
             GameManager.Instance.SetNumJumps(n);
+            textInvalidInput.enabled = false;
+            if(!textInvalidInput2.enabled && !textInvalidInput3.enabled)
+            {
+                returnButton.interactable = true;
+            }
         }
         catch
         {
             textInvalidInput.enabled = true;
+            returnButton.interactable = false;
         }
     }
 
@@ -118,10 +125,16 @@ public class UIManager : MonoBehaviour
         {
             float n = float.Parse(speedField.text);
             GameManager.Instance.SetSpeedDownCubes(n);
+            textInvalidInput2.enabled = false;
+            if (!textInvalidInput.enabled && !textInvalidInput3.enabled)
+            {
+                returnButton.interactable = true;
+            }
         }
         catch
         {
             textInvalidInput2.enabled = true;
+            returnButton.interactable = false;
         }
     }
 
@@ -131,10 +144,16 @@ public class UIManager : MonoBehaviour
         {
             int n = int.Parse(angleField.text);
             GameManager.Instance.SetAngleToDoIt(n);
+            textInvalidInput3.enabled = false;
+            if (!textInvalidInput.enabled && !textInvalidInput2.enabled)
+            {
+                returnButton.interactable = true;
+            }
         }
         catch
         {
             textInvalidInput3.enabled = true;
+            returnButton.interactable = false;
         }
     }
 
