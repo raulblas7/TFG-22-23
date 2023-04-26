@@ -28,10 +28,10 @@ public class ConfigurationManager : MonoBehaviour
         GameManager.Instance.ChangeScene(scene);
     }
 
-    public void SetGameAngle(float angle)
-    {
-        GameManager.Instance.SetGameAngle(angle);
-    }
+    //public void SetGameAngle(float angle)
+    //{
+    //    GameManager.Instance.SetGameAngle(angle);
+    //}
 
     public void SetExerciseAngle(float angle)
     {
@@ -41,6 +41,14 @@ public class ConfigurationManager : MonoBehaviour
     public void SetDifficulty(float dif)
     {
         GameManager.Instance.SetDifficulty(dif);
+        if (dif == 0)
+        {
+            GameManager.Instance.SetGameAngle(5);
+        }
+        else
+        {
+            GameManager.Instance.SetGameAngle(dif * 20);
+        }
     }
 
     public void SafeConfig()

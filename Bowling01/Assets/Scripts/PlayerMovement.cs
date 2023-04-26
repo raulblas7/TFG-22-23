@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
 {
 
 
+    [SerializeField] UIExerciseSlider slider;
     //Instancia del launcher
     private static PlayerMovement _instance;
 
@@ -63,25 +64,32 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("El vector en angulos es: " + orient);
 
             Debug.Log(cube.right);
-
+            //transformamos la orientacion en un rango de 0 a 180 grados
             float orientZ = (cube.forward.z + 1.0f) / 2.0f * 180.0f;
+
+            // le pasamos el angulo al slider
+            if (orient.x >= 270.0f && orient.x < 355.0f)
+            {
+                slider.UpdateSlider(orientZ);
+
+            }
 
             Debug.Log("el angulo es " + orientZ);
 
             if (currentState == Movement.DOWN) Debug.Log("DOWN");
             else if (currentState == Movement.UP) Debug.Log("UP");
             else Debug.Log("MOVE DONE");
-          
-            if ((orientZ <= 180.0f - exerciseAngle &&( orient.x >= 270.0f && orient.x < 355.0f)) && currentState == Movement.UP)
+
+            if ((orientZ <= 180.0f - exerciseAngle && (orient.x >= 270.0f && orient.x < 355.0f)) && currentState == Movement.UP)
             {
                 currentState = Movement.MOVE_DONE;
                 Debug.Log("MOVE_DONE");
             }
-            // else if ((orient.x < 350.0f && orient.x > 180.0f) && currentState == Movement.DOWN)
+
             else if ((orientZ > 180.0f - 10.0f && (orient.x >= 270.0f && orient.x < 355.0f)) && currentState == Movement.DOWN)
             {
                 currentState = Movement.UP;
-               // Debug.Log("UP");
+                // Debug.Log("UP");
             }
 
             //guardado de los datos
