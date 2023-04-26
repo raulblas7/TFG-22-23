@@ -73,6 +73,11 @@ public class Spawner : MonoBehaviour
         }
     }
 
+    public void ResetNumCubesInstantiated()
+    {
+        numCubesInstantiated = 0;
+    }
+
     private Vector3 GetNewPos(bool island)
     {
         CubeController lastCube = GameManager.Instance.getLastCube();

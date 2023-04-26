@@ -38,12 +38,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         angle = GameManager.Instance.GetAngleToDoIt();
-        transform.position = new Vector3(0.0f, 1.0f, 0.0f);
-        nextDest = GameManager.Instance.getFirstCube();
-        canJump = true;
-        jumpInput = false;
-        // movementMade= false;
-        currentState = Movement.WAITING;
+        InitPlayer();
     }
 
     void Update()
@@ -103,6 +98,8 @@ public class PlayerController : MonoBehaviour
         else if (other.gameObject.CompareTag("FinalJump"))
         {
             GameManager.Instance.GetUIManager().ActivatePanelWinning();
+            GameManager.Instance.RestartGame();
+            Invoke("ResetPlayer", 1.0f);
         }
         else
         {
@@ -228,5 +225,21 @@ public class PlayerController : MonoBehaviour
         }
 
         GameManager.Instance.WriteData(orient.ToString());
+    }
+
+    private void InitPlayer()
+    {
+        transform.position = new Vector3(0.0f, 1.0f, 0.0f);
+        nextDest = GameManager.Instance.getFirstCube();
+        canJump = true;
+        jumpInput = false;
+        // movementMade= false;
+        currentState = Movement.WAITING;
+    }
+    private void ResetPlayer()
+    {
+        rb.AddForce(-currentForce, ForceMode.Force);
+        Destroy(nextDest.gameObject);
+        InitPlayer();
     }
 }
