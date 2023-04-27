@@ -13,6 +13,10 @@ public class ConfigurationManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI errorTextRepeat;
     [SerializeField] TMP_InputField textRepeat;
 
+
+    [SerializeField] TextMeshProUGUI errorTextSerie;
+    [SerializeField] TMP_InputField textSerie;
+
     [SerializeField] Button button;
     [SerializeField] SliderConfig slider;
 
@@ -21,9 +25,11 @@ public class ConfigurationManager : MonoBehaviour
     {
         textRepeat.text = GameManager.Instance.GetMaxFish().ToString();
         textTime.text = GameManager.Instance.GetMaxTime().ToString();
+        textSerie.text = GameManager.Instance.GetMaxSeries().ToString();
         slider.SetValue(GameManager.Instance.GetGameAngle());
         errorTextRepeat.gameObject.SetActive(false);
         errorTextTime.gameObject.SetActive(false);
+        errorTextSerie.gameObject.SetActive(false);
 
     }
 
@@ -48,7 +54,7 @@ public class ConfigurationManager : MonoBehaviour
             float t = float.Parse(time);
             Debug.Log(t);
             GameManager.Instance.SetMaxTime(t);
-            if (!errorTextTime.gameObject.activeSelf && !errorTextRepeat.gameObject.activeSelf)
+            if (!errorTextTime.gameObject.activeSelf && !errorTextRepeat.gameObject.activeSelf && !errorTextSerie.gameObject.activeSelf)
             {
                 button.interactable = true;
             }
@@ -67,7 +73,7 @@ public class ConfigurationManager : MonoBehaviour
             errorTextRepeat.gameObject.SetActive(false);
             int n = int.Parse(num);
             GameManager.Instance.SetMAxFish(n);
-            if (!errorTextTime.gameObject.activeSelf && !errorTextRepeat.gameObject.activeSelf)
+            if (!errorTextTime.gameObject.activeSelf && !errorTextRepeat.gameObject.activeSelf && !errorTextSerie.gameObject.activeSelf)
             {
                 button.interactable = true;
             }
@@ -75,6 +81,25 @@ public class ConfigurationManager : MonoBehaviour
         catch
         {
             errorTextRepeat.gameObject.SetActive(true);
+            button.interactable = false;
+        }
+    }
+
+    public void SetSeries(string num)
+    {
+        try
+        {
+            errorTextSerie.gameObject.SetActive(false);
+            int n = int.Parse(num);
+            GameManager.Instance.SetMaxSeries(n);
+            if (!errorTextTime.gameObject.activeSelf && !errorTextRepeat.gameObject.activeSelf && !errorTextSerie.gameObject.activeSelf)
+            {
+                button.interactable = true;
+            }
+        }
+        catch
+        {
+            errorTextSerie.gameObject.SetActive(true);
             button.interactable = false;
         }
     }

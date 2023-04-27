@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _maxFish;   // indica la catidad maxima de peces que podemos pescar
     [SerializeField] private float _maxTime;
     [SerializeField] private int _gameAngle;
+    [SerializeField] private int _maxSeries;
     //Managers
     private GameUIManager _UIManager;
     private FishInstantiator _instantiator;
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviour
     private int _points = 0;
     private int _currentFish = 0;           //numero de peces que se han pescado
     private bool _gameActive = false;
+    private int _currentSerie = 0;
 
     //Variable el guardado
     ConfigurationSaveManager _configurationSafeManager;
@@ -63,10 +65,20 @@ public class GameManager : MonoBehaviour
         _UIManager.UpdateFishCount(_currentFish);
         if (_currentFish == _maxFish)
         {
-            //fin del juego
-            DesactiveGame();
-            NetworkManager.Instance.StopServer();
-            _UIManager.ActiveFinalPanel(_points);
+            //fin de serie
+            DesactiveGame();    //desactivamos el juego y paramos el guardado
+            _UIManager.ActiveFinalPanel(_points); 
+            _currentSerie++;
+            //si hemos terminado el juego
+            if(_currentSerie == _maxSeries)
+            {
+                NetworkManager.Instance.StopServer();
+                _UIManager.ActiveMainMenuButton();
+            }
+            else
+            {
+
+            }
 
         }
 
@@ -89,6 +101,7 @@ public class GameManager : MonoBehaviour
     {
         _points = 0;
         _currentFish = 0;
+        _currentSerie = 0;
     }
 
     //managers
@@ -129,12 +142,17 @@ public class GameManager : MonoBehaviour
 
     public int GetGameAngle() { return _gameAngle; }
     public void SetGameAngle(int Angle) { _gameAngle = Angle; }
+
+    public int GetMaxSeries() { return _maxSeries; }
+    public void SetMaxSeries(int series) { _maxSeries = series; }
+
     public void SafeConfig()
     {
         ConfigurationData data = new ConfigurationData();
         data.Numerorepeticiones = _maxFish;
         data.AnguloDeJuego = _gameAngle;
         data.TiempoRepeticiones = _maxTime;
+        data.Series = _maxSeries;
         _configurationSafeManager.Safe(data);
     }
 
@@ -146,6 +164,7 @@ public class GameManager : MonoBehaviour
             _maxFish = data.Numerorepeticiones;
             _maxTime = data.TiempoRepeticiones;
             _gameAngle = data.AnguloDeJuego;
+            _maxSeries = data.Series;
         }
     }
 

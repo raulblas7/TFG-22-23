@@ -16,6 +16,7 @@ public class FishingRod : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private MeshRenderer baitRenderer;
     [SerializeField] private ColorFishingRod baitColors;
+    [SerializeField] private UIExerciseSlider slider;
 
     private bool fishAtBait = false;
     private bool addForce = false;
@@ -92,6 +93,12 @@ public class FishingRod : MonoBehaviour
         if (state == Movement.UP) Debug.Log("UP");
         else if (state == Movement.MOVEDONE) Debug.Log("MOVE DONE");
         else Debug.Log("DOWN");
+
+        //le pasamos la info al slider
+        if(orient.x >= 270 && orient.x <= 360)
+        {
+            slider.UpdateSlider(orient.x);
+        }
 
         if ((orient.x >= 270.0f + playerAngle || orient.x < 90) && state == Movement.UP)
         {

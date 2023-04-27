@@ -14,6 +14,7 @@ public class GameUIManager : MonoBehaviour
     //final panel
     [SerializeField] private GameObject finalPanel;
     [SerializeField] private TextMeshProUGUI finalPoints;
+    [SerializeField] private Button mainMenuButton;
 
     //Waiting Panel
     [SerializeField] private GameObject waitingConexionPanel;
@@ -73,6 +74,7 @@ public class GameUIManager : MonoBehaviour
         //activamos el finalPanel
         finalPanel.SetActive(true);
         finalPoints.text = points.ToString();
+        mainMenuButton.gameObject.SetActive(false);
     }
 
     public void ActiveWaitingConexion()
@@ -142,6 +144,10 @@ public class GameUIManager : MonoBehaviour
     public void ActiveRestartButton()
     {
         restartButton.gameObject.SetActive(true);
+    }
+    public void ActiveMainMenuButton()
+    {
+        mainMenuButton.gameObject.SetActive(true);
     }
 
     public void DesactiveGame()
