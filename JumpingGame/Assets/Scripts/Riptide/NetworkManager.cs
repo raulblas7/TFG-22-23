@@ -63,7 +63,7 @@ public class NetworkManager : MonoBehaviour
 
     private void Update()
     {
-        if(Server.ClientCount == 1)
+        if(Server.ClientCount == 1 && !GameManager.Instance.GetUIManager().IsPanelWaitingEnabled() && !GameManager.Instance.GetUIManager().IsPanelWinningEnabled())
         {
             Quaternion q = new Quaternion();
             Vector3 aux = new Vector3(orientationX, 0, 0);

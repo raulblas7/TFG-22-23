@@ -169,6 +169,21 @@ public class GameManager : MonoBehaviour
         numSeries = nSeries;
     }
 
+    public void UpdateCurrentSerie()
+    {
+        currentSerie++;
+        uiManager.SetSeriesText();
+        if(currentSerie >= numSeries)
+        {
+            uiManager.ActivatePanelWinning();
+        }
+    }
+
+    public int GetCurrentSerie()
+    {
+        return currentSerie;
+    }
+
     public int GetNumSeries()
     {
         return numSeries;

@@ -26,6 +26,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button restartButton;
     [SerializeField] private TextMeshProUGUI pointsText;
     [SerializeField] private TextMeshProUGUI jumpsText;
+    [SerializeField] private TextMeshProUGUI seriesText;
     [SerializeField] private GameObject panelWaitingMobile;
     [SerializeField] private GameObject panelDisconnecting;
     [SerializeField] private GameObject panelWinning;
@@ -41,6 +42,10 @@ public class UIManager : MonoBehaviour
         if(jumpsText != null)
         {
             SetJumpsText();
+        }
+        if (seriesText != null)
+        {
+            SetSeriesText();
         }
     }
 
@@ -188,6 +193,11 @@ public class UIManager : MonoBehaviour
         jumpsText.text = "Saltos " + GameManager.Instance.GetNumCurrentJumps() + " de " + GameManager.Instance.GetNumJumps();
     }
 
+    public void SetSeriesText()
+    {
+        seriesText.text = "Series " + GameManager.Instance.GetCurrentSerie() + " de " + GameManager.Instance.GetNumSeries();
+    }
+
     public void ReturnToMenu()
     {
         GameManager.Instance.LoadScene("MainMenu");
@@ -272,6 +282,11 @@ public class UIManager : MonoBehaviour
     public void ActivatePanelWinning()
     {
         panelWinning.SetActive(true);
+    }
+
+    public bool IsPanelWinningEnabled()
+    {
+        return panelWinning.activeSelf;
     }
 
     public void SetCodeRoomText(string room)
