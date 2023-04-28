@@ -15,6 +15,8 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] private GameObject finalPanel;
     [SerializeField] private TextMeshProUGUI finalPoints;
     [SerializeField] private Button mainMenuButton;
+    [SerializeField] private TextMeshProUGUI seriesText;
+    [SerializeField] private TextMeshProUGUI finalCountDownText;
 
     //Waiting Panel
     [SerializeField] private GameObject waitingConexionPanel;
@@ -26,6 +28,7 @@ public class GameUIManager : MonoBehaviour
 
     private int maxFish;
     private float currentTimeCountDown;
+    private int currentFinalCountDown;
 
 
     void Start()
@@ -69,12 +72,14 @@ public class GameUIManager : MonoBehaviour
         fishCountText.text = count.ToString() + "/" + maxFish.ToString();
     }
 
-    public void ActiveFinalPanel(int points)
+    public void ActiveFinalPanel(int points, int currentSerie, int totalSerie)
     {
         //activamos el finalPanel
         finalPanel.SetActive(true);
         finalPoints.text = points.ToString();
         mainMenuButton.gameObject.SetActive(false);
+        finalCountDownText.gameObject.SetActive(false);
+        seriesText.text = currentSerie.ToString() + "/" + totalSerie.ToString();
     }
 
     public void ActiveWaitingConexion()
@@ -124,6 +129,7 @@ public class GameUIManager : MonoBehaviour
     public void RestartGame()
     {
         GameManager.Instance.RestartGame();
+        GameManager.Instance.restartSeries();
     }
 
     public void ChangeScene(string scene)
@@ -148,6 +154,27 @@ public class GameUIManager : MonoBehaviour
     public void ActiveMainMenuButton()
     {
         mainMenuButton.gameObject.SetActive(true);
+    }
+
+    public void ActiveFinalCountDown(int startValue)
+    {
+        finalCountDownText.gameObject.SetActive(true);
+        currentFinalCountDown = startValue;
+        finalCountDownText.text = "Siguente Serie en " + currentFinalCountDown.ToString();
+        InvokeRepeating("UpdateFinalCountDown", 0.0f, 1.0f);
+    }
+
+    private void UpdateFinalCountDown()
+    {
+        currentFinalCountDown --;
+        finalCountDownText.text = "Siguente Serie en " + currentFinalCountDown.ToString();
+
+        if (currentFinalCountDown <= 0) // si termina la cuenta atras
+        {
+            CancelInvoke("UpdateFinalCountDown");
+            finalPanel.SetActive(false);
+            GameManager.Instance.InitGame();
+        }
     }
 
     public void DesactiveGame()

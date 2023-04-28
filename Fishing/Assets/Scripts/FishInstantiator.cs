@@ -67,4 +67,13 @@ public class FishInstantiator : MonoBehaviour
         fishList.Remove(fishToDelete);
         Destroy(fishToDelete.gameObject);
     }
+
+    public void DeleteAllFish()
+    {
+        foreach (Fish f in fishList)
+        {
+            Destroy(f.gameObject);
+        }
+        fishList.Clear();
+    }
 }

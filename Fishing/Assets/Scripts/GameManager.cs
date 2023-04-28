@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     private int _currentFish = 0;           //numero de peces que se han pescado
     private bool _gameActive = false;
     private int _currentSerie = 0;
+    private int _serieTime = 30;
 
     //Variable el guardado
     ConfigurationSaveManager _configurationSafeManager;
@@ -49,13 +50,13 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
 
-    
+
     //variables del juego
-    public void AddPoints(int p) 
+    public void AddPoints(int p)
     {
         //actualizamos los puntos
         _points += p;
@@ -67,17 +68,22 @@ public class GameManager : MonoBehaviour
         {
             //fin de serie
             DesactiveGame();    //desactivamos el juego y paramos el guardado
-            _UIManager.ActiveFinalPanel(_points); 
+            _UIManager.ActiveFinalPanel(_points, _currentSerie + 1, _maxSeries);
             _currentSerie++;
             //si hemos terminado el juego
-            if(_currentSerie == _maxSeries)
+            if (_currentSerie == _maxSeries)
             {
                 NetworkManager.Instance.StopServer();
                 _UIManager.ActiveMainMenuButton();
+                restartSeries();
             }
             else
             {
-
+                RestartGame();
+                _UIManager.UpdatePoints(_points);
+                _UIManager.UpdateFishCount(_currentFish);
+                _UIManager.ActiveFinalCountDown(_serieTime);
+                _instantiator.DeleteAllFish();
             }
 
         }
@@ -85,7 +91,7 @@ public class GameManager : MonoBehaviour
     }
     public int GetPoints() { return _points; }
 
-   
+
 
     //public void AddFish()
     //{
@@ -94,13 +100,17 @@ public class GameManager : MonoBehaviour
     //    if(_currentFish == _maxFish)
     //    {
     //        //TODO fin del juego
-            
+
     //    }
     //}
     public void RestartGame()
     {
         _points = 0;
         _currentFish = 0;
+        //_currentSerie = 0;
+    }
+    public void restartSeries()
+    {
         _currentSerie = 0;
     }
 
@@ -108,7 +118,7 @@ public class GameManager : MonoBehaviour
     public void SetUImanager(GameUIManager manager) { _UIManager = manager; }
     public GameUIManager GetUIManager() { return _UIManager; }
 
-   // public void SetNetworkManager(NetworkManager n) { _networkManager = n; }
+    // public void SetNetworkManager(NetworkManager n) { _networkManager = n; }
 
     public void SetInstatiator(FishInstantiator i) { _instantiator = i; }
 
@@ -120,7 +130,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(Scene);
     }
     public bool IsGameActive() { return _gameActive; }
-    public void InitGame() 
+    public void InitGame()
     {
         //instanciamos los primeros peces
         _instantiator.StartInstantiate();
