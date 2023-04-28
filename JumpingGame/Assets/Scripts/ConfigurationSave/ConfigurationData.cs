@@ -6,6 +6,7 @@ using UnityEngine;
 public class ConfigurationData
 {
     public int Jumps;
+    public int Series;
     public float TimeBetweenReps;
     public int AngleToDo;
 }

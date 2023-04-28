@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour
     private int numJumps = 20;
     private int numCurrentJumps;
 
+    private int numSeries = 2;
+    private int currentSerie;
+
     private float speedDownSetting = 4f;
 
     private Transform finalIslandTR;
@@ -67,6 +70,13 @@ public class GameManager : MonoBehaviour
         {
             spawner.InstantiateNewCube();
         }
+    }
+
+    public void RestartGame()
+    {
+        cubes.Clear();
+        spawner.ResetNumCubesInstantiated();
+        InitGame();
     }
 
     public List<CubeController> getCubes() { return cubes; }
@@ -154,6 +164,31 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void SetNumSeries(int nSeries)
+    {
+        numSeries = nSeries;
+    }
+
+    public void UpdateCurrentSerie()
+    {
+        currentSerie++;
+        uiManager.SetSeriesText();
+        if(currentSerie >= numSeries)
+        {
+            uiManager.ActivatePanelWinning();
+        }
+    }
+
+    public int GetCurrentSerie()
+    {
+        return currentSerie;
+    }
+
+    public int GetNumSeries()
+    {
+        return numSeries;
+    }
+
     public void ResetPoints()
     {
         numPoints = 0;
@@ -200,6 +235,7 @@ public class GameManager : MonoBehaviour
         if (data != null)
         {
             numJumps = data.Jumps;
+            numSeries = data.Series;
             angleToDoIt = data.AngleToDo;
             speedDownSetting = data.TimeBetweenReps;
         }
@@ -209,6 +245,7 @@ public class GameManager : MonoBehaviour
     {
         ConfigurationData data = new ConfigurationData();
         data.Jumps = numJumps;
+        data.Series = numSeries;
         data.AngleToDo = angleToDoIt;
         data.TimeBetweenReps = speedDownSetting;
         _configurationSafeManager.Safe(data);

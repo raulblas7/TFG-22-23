@@ -14,7 +14,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textInvalidInput;
     [SerializeField] private TextMeshProUGUI textInvalidInput2;
     [SerializeField] private TextMeshProUGUI textInvalidInput3;
-    [SerializeField] private TMP_InputField mainInputField;
+    [SerializeField] private TextMeshProUGUI textInvalidInput4;
+    [SerializeField] private TMP_InputField movementInputField;
+    [SerializeField] private TMP_InputField seriesInputField;
     [SerializeField] private TMP_InputField speedField;
     [SerializeField] private TMP_InputField angleField;
     [SerializeField] private Button returnButton;
@@ -24,6 +26,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button restartButton;
     [SerializeField] private TextMeshProUGUI pointsText;
     [SerializeField] private TextMeshProUGUI jumpsText;
+    [SerializeField] private TextMeshProUGUI seriesText;
     [SerializeField] private GameObject panelWaitingMobile;
     [SerializeField] private GameObject panelDisconnecting;
     [SerializeField] private GameObject panelWinning;
@@ -39,6 +42,10 @@ public class UIManager : MonoBehaviour
         if(jumpsText != null)
         {
             SetJumpsText();
+        }
+        if (seriesText != null)
+        {
+            SetSeriesText();
         }
     }
 
@@ -75,10 +82,15 @@ public class UIManager : MonoBehaviour
     public void SetInputFieldListener()
     {
         // Añade un listener onValueChanged al inputField de settings si existe
-        if (mainInputField != null)
+        if (movementInputField != null)
         {
-            mainInputField.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
-            mainInputField.text = "" + GameManager.Instance.GetNumJumps();
+            movementInputField.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
+            movementInputField.text = "" + GameManager.Instance.GetNumJumps();
+        }
+        if (seriesInputField != null)
+        {
+            seriesInputField.onValueChanged.AddListener(delegate { ValueChangeCheckSeries(); });
+            seriesInputField.text = "" + GameManager.Instance.GetNumSeries();
         }
         // Añade un listener onValueChanged al inputField de la velocidad de las rocas si existe
         if (speedField != null)
@@ -104,10 +116,10 @@ public class UIManager : MonoBehaviour
     {
         try
         {
-            int n = int.Parse(mainInputField.text);
+            int n = int.Parse(movementInputField.text);
             GameManager.Instance.SetNumJumps(n);
             textInvalidInput.enabled = false;
-            if(!textInvalidInput2.enabled && !textInvalidInput3.enabled)
+            if(!textInvalidInput2.enabled && !textInvalidInput3.enabled && !textInvalidInput4.enabled)
             {
                 returnButton.interactable = true;
             }
@@ -119,14 +131,14 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void ValueChangeCheckSpeed()
+    public void ValueChangeCheckSeries()
     {
         try
         {
-            float n = float.Parse(speedField.text);
-            GameManager.Instance.SetSpeedDownCubes(n);
+            int n = int.Parse(seriesInputField.text);
+            GameManager.Instance.SetNumSeries(n);
             textInvalidInput2.enabled = false;
-            if (!textInvalidInput.enabled && !textInvalidInput3.enabled)
+            if (!textInvalidInput.enabled && !textInvalidInput3.enabled && !textInvalidInput4.enabled)
             {
                 returnButton.interactable = true;
             }
@@ -138,14 +150,14 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void ValueChangeCheckAngle()
+    public void ValueChangeCheckSpeed()
     {
         try
         {
-            int n = int.Parse(angleField.text);
-            GameManager.Instance.SetAngleToDoIt(n);
+            float n = float.Parse(speedField.text);
+            GameManager.Instance.SetSpeedDownCubes(n);
             textInvalidInput3.enabled = false;
-            if (!textInvalidInput.enabled && !textInvalidInput2.enabled)
+            if (!textInvalidInput.enabled && !textInvalidInput2.enabled && !textInvalidInput4.enabled)
             {
                 returnButton.interactable = true;
             }
@@ -157,9 +169,33 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void ValueChangeCheckAngle()
+    {
+        try
+        {
+            int n = int.Parse(angleField.text);
+            GameManager.Instance.SetAngleToDoIt(n);
+            textInvalidInput4.enabled = false;
+            if (!textInvalidInput.enabled && !textInvalidInput2.enabled && !textInvalidInput3.enabled)
+            {
+                returnButton.interactable = true;
+            }
+        }
+        catch
+        {
+            textInvalidInput4.enabled = true;
+            returnButton.interactable = false;
+        }
+    }
+
     public void SetJumpsText()
     {
         jumpsText.text = "Saltos " + GameManager.Instance.GetNumCurrentJumps() + " de " + GameManager.Instance.GetNumJumps();
+    }
+
+    public void SetSeriesText()
+    {
+        seriesText.text = "Series " + GameManager.Instance.GetCurrentSerie() + " de " + GameManager.Instance.GetNumSeries();
     }
 
     public void ReturnToMenu()
@@ -246,6 +282,11 @@ public class UIManager : MonoBehaviour
     public void ActivatePanelWinning()
     {
         panelWinning.SetActive(true);
+    }
+
+    public bool IsPanelWinningEnabled()
+    {
+        return panelWinning.activeSelf;
     }
 
     public void SetCodeRoomText(string room)

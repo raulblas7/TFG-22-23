@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     private enum Movement
     {
-        MOVE_DONE =0,
+        MOVE_DONE = 0,
         WAITING,
         RESTART
     }
@@ -38,54 +38,26 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         angle = GameManager.Instance.GetAngleToDoIt();
-        transform.position = new Vector3(0.0f, 1.0f, 0.0f);
-        nextDest = GameManager.Instance.getFirstCube();
-        canJump = true;
-        jumpInput = false;
-        // movementMade= false;
-        currentState = Movement.WAITING;
+        InitPlayer();
     }
 
     void Update()
     {
-        if (!GameManager.Instance.GetUIManager().IsPanelWaitingEnabled())
+        if (currentState == Movement.MOVE_DONE && canJump && GameManager.Instance.GetNumCurrentJumps() < GameManager.Instance.GetNumJumps())
         {
-            //if (Input.GetKeyDown(KeyCode.Space) && canJump && GameManager.Instance.GetNumCurrentJumps() < GameManager.Instance.GetNumJumps())
-            //{
-            //    canJump = false;
-            //    jumpInput = true;
-            //    GameManager.Instance.AddOneMoreJump();
-            //    Debug.Log("Numero de saltos actuales es " + GameManager.Instance.GetNumCurrentJumps());
-            //    JumpingAndLanding();
-            //}
-
-
-            //Vector3 boardOrient = arduinoConnection.GetOrientationFromBoard();
-            //if(boardOrient.x <= -90.0f && canJump && GameManager.Instance.GetNumCurrentJumps() < GameManager.Instance.GetNumJumps())
-            //{
-            //    Debug.Log("La orientación en x del board es " + boardOrient.x);
-            //    canJump = false;
-            //    jumpInput = true;
-            //    GameManager.Instance.AddOneMoreJump();
-            //    Debug.Log("Numero de saltos actuales es " + GameManager.Instance.GetNumCurrentJumps());
-            //    JumpingAndLanding();
-            //}
-            if (currentState == Movement.MOVE_DONE && canJump && GameManager.Instance.GetNumCurrentJumps() < GameManager.Instance.GetNumJumps())
-            {
-                canJump = false;
-                currentState = Movement.WAITING;
-                jumpInput = true;
-                GameManager.Instance.AddOneMoreJump();
-                Debug.Log("Numero de saltos actuales es " + GameManager.Instance.GetNumCurrentJumps());
-                JumpingAndLanding();
-            }
+            canJump = false;
+            currentState = Movement.WAITING;
+            jumpInput = true;
+            GameManager.Instance.AddOneMoreJump();
+            Debug.Log("Numero de saltos actuales es " + GameManager.Instance.GetNumCurrentJumps());
+            JumpingAndLanding();
         }
     }
 
     private void FixedUpdate()
     {
         animator.SetBool("Grounded", isGrounded);
-        if(jumpInput)
+        if (jumpInput)
         {
             JumpWithPhysics();
             jumpInput = false;
@@ -102,7 +74,14 @@ public class PlayerController : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("FinalJump"))
         {
-            GameManager.Instance.GetUIManager().ActivatePanelWinning();
+            rb.AddForce(-currentForce, ForceMode.Force);
+            GameManager.Instance.deleteCube();
+            GameManager.Instance.UpdateCurrentSerie();
+            if (!GameManager.Instance.GetUIManager().IsPanelWinningEnabled())
+            {
+                GameManager.Instance.RestartGame();
+                Invoke("ResetPlayer", 1.0f);
+            }
         }
         else
         {
@@ -217,16 +196,33 @@ public class PlayerController : MonoBehaviour
         Vector3 orient = mobileOrient.eulerAngles;
 
         Debug.Log("El vector en angulos es: " + orient);
-      
+
         if ((orient.x >= 270.0f + angle || orient.x < 90.0f) && currentState == Movement.RESTART)
         {
             currentState = Movement.MOVE_DONE;
         }
-        else if((orient.x < 287.0f && orient.x > 180.0f)&& currentState == Movement.WAITING)
+        else if ((orient.x < 287.0f && orient.x > 180.0f) && currentState == Movement.WAITING)
         {
             currentState = Movement.RESTART;
         }
 
         GameManager.Instance.WriteData(orient.ToString());
+    }
+
+    private void InitPlayer()
+    {
+        isGrounded= true;
+        wasGrounded= false;
+        transform.position = new Vector3(0.0f, 1.0f, 0.0f);
+        nextDest = GameManager.Instance.getFirstCube();
+        canJump = true;
+        jumpInput = false;
+        // movementMade= false;
+        currentState = Movement.WAITING;
+    }
+    private void ResetPlayer()
+    {
+        InitPlayer();
+        Destroy(GameManager.Instance.GetIsland());
     }
 }
