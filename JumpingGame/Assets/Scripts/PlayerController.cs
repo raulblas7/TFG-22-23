@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private Animator animator = null;
 
+    [SerializeField] private UIExerciseSlider uIExerciseSlider;
+
     //[SerializeField] private ArduinoConnection arduinoConnection;
 
     private Vector3 currentForce;
@@ -196,6 +198,11 @@ public class PlayerController : MonoBehaviour
         Vector3 orient = mobileOrient.eulerAngles;
 
         Debug.Log("El vector en angulos es: " + orient);
+
+        if (orient.x >= 270.0f && orient.x < 360.0f)
+        {
+            uIExerciseSlider.UpdateSlider(orient.x);
+        }
 
         if ((orient.x >= 270.0f + angle || orient.x < 90.0f) && currentState == Movement.RESTART)
         {

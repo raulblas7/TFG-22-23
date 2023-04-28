@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 997
   m_ShowMode: 4
-  m_Title: Scene
+  m_Title: Hierarchy
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 46
+  controlID: 133
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 79
+  controlID: 59
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -170,7 +170,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 8096}
   vertical: 0
-  controlID: 80
+  controlID: 60
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -336,7 +336,7 @@ MonoBehaviour:
   m_ShowGizmos: 0
   m_TargetDisplay: 0
   m_ClearColor: {r: 0, g: 0, b: 0, a: 0}
-  m_TargetSize: {x: 3840, y: 2160}
+  m_TargetSize: {x: 1920, y: 1080}
   m_TextureFilterMode: 0
   m_TextureHideFlags: 61
   m_RenderIMGUI: 1
@@ -345,16 +345,16 @@ MonoBehaviour:
   m_VSyncEnabled: 0
   m_Gizmos: 0
   m_Stats: 0
-  m_SelectedSizes: 0600000000000000000000000a000000000000000000000000000000000000000000000000000000
+  m_SelectedSizes: 0300000000000000000000000a000000000000000000000000000000000000000000000000000000
   m_ZoomArea:
     m_HRangeLocked: 0
     m_VRangeLocked: 0
     hZoomLockedByDefault: 0
     vZoomLockedByDefault: 0
-    m_HBaseRangeMin: -1920
-    m_HBaseRangeMax: 1920
-    m_VBaseRangeMin: -1080
-    m_VBaseRangeMax: 1080
+    m_HBaseRangeMin: -960
+    m_HBaseRangeMax: 960
+    m_VBaseRangeMin: -540
+    m_VBaseRangeMax: 540
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
@@ -374,7 +374,7 @@ MonoBehaviour:
       y: 21
       width: 957
       height: 635
-    m_Scale: {x: 0.24921875, y: 0.24921875}
+    m_Scale: {x: 0.4984375, y: 0.4984375}
     m_Translation: {x: 478.5, y: 317.5}
     m_MarginLeft: 0
     m_MarginRight: 0
@@ -382,12 +382,12 @@ MonoBehaviour:
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -1920
-      y: -1273.9812
-      width: 3840
-      height: 2547.9624
+      x: -960
+      y: -636.9906
+      width: 1920
+      height: 1273.9812
     m_MinimalGUI: 1
-  m_defaultScale: 0.24921875
+  m_defaultScale: 0.4984375
   m_LastWindowPixelSize: {x: 957, y: 656}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
@@ -425,9 +425,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 080b0000
-      m_LastClickedID: 0
-      m_ExpandedIDs: 2cfbffff
+      m_SelectedIDs: 665d0000
+      m_LastClickedID: 23910
+      m_ExpandedIDs: 26fbffff665d0000ec5d0000f85e0000065f0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -676,9 +676,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 1384.4774, y: 710.3716, z: 108.525635}
+    m_Target: {x: 3381.2004, y: 1117.4597, z: 0.057006836}
     speed: 2
-    m_Value: {x: 1384.4774, y: 710.3716, z: 108.525635}
+    m_Value: {x: 3381.2004, y: 1117.4597, z: 0.057006836}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -725,17 +725,17 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.011390204, y: -0.034803975, z: 0.0003981364, w: 0.99933624}
+    m_Target: {x: 0, y: 0, z: 0, w: 1}
     speed: 2
-    m_Value: {x: 0.0113901235, y: -0.03480373, z: 0.00039813362, w: 0.9993292}
+    m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 2628.1772
+    m_Target: 618.1699
     speed: 2
-    m_Value: 2628.1772
+    m_Value: 618.1699
   m_Ortho:
-    m_Target: 1
+    m_Target: 0
     speed: 2
-    m_Value: 1
+    m_Value: 0
   m_CameraSettings:
     m_Speed: 1
     m_SpeedNormalized: 0.5
@@ -805,14 +805,14 @@ MonoBehaviour:
   m_LastFolders:
   - Assets/Scripts/UI
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: D:\AURORA\UNIVERSIDAD\Cuarto DV- 2022-23\TFG\TFG-22-23\Bowling01
+  m_LastProjectPath: C:\Universidad\TFG-22-23\Bowling01
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 127}
-    m_SelectedIDs: 58610000
-    m_LastClickedID: 24920
-    m_ExpandedIDs: 000000004461000046610000486100004a6100004c6100004e61000050610000526100005461000056610000586100005a61000000ca9a3b
+    scrollPos: {x: 0, y: 75}
+    m_SelectedIDs: 8a610000
+    m_LastClickedID: 24970
+    m_ExpandedIDs: 00000000446100007e61000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -840,7 +840,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000004461000046610000486100004a6100004c6100004e61000050610000526100005461000056610000586100005a610000
+    m_ExpandedIDs: 0000000044610000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
