@@ -11,11 +11,10 @@ public enum Movement
 
 public class CarController : MonoBehaviour
 {
-
     private float verticalInput;
 
     private float currentBreakForce;
-    private bool isBreaking = true;
+    private bool isBreaking = false;
 
     private float currentSteerAngle;
 
@@ -43,9 +42,12 @@ public class CarController : MonoBehaviour
 
     [SerializeField] private float deadzoneAngle;
 
+    [SerializeField] private UIExerciseSlider uIExerciseSlider;
+
     private const float INITIAL_DEGREES = 350.0f;
 
     private bool gameFinished = false;
+    private bool alreadyAccelerate = false;
 
     private void FixedUpdate()
     {
@@ -66,9 +68,28 @@ public class CarController : MonoBehaviour
 
     private void HandleMotor()
     {
-        frontLeftWheelCollider.motorTorque = /*verticalInput * */motorForce;
-        frontRightWheelCollider.motorTorque = /*verticalInput **/ motorForce;
-        currentBreakForce = isBreaking ? breakForce : 0f;
+        if (!alreadyAccelerate && !isBreaking)
+        {
+            Debug.Log("Acelero");
+            frontLeftWheelCollider.motorTorque = motorForce;
+            frontRightWheelCollider.motorTorque = motorForce;
+            alreadyAccelerate = true;
+        }
+        else if(alreadyAccelerate && !isBreaking)
+        {
+            frontLeftWheelCollider.motorTorque = 0.0f;
+            frontRightWheelCollider.motorTorque = 0.0f;
+        }
+        
+        if (isBreaking)
+        {
+            currentBreakForce = breakForce;
+            alreadyAccelerate = false;
+        }
+        else
+        {
+            currentBreakForce = 0.0f;
+        }
         ApplyBreaking();
     }
 
@@ -114,12 +135,6 @@ public class CarController : MonoBehaviour
         wheelTransform.position = pos;
     }
 
-    private void GetInput()
-    {
-        verticalInput = Input.GetAxis("Vertical");
-        if (verticalInput == 0f) isBreaking = true;
-        else isBreaking = false;
-    }
     private float AngleDir(Vector3 fwd, Vector3 targetDir, Vector3 up)
     {
         Vector3 perp = Vector3.Cross(fwd, targetDir);
@@ -144,21 +159,22 @@ public class CarController : MonoBehaviour
     {
         Vector3 orient = mobileOrient.eulerAngles;
 
-        Debug.Log("El vector en angulos es: " + orient);
-
-        if (isBreaking && orient.x >= 270.0f && orient.x <= INITIAL_DEGREES - GameManager.Instance.GetAngleToDoIt())
+        if(orient.x <= 360.0f && orient.x >= 270.0f)
         {
-            isBreaking = false;
-            rep++;
-            Debug.Log("Acelerar completado");
+            uIExerciseSlider.UpdateSlider(orient.x);
         }
-        else if(!isBreaking && orient.x >= INITIAL_DEGREES - 10.0f)
+
+        if (!isBreaking && orient.x >= 270.0f && orient.x <= INITIAL_DEGREES - GameManager.Instance.GetAngleToDoIt())
         {
             isBreaking = true;
             rep++;
-            Debug.Log("Frenar completado");
         }
-        if(rep == 2)
+        else if(isBreaking && orient.x >= INITIAL_DEGREES - 10.0f)
+        {
+            isBreaking = false;
+            rep++;
+        }
+        if (rep == 2)
         {
             GameManager.Instance.AddReps();
             rep = 0;

@@ -157,6 +157,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playButton: {fileID: 0}
   settingsButton: {fileID: 0}
+  infoButton: {fileID: 0}
+  exitInMenuButton: {fileID: 0}
   repsField: {fileID: 0}
   lapsField: {fileID: 0}
   angleField: {fileID: 0}
@@ -337,7 +339,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 46.45
+  m_fontSize: 94.1
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -486,7 +488,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 23.25
+  m_fontSize: 47
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -637,10 +639,10 @@ RectTransform:
   m_Father: {fileID: 665442832}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.16375, y: 0.13270372}
-  m_AnchorMax: {x: 0.41300002, y: 0.43600002}
-  m_AnchoredPosition: {x: 1.5, y: -0.5}
-  m_SizeDelta: {x: -1.8571777, y: -2.8082886}
+  m_AnchorMin: {x: 0.16368753, y: 0.12166667}
+  m_AnchorMax: {x: 0.41300002, y: 0.42211112}
+  m_AnchoredPosition: {x: 1.5, y: 3}
+  m_SizeDelta: {x: -1.8571777, y: 3.1917114}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &480632673
 MonoBehaviour:
@@ -1283,7 +1285,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
+  m_fontSize: 48.2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
