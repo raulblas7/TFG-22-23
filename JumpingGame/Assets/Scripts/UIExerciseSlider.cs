@@ -20,15 +20,11 @@ public class UIExerciseSlider : MonoBehaviour
 
     public void UpdateSlider(float currentValue)
     {
-        currentValue = ((currentValue - 270.0f) / 90.0f) * 180.0f;
-        currentValue = 180.0f - currentValue;
-        Debug.Log("Currentvalue es: " + currentValue);
-        //pasamos el valor actual(entre 0-180) a un rango 0-ejercicio
-        if (currentValue <= 180 && currentValue >= (180 - exerciseAngle))
+        if (currentValue >= 270 && currentValue <= (270 + exerciseAngle))
         {
-            slider.value = (exerciseAngle - (currentValue - (180 - exerciseAngle)));
+            slider.value = /*exerciseAngle -*/ (currentValue - 270);
         }
-        else if(currentValue < 180 - exerciseAngle)
+        else if(currentValue >= 270 + exerciseAngle)
         {
             slider.value = exerciseAngle;
         }

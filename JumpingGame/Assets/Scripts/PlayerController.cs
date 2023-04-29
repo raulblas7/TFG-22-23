@@ -51,7 +51,6 @@ public class PlayerController : MonoBehaviour
             currentState = Movement.WAITING;
             jumpInput = true;
             GameManager.Instance.AddOneMoreJump();
-            Debug.Log("Numero de saltos actuales es " + GameManager.Instance.GetNumCurrentJumps());
             JumpingAndLanding();
         }
     }
@@ -59,12 +58,12 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         animator.SetBool("Grounded", isGrounded);
+        wasGrounded = isGrounded;
         if (jumpInput)
         {
             JumpWithPhysics();
             jumpInput = false;
         }
-        wasGrounded = isGrounded;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -163,22 +162,20 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
-        if (collisions.Contains(collision.collider))
-        {
-            collisions.Remove(collision.collider);
-        }
-        if (collisions.Count == 0) { isGrounded = false; }
+        isGrounded = false;
     }
 
     private void JumpingAndLanding()
     {
         if (!wasGrounded && isGrounded)
         {
+            Debug.Log("Aterrizoooo");
             animator.SetTrigger("Land");
         }
 
         if (!isGrounded && wasGrounded)
         {
+            Debug.Log("Saltooooo");
             animator.SetTrigger("Jump");
         }
     }
@@ -196,8 +193,6 @@ public class PlayerController : MonoBehaviour
     public void CheckIfCanJump(Quaternion mobileOrient)
     {
         Vector3 orient = mobileOrient.eulerAngles;
-
-        Debug.Log("El vector en angulos es: " + orient);
 
         if (orient.x >= 270.0f && orient.x < 360.0f)
         {
@@ -218,7 +213,7 @@ public class PlayerController : MonoBehaviour
 
     private void InitPlayer()
     {
-        isGrounded= true;
+        isGrounded= false;
         wasGrounded= false;
         transform.position = new Vector3(0.0f, 1.0f, 0.0f);
         nextDest = GameManager.Instance.getFirstCube();
