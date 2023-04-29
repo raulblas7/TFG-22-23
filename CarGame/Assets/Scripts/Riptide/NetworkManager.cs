@@ -108,12 +108,26 @@ public class NetworkManager : MonoBehaviour
             if ((item.NetworkInterfaceType == _type1 || item.NetworkInterfaceType == _type2) && item.OperationalStatus == OperationalStatus.Up)
 #endif
             {
+                //foreach (UnicastIPAddressInformation ip in item.GetIPProperties().UnicastAddresses)
+                //{
+                //    if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
+                //    {
+                //        string a = ip.Address.ToString();
+                //        return a;
+                //    }
+                //}
                 foreach (UnicastIPAddressInformation ip in item.GetIPProperties().UnicastAddresses)
                 {
                     if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
                     {
-                        string a = ip.Address.ToString();
-                        return a;
+                        string ipAddress = ip.Address.ToString();
+                        IPAddress subnetMask = ip.IPv4Mask;
+
+                        // Comprobar si la dirección IP es una dirección IP privada de clase C
+                        if (ipAddress.StartsWith("192.168.") && subnetMask.ToString() == "255.255.255.0")
+                        {
+                            return ipAddress;
+                        }
                     }
                 }
             }
