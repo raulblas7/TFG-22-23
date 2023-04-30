@@ -181,4 +181,14 @@ public class CarController : MonoBehaviour
         }
         GameManager.Instance.WriteData(orient.ToString());
     }
+
+    public void SetAlreadyAccelerate(bool acc)
+    {
+        alreadyAccelerate = acc;
+    }
+
+    public void SetIsBreaking(bool ib)
+    {
+        isBreaking = ib;
+    }
 }

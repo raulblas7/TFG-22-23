@@ -9,6 +9,7 @@ public class ManageCarCollisions : MonoBehaviour
     [SerializeField] private Rigidbody rbCar;
     [SerializeField] private float collisionForce;
     [SerializeField] private PlayerCheckPoints playerCheckPoints;
+    [SerializeField] private CarController carController;
 
     private Vector3 originalScale;
 
@@ -41,7 +42,13 @@ public class ManageCarCollisions : MonoBehaviour
             else
             {
                 rbCar.AddForce(Vector3.forward * (-1) * collisionForce, ForceMode.Impulse);
+                carController.SetAlreadyAccelerate(false);
+                carController.SetIsBreaking(false);
             }
+        }
+        if (collision.gameObject.CompareTag("DeadObstacle"))
+        {
+            SetPositionToLastCheckPoint();
         }
     }
 

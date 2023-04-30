@@ -13,7 +13,7 @@ public class SpawnerCarObstacle : MonoBehaviour
 
     private void Start()
     {
-        Instantiate(prefab, transform.position, Quaternion.identity, transform);
+        Instantiate(prefab, transform.position, transform.rotation, transform);
     }
 
     // Update is called once per frame
@@ -24,7 +24,7 @@ public class SpawnerCarObstacle : MonoBehaviour
         if( currentTime >= spawnTime)
         {
             currentTime = 0;
-            Instantiate(prefab, transform.position, Quaternion.identity, transform);
+            Instantiate(prefab, transform.position, transform.rotation, transform);
         }
     }
 }
