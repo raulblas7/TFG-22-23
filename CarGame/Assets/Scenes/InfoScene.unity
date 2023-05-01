@@ -170,6 +170,9 @@ MonoBehaviour:
   panelWaitingMobile: {fileID: 0}
   panelDisconnecting: {fileID: 0}
   panelWinning: {fileID: 0}
+  panelFinishSerie: {fileID: 0}
+  countDownSerieText: {fileID: 0}
+  counterSeriesText: {fileID: 0}
   infoText: {fileID: 0}
   ipAndCountDownText: {fileID: 0}
 --- !u!114 &123455740
@@ -447,21 +450,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'El ejercicio de rehabilitacion asociado a este juego es el de tobillo
-    y pie.
-
-
-    El paciente podra realizar este ejercicio sentado o tumbado. El
-    paciente debera colocar el pie todo lo arriba posible. Despues moverlo hacia
-    abajo intentando hacer el maximo recorrido posible.
-
-
-
-    Para que se considere
-    que un movimiento ha sido completado el paciente debera levantar el pie hasta
-    la posicion inicial.
-
-'
+  m_text: "El paciente debera realizar el ejercicio con las piernas estiradas. \n\nDebera
+    colocar el pie de tal manera que el talon quede apoyado en la camilla. Despues
+    inclinarlo hacia delante intentando hacer el maximo recorrido posible. Finalmente,
+    volver a la posicion inicial."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e07e03e28e42b664d92dab48dd060c66, type: 2}
   m_sharedMaterial: {fileID: -1438256139739239277, guid: e07e03e28e42b664d92dab48dd060c66, type: 2}
@@ -488,7 +480,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 47
+  m_fontSize: 62.7
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1228,10 +1220,10 @@ RectTransform:
   m_Father: {fileID: 665442832}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.60800004, y: 0.5397037}
-  m_AnchorMax: {x: 0.97243756, y: 0.7575556}
-  m_AnchoredPosition: {x: -68.5, y: 58.5}
-  m_SizeDelta: {x: -424.2111, y: -189.8885}
+  m_AnchorMin: {x: 0.58716667, y: 0.46520376}
+  m_AnchorMax: {x: 0.983698, y: 0.7575556}
+  m_AnchoredPosition: {x: -50, y: 129.5}
+  m_SizeDelta: {x: -547.21106, y: -350.8885}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2142078121
 MonoBehaviour:
@@ -1253,12 +1245,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'El movil debe estar colocado en la planta del pie, de forma que la pantalla
-    del dispositivo quede mirando hacia la propia planta. Ademas el movil debera
-    estar orientado de forma que la camara del movil este mas cerca de los dedos
-    del pie.
-
-'
+  m_text: "El movil debe estar colocado en la planta del pie, de forma que la pantalla
+    del dispositivo quede mirando hacia la propia planta. \n\nAdemas debera estar
+    orientado de forma que la camara este mas cerca de los dedos del pie.\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e07e03e28e42b664d92dab48dd060c66, type: 2}
   m_sharedMaterial: {fileID: -1438256139739239277, guid: e07e03e28e42b664d92dab48dd060c66, type: 2}
@@ -1285,7 +1274,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 48.2
+  m_fontSize: 61
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1321,7 +1310,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -142.98547, y: -34.347595, z: -283.45105, w: -154.36816}
+  m_margin: {x: -218.94861, y: -34.347595, z: -326.75037, w: -307.2589}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

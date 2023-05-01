@@ -83,7 +83,10 @@ public class GameManager : MonoBehaviour
         if(currentLaps <= laps) uiManager.SetlapsText();
         if (currentLaps == laps)
         {
-            uiManager.GameFinished();
+            if (currentReps == reps)
+            {
+                uiManager.GameFinished();
+            }
         }
     }
 
@@ -93,7 +96,13 @@ public class GameManager : MonoBehaviour
         if(currentReps <= reps) uiManager.SetRepsText();
         if (currentReps == reps)
         {
-            uiManager.GameFinished();
+            AddLaps();
+            if (!uiManager.IsPanelWinningEnabled())
+            {
+                uiManager.ActivatePanelFinishSerie();
+                currentReps = 0;
+                uiManager.SetRepsText();
+            }
         }
     }
 

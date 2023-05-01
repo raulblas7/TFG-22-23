@@ -27,6 +27,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject panelWaitingMobile;
     [SerializeField] private GameObject panelDisconnecting;
     [SerializeField] private GameObject panelWinning;
+    [SerializeField] private GameObject panelFinishSerie;
+    [SerializeField] private TextMeshProUGUI countDownSerieText;
+    [SerializeField] private TextMeshProUGUI counterSeriesText;
     [SerializeField] private TextMeshProUGUI infoText;
     [SerializeField] private TextMeshProUGUI ipAndCountDownText;
 
@@ -234,7 +237,7 @@ public class UIManager : MonoBehaviour
     {
         if (lapsText != null)
         {
-            lapsText.text = "vuelta " + GameManager.Instance.GetCurrentLaps() + " de " + GameManager.Instance.GetLaps();
+            lapsText.text = "serie " + GameManager.Instance.GetCurrentLaps() + " de " + GameManager.Instance.GetLaps();
         }
     }
 
@@ -273,6 +276,11 @@ public class UIManager : MonoBehaviour
     public bool IsPanelWinningEnabled()
     {
         return panelWinning.activeSelf;
+    }
+
+    public bool IsPanelDisconectingEnabled()
+    {
+        return panelDisconnecting.activeSelf;
     }
 
     public void SetCodeRoomText(string room)
@@ -346,5 +354,44 @@ public class UIManager : MonoBehaviour
     public void GameFinished()
     {
         panelWinning.SetActive(true);
+    }
+
+    public void ActivatePanelFinishSerie()
+    {
+        if(panelFinishSerie != null)
+        {
+            panelFinishSerie.SetActive(true);
+            counterSeriesText.text = "serie " + GameManager.Instance.GetCurrentLaps() + " de " + GameManager.Instance.GetLaps();
+            InvokeRepeating("UpdateCountDownSerie", 1.0f, 1.0f);
+        }
+    }
+
+    public void UpdateCountDownSerie()
+    {
+        try
+        {
+            int aux = int.Parse(countDownSerieText.text);
+            aux--;
+            if (aux > 0)
+            {
+                countDownSerieText.text = aux.ToString();
+            }
+            else
+            {
+                //Desactivamos la cuenta atras
+                CancelInvoke("UpdateCountDownSerie");
+                panelFinishSerie.SetActive(false);
+                countDownSerieText.text = "10";
+            }
+        }
+        catch
+        {
+            Debug.Log("Error al actualizar la cuenta atras");
+        }
+    }
+
+    public bool IsPanelFinishSerieEnabled()
+    {
+        return panelFinishSerie.activeSelf;
     }
 }

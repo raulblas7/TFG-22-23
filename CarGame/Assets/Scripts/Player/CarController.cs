@@ -46,24 +46,29 @@ public class CarController : MonoBehaviour
 
     private const float INITIAL_DEGREES = 350.0f;
 
-    private bool gameFinished = false;
     private bool alreadyAccelerate = false;
 
     private void FixedUpdate()
     {
         //GetInput();
-        if (!GameManager.Instance.GetUIManager().IsPanelWaitingEnabled() && !GameManager.Instance.GetUIManager().IsPanelWinningEnabled())
+        if (!GameManager.Instance.GetUIManager().IsPanelWaitingEnabled() && !GameManager.Instance.GetUIManager().IsPanelWinningEnabled() 
+            && !GameManager.Instance.GetUIManager().IsPanelFinishSerieEnabled() && !GameManager.Instance.GetUIManager().IsPanelDisconectingEnabled())
         {
             HandleMotor();
             HandleSteering();
             UpdateWheels();
         }
-        else if(!gameFinished && GameManager.Instance.GetUIManager().IsPanelWinningEnabled())
+        else if(GameManager.Instance.GetUIManager().IsPanelWinningEnabled() 
+            || GameManager.Instance.GetUIManager().IsPanelFinishSerieEnabled() || GameManager.Instance.GetUIManager().IsPanelDisconectingEnabled())
         {
-            gameFinished = true;
-            currentBreakForce= breakForce;
-            ApplyBreaking();
+            FinishBreaking();
         }
+    }
+
+    private void FinishBreaking()
+    {
+        currentBreakForce = breakForce;
+        ApplyBreaking();
     }
 
     private void HandleMotor()

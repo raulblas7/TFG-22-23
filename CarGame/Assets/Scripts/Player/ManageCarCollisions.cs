@@ -60,7 +60,7 @@ public class ManageCarCollisions : MonoBehaviour
         }
         if (other.gameObject.CompareTag("LapsCounter"))
         {
-            GameManager.Instance.AddLaps();
+            //GameManager.Instance.AddLaps();
         }
     }
 
