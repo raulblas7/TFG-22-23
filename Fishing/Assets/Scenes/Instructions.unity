@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -309,7 +309,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 114.6
+  m_fontSize: 57.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -488,7 +488,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 150
+  m_fontSize: 78.35
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -928,6 +928,7 @@ MonoBehaviour:
   _maxFish: 2
   _maxTime: 3
   _gameAngle: 60
+  _maxSeries: 0
 --- !u!4 &1367595597
 Transform:
   m_ObjectHideFlags: 0
@@ -1255,10 +1256,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "El paciente podra realizar este ejercicio sentado o de pie.\r\n El paciente
-    se colocara con los brazos flexionados, pegados al cuerpo con las palmas mirando
-    hacia delante. Sin despegar los brazos del cuerpo deber\xE1 llevar las manos
-    hacia el hombro del mismo lado, y despu\xE9s volver a la posici\xF3n inicial."
+  m_text: "El paciente se colocara con los brazos flexionados en 90 grados, pegados
+    al cuerpo y con las palmas mirando hacia arriba (posicion inicial). \nSin despegar
+    los brazos del cuerpo deber\xE1 llevar las manos hacia el hombro del mismo lado,
+    y despu\xE9s volver a la posici\xF3n inicial."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ab89512bcca0ee1478b611ab0b69985d, type: 2}
   m_sharedMaterial: {fileID: -2827747072216374223, guid: ab89512bcca0ee1478b611ab0b69985d, type: 2}
@@ -1285,7 +1286,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 66.3
+  m_fontSize: 35.2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1469,10 +1470,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Si colocamos el brazo en la posici\xF3n inicial con las palmas de las
-    manos hacia arriba.\r\nEl dispositivo m\xF3vil ir\xE1 colocado en la parte de
-    atr\xE1s del antebrazo, con la pantalla mirando hacia la piel y el m\xF3vil orientado
-    mirando hacia la mano.\r\n"
+  m_text: 'Si colocamos el brazo en la posicion inicial con las palmas de las manos
+    hacia arriba, el dispositivo movil ira colocado en la parte de atras del antebrazo,
+    con la pantalla mirando hacia la piel y la camara hacia los dedos de la mano.
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ab89512bcca0ee1478b611ab0b69985d, type: 2}
   m_sharedMaterial: {fileID: -2827747072216374223, guid: ab89512bcca0ee1478b611ab0b69985d, type: 2}
@@ -1499,7 +1501,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 71.1
+  m_fontSize: 38.95
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
