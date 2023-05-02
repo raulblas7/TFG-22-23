@@ -196,4 +196,9 @@ public class CarController : MonoBehaviour
     {
         isBreaking = ib;
     }
+
+    public bool IsBreaking()
+    {
+        return isBreaking;
+    }
 }

@@ -58,9 +58,13 @@ public class ManageCarCollisions : MonoBehaviour
         { 
             SetPositionToLastCheckPoint();
         }
-        if (other.gameObject.CompareTag("LapsCounter"))
+        if (other.gameObject.CompareTag("Wall"))
         {
-            //GameManager.Instance.AddLaps();
+            SetPositionToLastCheckPoint();
+        }
+        if (other.gameObject.CompareTag("AddForce") && !carController.IsBreaking())
+        {
+            carController.SetAlreadyAccelerate(false);
         }
     }
 

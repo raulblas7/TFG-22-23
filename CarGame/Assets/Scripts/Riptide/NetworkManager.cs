@@ -90,10 +90,7 @@ public class NetworkManager : MonoBehaviour
     [MessageHandler((ushort)MessageID.orientation)]
     private static void ReceiveOrientationFromDevice(ushort fromClientId, Message message)
     {
-        //Debug.Log("mensaje recibido " + message.GetFloat());
         orientationX = message.GetFloat();
-        //Debug.Log("Orientacion en x es: " + message.GetFloat());
-     
     }
 
 
@@ -109,14 +106,6 @@ public class NetworkManager : MonoBehaviour
             if ((item.NetworkInterfaceType == _type1 || item.NetworkInterfaceType == _type2) && item.OperationalStatus == OperationalStatus.Up)
 #endif
             {
-                //foreach (UnicastIPAddressInformation ip in item.GetIPProperties().UnicastAddresses)
-                //{
-                //    if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
-                //    {
-                //        string a = ip.Address.ToString();
-                //        return a;
-                //    }
-                //}
                 foreach (UnicastIPAddressInformation ip in item.GetIPProperties().UnicastAddresses)
                 {
                     if (ip.Address.AddressFamily == AddressFamily.InterNetwork)

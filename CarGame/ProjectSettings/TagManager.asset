@@ -12,6 +12,8 @@ TagManager:
   - DeadObstacle
   - CheckPoint
   - LapsCounter
+  - Wall
+  - AddForce
   layers:
   - Default
   - TransparentFX
