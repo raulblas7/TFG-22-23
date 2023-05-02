@@ -118,10 +118,18 @@ public class UIManager : MonoBehaviour
         {
             int n = int.Parse(movementInputField.text);
             GameManager.Instance.SetNumJumps(n);
-            textInvalidInput.enabled = false;
-            if(!textInvalidInput2.enabled && !textInvalidInput3.enabled && !textInvalidInput4.enabled)
+            if (n <= 0)
             {
-                returnButton.interactable = true;
+                textInvalidInput.enabled = true;
+                returnButton.interactable = false;
+            }
+            else
+            {
+                textInvalidInput.enabled = false;
+                if (!textInvalidInput2.enabled && !textInvalidInput3.enabled && !textInvalidInput4.enabled)
+                {
+                    returnButton.interactable = true;
+                }
             }
         }
         catch
@@ -137,10 +145,18 @@ public class UIManager : MonoBehaviour
         {
             int n = int.Parse(seriesInputField.text);
             GameManager.Instance.SetNumSeries(n);
-            textInvalidInput2.enabled = false;
-            if (!textInvalidInput.enabled && !textInvalidInput3.enabled && !textInvalidInput4.enabled)
+            if (n <= 0)
             {
-                returnButton.interactable = true;
+                textInvalidInput2.enabled = true;
+                returnButton.interactable = false;
+            }
+            else
+            {
+                textInvalidInput2.enabled = false;
+                if (!textInvalidInput.enabled && !textInvalidInput3.enabled && !textInvalidInput4.enabled)
+                {
+                    returnButton.interactable = true;
+                }
             }
         }
         catch
@@ -156,10 +172,18 @@ public class UIManager : MonoBehaviour
         {
             float n = float.Parse(speedField.text);
             GameManager.Instance.SetSpeedDownCubes(n);
-            textInvalidInput3.enabled = false;
-            if (!textInvalidInput.enabled && !textInvalidInput2.enabled && !textInvalidInput4.enabled)
+            if (n <= 0)
             {
-                returnButton.interactable = true;
+                textInvalidInput3.enabled = true;
+                returnButton.interactable = false;
+            }
+            else
+            {
+                textInvalidInput3.enabled = false;
+                if (!textInvalidInput.enabled && !textInvalidInput2.enabled && !textInvalidInput4.enabled)
+                {
+                    returnButton.interactable = true;
+                }
             }
         }
         catch
@@ -175,11 +199,19 @@ public class UIManager : MonoBehaviour
         {
             int n = int.Parse(angleField.text);
             GameManager.Instance.SetAngleToDoIt(n);
-            textInvalidInput4.enabled = false;
-            if (!textInvalidInput.enabled && !textInvalidInput2.enabled && !textInvalidInput3.enabled)
+            if (n <= 0)
             {
-                returnButton.interactable = true;
+                textInvalidInput4.enabled = true;
+                returnButton.interactable = false;
             }
+            else
+            {
+                textInvalidInput4.enabled = false;
+                if (!textInvalidInput.enabled && !textInvalidInput2.enabled && !textInvalidInput3.enabled)
+                {
+                    returnButton.interactable = true;
+                }
+            } 
         }
         catch
         {

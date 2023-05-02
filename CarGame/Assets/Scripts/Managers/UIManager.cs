@@ -136,10 +136,22 @@ public class UIManager : MonoBehaviour
         try
         {
             int n = int.Parse(repsField.text);
+            if (n <= 0)
+            {
+                returnToMenu.interactable = false;
+            }
+            else
+            {
+                if(!returnToMenu.interactable && GameManager.Instance.GetLaps() > 0)
+                {
+                    returnToMenu.interactable = true;
+                }
+            }
             GameManager.Instance.SetNumReps(n);
         }
         catch
         {
+            returnToMenu.interactable = false;
             Debug.Log("Valor introducido no valido");
         }
     }
@@ -150,10 +162,22 @@ public class UIManager : MonoBehaviour
         try
         {
             int n = int.Parse(lapsField.text);
+            if (n <= 0)
+            {
+                returnToMenu.interactable = false;
+            }
+            else
+            {
+                if (!returnToMenu.interactable && GameManager.Instance.GetReps() > 0)
+                {
+                    returnToMenu.interactable = true;
+                }
+            }
             GameManager.Instance.SetNumLaps(n);
         }
         catch
         {
+            returnToMenu.interactable = false;
             Debug.Log("Valor introducido no valido");
         }
     }

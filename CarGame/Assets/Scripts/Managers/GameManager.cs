@@ -81,9 +81,9 @@ public class GameManager : MonoBehaviour
     {
         currentLaps++;
         if(currentLaps <= laps) uiManager.SetlapsText();
-        if (currentLaps == laps)
+        if (currentLaps >= laps)
         {
-            if (currentReps == reps)
+            if (currentReps >= reps)
             {
                 uiManager.GameFinished();
             }

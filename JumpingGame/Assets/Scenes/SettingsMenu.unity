@@ -1326,7 +1326,7 @@ RectTransform:
   - {fileID: 29400479}
   - {fileID: 1469624026}
   m_Father: {fileID: 2005792353}
-  m_RootOrder: 5
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.27600002, y: 0.033703707}
   m_AnchorMax: {x: 0.734, y: 0.66955554}
@@ -2515,7 +2515,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2005792353}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.6195625, y: 0.5472593}
   m_AnchorMax: {x: 0.72200006, y: 0.5926296}
@@ -2768,7 +2768,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2005792353}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.6195625, y: 0.28614816}
   m_AnchorMax: {x: 0.72200006, y: 0.33240744}
@@ -4032,7 +4032,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2005792353}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.6195625, y: 0.41400003}
   m_AnchorMax: {x: 0.72200006, y: 0.45929632}
@@ -4687,6 +4687,7 @@ MonoBehaviour:
   restartButton: {fileID: 0}
   pointsText: {fileID: 0}
   jumpsText: {fileID: 0}
+  seriesText: {fileID: 0}
   panelWaitingMobile: {fileID: 0}
   panelDisconnecting: {fileID: 0}
   panelWinning: {fileID: 0}
@@ -5245,11 +5246,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1717459735}
+  - {fileID: 497755573}
   - {fileID: 1185225894}
   - {fileID: 1610118056}
   - {fileID: 1251616411}
   - {fileID: 2073934177}
-  - {fileID: 497755573}
   m_Father: {fileID: 1838632995}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5494,7 +5495,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2005792353}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.6195625, y: 0.15466665}
   m_AnchorMax: {x: 0.72200006, y: 0.20274073}
