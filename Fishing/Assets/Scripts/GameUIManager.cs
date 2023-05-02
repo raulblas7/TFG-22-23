@@ -46,14 +46,14 @@ public class GameUIManager : MonoBehaviour
     {
         fishCountDownText.gameObject.SetActive(true);
         currentTimeCountDown = startValue;
-        fishCountDownText.text = currentTimeCountDown.ToString("0.00");
+        fishCountDownText.text = currentTimeCountDown.ToString("0.0");
         InvokeRepeating("UpdateFishCountDown", 0.0f, 0.01f);
     }
 
     private void UpdateFishCountDown()
     {
         currentTimeCountDown -= 0.01f;
-        fishCountDownText.text = currentTimeCountDown.ToString("0.00");
+        fishCountDownText.text = currentTimeCountDown.ToString("0.0");
 
         if(currentTimeCountDown <= 0) // si termina la cuenta atras
         {

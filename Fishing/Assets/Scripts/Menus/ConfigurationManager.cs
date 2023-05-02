@@ -53,7 +53,16 @@ public class ConfigurationManager : MonoBehaviour
 
             float t = float.Parse(time);
             Debug.Log(t);
-            GameManager.Instance.SetMaxTime(t);
+            if (t <= 0)
+            {
+                errorTextTime.gameObject.SetActive(true);
+                button.interactable = false;
+            }
+            else
+            {
+                GameManager.Instance.SetMaxTime(t);
+
+            }
             if (!errorTextTime.gameObject.activeSelf && !errorTextRepeat.gameObject.activeSelf && !errorTextSerie.gameObject.activeSelf)
             {
                 button.interactable = true;
@@ -72,7 +81,17 @@ public class ConfigurationManager : MonoBehaviour
         {
             errorTextRepeat.gameObject.SetActive(false);
             int n = int.Parse(num);
-            GameManager.Instance.SetMAxFish(n);
+            if (n <= 0)
+            {
+                errorTextRepeat.gameObject.SetActive(true);
+                button.interactable = false;
+            }
+            else
+            {
+                GameManager.Instance.SetMAxFish(n);
+
+            }
+           
             if (!errorTextTime.gameObject.activeSelf && !errorTextRepeat.gameObject.activeSelf && !errorTextSerie.gameObject.activeSelf)
             {
                 button.interactable = true;
@@ -91,7 +110,16 @@ public class ConfigurationManager : MonoBehaviour
         {
             errorTextSerie.gameObject.SetActive(false);
             int n = int.Parse(num);
-            GameManager.Instance.SetMaxSeries(n);
+            if (n <= 0)
+            {
+                errorTextSerie.gameObject.SetActive(true);
+                button.interactable = false;
+            }
+            else
+            {
+                GameManager.Instance.SetMaxSeries(n);
+
+            }
             if (!errorTextTime.gameObject.activeSelf && !errorTextRepeat.gameObject.activeSelf && !errorTextSerie.gameObject.activeSelf)
             {
                 button.interactable = true;
