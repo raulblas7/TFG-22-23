@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour
             _UIManager.ActiveFinalPanel(_points, _currentSerie + 1, _maxSeries);
             _currentSerie++;
             //si hemos terminado el juego
-            if (_currentSerie == _maxSeries)
+            if (_currentSerie >= _maxSeries)
             {
                 NetworkManager.Instance.StopServer();
                 _UIManager.ActiveMainMenuButton();
