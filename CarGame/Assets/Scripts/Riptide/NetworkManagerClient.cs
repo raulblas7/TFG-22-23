@@ -14,22 +14,6 @@ public enum MessageID
 public class NetworkManagerClient : MonoBehaviour
 {
     private static NetworkManagerClient _instance;
-    //public static NetworkManagerClient Instance
-    //{
-    //    get => instance;
-    //    private set
-    //    {
-    //        if (instance != null)
-    //        {
-    //            instance = value;
-    //        }
-    //        else if (instance != value)
-    //        {
-    //            Debug.Log($"{nameof(NetworkManagerClient)} instance already exists");
-    //            Destroy(value);
-    //        }
-    //    }
-    //}
     
     public static NetworkManagerClient Instance { get { return _instance; } }
     public Client Client { get; private set; }
@@ -135,7 +119,6 @@ public class NetworkManagerClient : MonoBehaviour
 
     private void SendMessageToPlayer(Quaternion orientation)
     {
-        // Cambiarlo a unreliable
         Message message = Message.Create(MessageSendMode.unreliable, (ushort)MessageID.orientation);
         message.AddFloat(orientation.eulerAngles.x);
         Client.Send(message);
