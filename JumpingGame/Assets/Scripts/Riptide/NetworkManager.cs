@@ -101,6 +101,7 @@ public class NetworkManager : MonoBehaviour
 
     private string GetIp()
     {
+        bool hasGateway = false;
 
         foreach (NetworkInterface item in NetworkInterface.GetAllNetworkInterfaces())
         {
@@ -111,25 +112,27 @@ public class NetworkManager : MonoBehaviour
             if ((item.NetworkInterfaceType == _type1 || item.NetworkInterfaceType == _type2) && item.OperationalStatus == OperationalStatus.Up)
 #endif
             {
-                //foreach (UnicastIPAddressInformation ip in item.GetIPProperties().UnicastAddresses)
-                //{
-                //    if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
-                //    {
-                //        string a = ip.Address.ToString();
-                //        return a;
-                //    }
-                //}
-                foreach (UnicastIPAddressInformation ip in item.GetIPProperties().UnicastAddresses)
+                foreach (GatewayIPAddressInformation gatewayIp in item.GetIPProperties().GatewayAddresses)
                 {
-                    if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
+                    if (gatewayIp.Address.AddressFamily == AddressFamily.InterNetwork)
                     {
-                        string ipAddress = ip.Address.ToString();
-                        IPAddress subnetMask = ip.IPv4Mask;
-
-                        // Comprobar si la dirección IP es una dirección IP privada de clase C
-                        if (ipAddress.StartsWith("192.168.") && subnetMask.ToString() == "255.255.255.0")
+                        hasGateway = true;
+                    }
+                }
+                if (hasGateway)
+                {
+                    foreach (UnicastIPAddressInformation ip in item.GetIPProperties().UnicastAddresses)
+                    {
+                        if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
                         {
-                            return ipAddress;
+                            string ipAddress = ip.Address.ToString();
+                            IPAddress subnetMask = ip.IPv4Mask;
+
+                            // Comprobar si la dirección IP es una dirección IP privada de clase C
+                            if (ipAddress.StartsWith("192.168.") && subnetMask.ToString() == "255.255.255.0")
+                            {
+                                return ipAddress;
+                            }
                         }
                     }
                 }
