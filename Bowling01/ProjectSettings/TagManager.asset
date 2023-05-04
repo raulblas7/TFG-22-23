@@ -6,8 +6,9 @@ TagManager:
   tags:
   - Bolo
   - Ball
-  - DeadZone
   - Floor
+  - DeadZoneV
+  - DeadZoneH
   layers:
   - Default
   - TransparentFX

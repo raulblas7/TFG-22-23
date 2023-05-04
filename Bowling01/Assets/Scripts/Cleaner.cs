@@ -15,7 +15,7 @@ public class Cleaner : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("DeadZone"))
+        if (other.gameObject.CompareTag("DeadZoneH"))
         {
             GameManager.Instance.AllClean();
             Destroy(this.gameObject);

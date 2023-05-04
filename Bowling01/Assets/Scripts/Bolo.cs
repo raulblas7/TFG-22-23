@@ -30,7 +30,7 @@ public class Bolo : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("DeadZone"))
+        if (other.gameObject.CompareTag("DeadZoneH") || other.gameObject.CompareTag("DeadZoneV"))
         {
             _parent.deleteBoloFromList(this);
             Destroy(this.gameObject);

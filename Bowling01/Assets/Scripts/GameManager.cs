@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
 
             Invoke("FirstPartPuntuation", 4);
             //iniciamos la segunda parte de la ronda
-            SetRoundPartTwo();
+            Invoke("StartSecondPart", 4);
 
 
         }
@@ -79,22 +79,22 @@ public class GameManager : MonoBehaviour
             //firstPartCompleted = false;
 
             Invoke("SecondPartPunctuation", 3);
-            NewRound();
+            Invoke("CleanBolos", 3);
         }
     }
     //metodos para cambiar a una nueva ronda
-    public void NewRound()
-    {
-        //CleanBolos();
-        Invoke("CleanBolos", 3);
+    //public void NewRound()
+    //{
+    //    //CleanBolos();
+    //    Invoke("CleanBolos", 3);
 
-    }
+    //}
 
-    //metodos para pasar a la segunda parte de la ronda
-    public void SetRoundPartTwo()
-    {
-        Invoke("StartSecondPart", 4);
-    }
+    ////metodos para pasar a la segunda parte de la ronda
+    //public void SetRoundPartTwo()
+    //{
+    //    Invoke("StartSecondPart", 4);
+    //}
 
     private void StartSecondPart()
     {

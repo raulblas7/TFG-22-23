@@ -2265,8 +2265,8 @@ GameObject:
   - component: {fileID: 612763471}
   - component: {fileID: 612763470}
   m_Layer: 0
-  m_Name: deadZone (1)
-  m_TagString: DeadZone
+  m_Name: deadZoneV
+  m_TagString: DeadZoneV
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2929,8 +2929,8 @@ GameObject:
   - component: {fileID: 814194844}
   - component: {fileID: 814194843}
   m_Layer: 0
-  m_Name: deadZone
-  m_TagString: DeadZone
+  m_Name: deadZoneH
+  m_TagString: DeadZoneH
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2964,8 +2964,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 814194842}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -4, z: 0}
-  m_LocalScale: {x: 50, y: 1, z: 50}
+  m_LocalPosition: {x: 0, y: -4, z: -24.7}
+  m_LocalScale: {x: 80, y: 1, z: 120}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1579993012}
