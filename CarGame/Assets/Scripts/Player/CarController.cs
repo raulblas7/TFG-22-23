@@ -2,19 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Movement
-{
-    MOVE_DONE = 0,
-    DOWN,
-    UP
-}
 
 public class CarController : MonoBehaviour
 {
+    private enum Movement
+    {
+        MOVE_DONE = 0,
+        WAITING,
+        RESTART
+    }
+
+    private Movement currentState;
     private float verticalInput;
 
     private float currentBreakForce;
-    private bool isBreaking = false;
+    //private bool isBreaking = true;
 
     private float currentSteerAngle;
 
@@ -38,6 +40,8 @@ public class CarController : MonoBehaviour
     [SerializeField] private Transform rearLeftWheelTransform;
     [SerializeField] private Transform rearRightWheelTransform;
 
+    [SerializeField] private CheckPointInfo checkPoint1;
+   
     [SerializeField] private Rigidbody carRb;
 
     [SerializeField] private float deadzoneAngle;
@@ -46,26 +50,59 @@ public class CarController : MonoBehaviour
 
     private const float INITIAL_DEGREES = 350.0f;
 
-    private bool alreadyAccelerate = false;
+    //private bool alreadyAccelerate = false;
 
-    private void FixedUpdate()
+
+    private void Start()
     {
-        //GetInput();
-        if (!GameManager.Instance.GetUIManager().IsPanelWaitingEnabled() && !GameManager.Instance.GetUIManager().IsPanelWinningEnabled() 
+        transform.position = checkPoint1.gameObject.transform.position;
+        currentState = Movement.WAITING;
+        if (checkPoint1 != null)
+        {
+            Debug.Log("No es null");
+            followPath.SetDest(checkPoint1.GetNextPointInDest());
+        }
+        else
+        {
+            Debug.Log("Por algún motivo es null");
+        }
+    }
+
+    private void HandleCarFunctionality()
+    {
+        if (!GameManager.Instance.GetUIManager().IsPanelWaitingEnabled() && !GameManager.Instance.GetUIManager().IsPanelWinningEnabled()
             && !GameManager.Instance.GetUIManager().IsPanelFinishSerieEnabled() && !GameManager.Instance.GetUIManager().IsPanelDisconectingEnabled())
         {
             HandleMotor();
-            HandleSteering();
-            UpdateWheels();
         }
-        else if(GameManager.Instance.GetUIManager().IsPanelWinningEnabled() 
+        else if (GameManager.Instance.GetUIManager().IsPanelWinningEnabled()
             || GameManager.Instance.GetUIManager().IsPanelFinishSerieEnabled() || GameManager.Instance.GetUIManager().IsPanelDisconectingEnabled())
         {
             FinishBreaking();
         }
     }
 
-    private void FinishBreaking()
+    private void FixedUpdate()
+    {
+        //GetInput();
+        //if (!GameManager.Instance.GetUIManager().IsPanelWaitingEnabled() && !GameManager.Instance.GetUIManager().IsPanelWinningEnabled() 
+        //    && !GameManager.Instance.GetUIManager().IsPanelFinishSerieEnabled() && !GameManager.Instance.GetUIManager().IsPanelDisconectingEnabled())
+        //{
+        //    HandleMotor();
+        //    HandleSteering();
+        //    UpdateWheels();
+        //}
+        //else if(GameManager.Instance.GetUIManager().IsPanelWinningEnabled() 
+        //    || GameManager.Instance.GetUIManager().IsPanelFinishSerieEnabled() || GameManager.Instance.GetUIManager().IsPanelDisconectingEnabled())
+        //{
+        //    FinishBreaking();
+        //}
+
+        HandleSteering();
+        UpdateWheels();
+    }
+
+    public void FinishBreaking()
     {
         currentBreakForce = breakForce;
         ApplyBreaking();
@@ -73,29 +110,39 @@ public class CarController : MonoBehaviour
 
     private void HandleMotor()
     {
-        if (!alreadyAccelerate && !isBreaking)
+        //if (!alreadyAccelerate && !isBreaking)
+        //{
+        //    Debug.Log("Acelero");
+        //    frontLeftWheelCollider.motorTorque = motorForce;
+        //    frontRightWheelCollider.motorTorque = motorForce;
+        //    alreadyAccelerate = true;
+        //}
+        //else if(alreadyAccelerate && !isBreaking)
+        //{
+        //    frontLeftWheelCollider.motorTorque = 0.0f;
+        //    frontRightWheelCollider.motorTorque = 0.0f;
+        //}
+
+        if(frontLeftWheelCollider.brakeTorque > 0)
         {
-            Debug.Log("Acelero");
-            frontLeftWheelCollider.motorTorque = motorForce;
-            frontRightWheelCollider.motorTorque = motorForce;
-            alreadyAccelerate = true;
+            frontLeftWheelCollider.brakeTorque = 0.0f;
+            frontRightWheelCollider.brakeTorque = 0.0f;
+            rearLeftWheelCollider.brakeTorque = 0.0f;
+            rearRightWheelCollider.brakeTorque = 0.0f;
         }
-        else if(alreadyAccelerate && !isBreaking)
-        {
-            frontLeftWheelCollider.motorTorque = 0.0f;
-            frontRightWheelCollider.motorTorque = 0.0f;
-        }
-        
-        if (isBreaking)
-        {
-            currentBreakForce = breakForce;
-            alreadyAccelerate = false;
-        }
-        else
-        {
-            currentBreakForce = 0.0f;
-        }
-        ApplyBreaking();
+
+        frontLeftWheelCollider.motorTorque = motorForce;
+        frontRightWheelCollider.motorTorque = motorForce;
+
+        //if (isBreaking)
+        //{
+        //    currentBreakForce = breakForce;
+        //}
+        //else
+        //{
+        //    currentBreakForce = 0.0f;
+        //}
+        //ApplyBreaking();
     }
 
     private void ApplyBreaking()
@@ -169,14 +216,17 @@ public class CarController : MonoBehaviour
             uIExerciseSlider.UpdateSlider(orient.x);
         }
 
-        if (!isBreaking && orient.x >= 270.0f && orient.x <= INITIAL_DEGREES - GameManager.Instance.GetAngleToDoIt())
+        if (/*isBreaking &&*/ orient.x >= 270.0f && orient.x <= INITIAL_DEGREES - GameManager.Instance.GetAngleToDoIt() && currentState == Movement.RESTART)
         {
-            isBreaking = true;
+            currentState = Movement.MOVE_DONE;
+            //isBreaking = false;
             rep++;
         }
-        else if(isBreaking && orient.x >= INITIAL_DEGREES - 10.0f)
+        else if(/*!isBreaking &&*/ orient.x >= INITIAL_DEGREES - 10.0f && currentState == Movement.WAITING)
         {
-            isBreaking = false;
+            Debug.Log("Move restart");
+            currentState = Movement.RESTART;
+            //isBreaking = true;
             rep++;
         }
         if (rep == 2)
@@ -184,21 +234,32 @@ public class CarController : MonoBehaviour
             GameManager.Instance.AddReps();
             rep = 0;
         }
+        if (currentState == Movement.MOVE_DONE)
+        {
+            Debug.Log("Move doneeee");
+            HandleCarFunctionality();
+            currentState = Movement.WAITING;
+        }
         GameManager.Instance.WriteData(orient.ToString());
     }
 
     public void SetAlreadyAccelerate(bool acc)
     {
-        alreadyAccelerate = acc;
+        //alreadyAccelerate = acc;
     }
 
     public void SetIsBreaking(bool ib)
     {
-        isBreaking = ib;
+        //isBreaking = ib;
     }
 
     public bool IsBreaking()
     {
-        return isBreaking;
+        return /*isBreaking*/ false;
+    }
+
+    public void setCurrentStateToWait()
+    {
+        currentState = Movement.WAITING;
     }
 }

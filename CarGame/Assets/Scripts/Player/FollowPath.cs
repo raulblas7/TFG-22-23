@@ -20,15 +20,10 @@ public class FollowPath : MonoBehaviour
 
     void Start()
     {
-        positions = new Vector3[line.positionCount];
-
-        int aux = line.GetPositions(positions);
-        if (aux != line.positionCount)
-        {
-            Debug.Log("no se han cogido todos los vertices");
-        }
-        currentDest = 0;
-        dest = positions[0];
+        if(positions == null) InitPositions();
+        //currentDest = 0;
+        //dest = positions[0];
+        
     }
 
     void Update()
@@ -44,17 +39,6 @@ public class FollowPath : MonoBehaviour
             if (currentDest == positions.Length) { currentDest = 0; }
             dest = positions[currentDest];
         }
-
-        //comprobamos muerte del jugador por caida
-        if (transform.position.y < deadZone)
-        {
-            rb.Sleep();
-            transform.position = playerCheckPoints.GetCheckPointInfo().GetTransform().position;
-            transform.rotation = playerCheckPoints.GetCheckPointInfo().GetTransform().rotation;
-            rb.WakeUp();
-
-            SetDest(playerCheckPoints.GetCheckPointInfo().GetNextPointInDest());
-        }
     }
 
     public Vector3 getDir()
@@ -64,7 +48,23 @@ public class FollowPath : MonoBehaviour
 
     public void SetDest(int nextPos)
     {
+        if(positions == null)
+        {
+            InitPositions();
+        }
         dest = positions[nextPos];
         currentDest = nextPos;
+    }
+
+    private void InitPositions()
+    {
+        positions = new Vector3[line.positionCount];
+
+        int aux = line.GetPositions(positions);
+        if (aux != line.positionCount)
+        {
+            Debug.Log("no se han cogido todos los vertices");
+        }
+        dest = Vector3.zero;
     }
 }

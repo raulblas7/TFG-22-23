@@ -54,17 +54,9 @@ public class ManageCarCollisions : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("DeadObstacle"))
+        if (other.gameObject.CompareTag("DeadObstacle") || other.gameObject.CompareTag("Wall"))
         { 
             SetPositionToLastCheckPoint();
-        }
-        if (other.gameObject.CompareTag("Wall"))
-        {
-            SetPositionToLastCheckPoint();
-        }
-        if (other.gameObject.CompareTag("AddForce") && !carController.IsBreaking())
-        {
-            carController.SetAlreadyAccelerate(false);
         }
     }
 
@@ -75,7 +67,21 @@ public class ManageCarCollisions : MonoBehaviour
         transform.rotation = playerCheckPoints.GetCheckPointInfo().GetTransform().rotation;
         rbCar.WakeUp();
 
+        carController.setCurrentStateToWait();
+        carController.FinishBreaking();
         followPath.SetDest(playerCheckPoints.GetCheckPointInfo().GetNextPointInDest());
+    }
+
+    public void SetPositionToNextCheckpoint(CheckPointInfo nextCheck)
+    {
+        rbCar.Sleep();
+        transform.position = nextCheck.gameObject.transform.position;
+        transform.rotation = nextCheck.gameObject.transform.rotation;
+        rbCar.WakeUp();
+
+        carController.setCurrentStateToWait();
+        carController.FinishBreaking();
+        followPath.SetDest(nextCheck.GetNextPointInDest());
     }
 
     private void GoBigAgain()
