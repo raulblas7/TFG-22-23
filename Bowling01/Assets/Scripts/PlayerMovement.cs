@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         exerciseAngle = GameManager.Instance.GetExerciseAngle();
-        currentState = Movement.UP;
+        currentState = Movement.DOWN;
     }
 
     public Movement GetCurrentState() { return currentState; }
