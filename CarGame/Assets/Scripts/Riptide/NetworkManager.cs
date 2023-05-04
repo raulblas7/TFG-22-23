@@ -16,6 +16,8 @@ public class NetworkManager : MonoBehaviour
     [SerializeField] private ushort maxClientCount;
     [SerializeField] private CarController carController;
     private static float orientationX = 0;
+    private static float orientationY = 0;
+    private static float orientationZ = 0;
 
 
     private void Awake()
@@ -51,7 +53,7 @@ public class NetworkManager : MonoBehaviour
             && !GameManager.Instance.GetUIManager().IsPanelWinningEnabled() && Server.ClientCount == 1)
         {
             Quaternion q = new Quaternion();
-            Vector3 aux = new Vector3(orientationX, 0, 0);
+            Vector3 aux = new Vector3(orientationX, orientationY, orientationZ);
             q.eulerAngles = aux;
             carController.GetRotationFromDevice(q);
         }
@@ -87,12 +89,23 @@ public class NetworkManager : MonoBehaviour
     }
 
     //recibir el mensaje con la orientacion
-    [MessageHandler((ushort)MessageID.orientation)]
-    private static void ReceiveOrientationFromDevice(ushort fromClientId, Message message)
+    [MessageHandler((ushort)MessageID.orientationX)]
+    private static void ReceiveOrientationXFromDevice(ushort fromClientId, Message message)
     {
         orientationX = message.GetFloat();
     }
 
+    [MessageHandler((ushort)MessageID.orientationY)]
+    private static void ReceiveOrientationYFromDevice(ushort fromClientId, Message message)
+    {
+        orientationY = message.GetFloat();
+    }
+
+    [MessageHandler((ushort)MessageID.orientationZ)]
+    private static void ReceiveOrientationZFromDevice(ushort fromClientId, Message message)
+    {
+        orientationZ = message.GetFloat();
+    }
 
     private string GetIp()
     {

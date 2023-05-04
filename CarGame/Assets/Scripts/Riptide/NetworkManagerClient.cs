@@ -9,7 +9,9 @@ using UnityEngine.UI;
 
 public enum MessageID
 {
-    orientation = 1,
+    orientationX = 1,
+    orientationZ = 2,
+    orientationY = 3,
 }
 public class NetworkManagerClient : MonoBehaviour
 {
@@ -119,8 +121,14 @@ public class NetworkManagerClient : MonoBehaviour
 
     private void SendMessageToPlayer(Quaternion orientation)
     {
-        Message message = Message.Create(MessageSendMode.unreliable, (ushort)MessageID.orientation);
+        Message message = Message.Create(MessageSendMode.unreliable, (ushort)MessageID.orientationX);
         message.AddFloat(orientation.eulerAngles.x);
+        Client.Send(message);
+        message = Message.Create(MessageSendMode.unreliable, (ushort)MessageID.orientationY);
+        message.AddFloat(orientation.eulerAngles.y);
+        Client.Send(message);
+        message = Message.Create(MessageSendMode.unreliable, (ushort)MessageID.orientationZ);
+        message.AddFloat(orientation.eulerAngles.z);
         Client.Send(message);
     }
 
