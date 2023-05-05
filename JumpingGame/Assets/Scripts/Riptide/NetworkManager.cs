@@ -20,6 +20,8 @@ public class NetworkManager : MonoBehaviour
     private static float orientationY = 0;
     private static float orientationZ = 0;
 
+    private float currentTime = 0;
+
 
     private void Awake()
     {
@@ -41,7 +43,7 @@ public class NetworkManager : MonoBehaviour
         Server.ClientDisconnected += ClientLeft;
         Server.ClientConnected += ClientConnect;
         string ip = GetIp();
-        if(ip != null)
+        if (ip != null)
         {
             //Sacamos la ip por pantalla
             GameManager.Instance.GetUIManager().SetIPText(ip);
@@ -50,14 +52,19 @@ public class NetworkManager : MonoBehaviour
 
     private void Update()
     {
-        if(Server.ClientCount == 1 && !GameManager.Instance.GetUIManager().IsPanelWaitingEnabled() && !GameManager.Instance.GetUIManager().IsPanelWinningEnabled())
+        if (Server.ClientCount == 1 && !GameManager.Instance.GetUIManager().IsPanelWaitingEnabled() && !GameManager.Instance.GetUIManager().IsPanelWinningEnabled())
         {
-            Quaternion q = new Quaternion();
-            Vector3 aux = new Vector3(orientationX, orientationY, orientationZ);
-            q.eulerAngles = aux;
-            player.CheckIfCanJump(q);
+            currentTime += Time.deltaTime;
+            if (currentTime >= 0.1f) // 10 veces por segundo
+            {
+                currentTime = 0;
+                Quaternion q = new Quaternion();
+                Vector3 aux = new Vector3(orientationX, orientationY, orientationZ);
+                q.eulerAngles = aux;
+                player.CheckIfCanJump(q);
+            }
         }
-    
+
     }
 
     private void FixedUpdate()
