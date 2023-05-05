@@ -22,6 +22,8 @@ public class NetworkManager : MonoBehaviour
     private static float orientationY = 0;
     private static float orientationZ = 0;
 
+    private float currentTime = 0;
+
 
     private void Awake()
     {
@@ -44,7 +46,7 @@ public class NetworkManager : MonoBehaviour
         Server.ClientDisconnected += ClientLeft;
         Server.ClientConnected += ClientConnect;
         string ip = GetIp();
-        if(ip != null)
+        if (ip != null)
         {
             //Sacamos la ip por pantalla
             UiManager.SetIPText(ip);
@@ -53,16 +55,22 @@ public class NetworkManager : MonoBehaviour
 
     private void Update()
     {
-        if(Server.ClientCount == 1 && GameManager.Instance.IsGameActive())
+        if (Server.ClientCount == 1 && GameManager.Instance.IsGameActive())
         {
-            Quaternion q = new Quaternion();
-            Vector3 aux = new Vector3(orientationX, orientationY, orientationZ);
-            q.eulerAngles = aux;
-            //PlayerMovement.Instance.CheckIfCanThrow(q);
-            rod.CheckIfApplyForce(q);
-           
+            currentTime += Time.deltaTime;
+            if (currentTime >= 0.1f) // 10 veces por segundo
+            {
+                currentTime = 0;
+                Quaternion q = new Quaternion();
+                Vector3 aux = new Vector3(orientationX, orientationY, orientationZ);
+                q.eulerAngles = aux;
+                //PlayerMovement.Instance.CheckIfCanThrow(q);
+                rod.CheckIfApplyForce(q);
+
+            }
+
         }
-    
+
     }
 
     private void FixedUpdate()
@@ -90,7 +98,7 @@ public class NetworkManager : MonoBehaviour
         UiManager.ChangeInfoTest("El móvil se ha desconectado \n Es necesario Reiniciar el juego");
         UiManager.ActiveRestartButton();
         StopServer();
-        
+
     }
 
     private void ClientConnect(object sender, ServerClientConnectedEventArgs e)
@@ -109,7 +117,7 @@ public class NetworkManager : MonoBehaviour
         //Debug.Log("mensaje recibido " + message.GetFloat());
         orientationX = message.GetFloat();
         //Debug.Log("Orientacion en x es: " + message.GetFloat());
-     
+
     }
 
     [MessageHandler((ushort)MessageID.orientationY)]
