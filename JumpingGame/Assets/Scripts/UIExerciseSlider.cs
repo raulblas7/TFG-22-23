@@ -24,7 +24,7 @@ public class UIExerciseSlider : MonoBehaviour
         {
             slider.value = /*exerciseAngle -*/ (currentValue - 270);
         }
-        else if(currentValue >= 270 + exerciseAngle)
+        else if(currentValue > (270 + exerciseAngle))
         {
             slider.value = exerciseAngle;
         }
