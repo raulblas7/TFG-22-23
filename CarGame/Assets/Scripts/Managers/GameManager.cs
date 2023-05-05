@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     ConfigurationSaveManager _configurationSafeManager;
     SaveData _saveData;
 
+    int points = 0;
+
     private void Awake()
     {
         if (_instance != null)
@@ -180,5 +182,20 @@ public class GameManager : MonoBehaviour
     private void OnApplicationQuit()
     {
         FinishSave();
+    }
+
+    public void AddPoints(int p)
+    {
+        points += p;
+        uiManager.UpdatePointsText(points);
+    }
+
+    public void LessPoints(int p)
+    {
+        if (points - p >= 0)
+        {
+            points -= p;
+            uiManager.UpdatePointsText(points);
+        }
     }
 }

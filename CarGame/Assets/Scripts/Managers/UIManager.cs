@@ -32,6 +32,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI counterSeriesText;
     [SerializeField] private TextMeshProUGUI infoText;
     [SerializeField] private TextMeshProUGUI ipAndCountDownText;
+    [SerializeField] private TextMeshProUGUI pointsText;
 
     private void Start()
     {
@@ -44,6 +45,10 @@ public class UIManager : MonoBehaviour
         if (repsText != null)
         {
             repsText.text = repsText.text + GameManager.Instance.GetCurrentReps() + " de " + GameManager.Instance.GetReps();
+        }
+        if(pointsText != null)
+        {
+            pointsText.text = "0";
         }
     }
 
@@ -283,6 +288,7 @@ public class UIManager : MonoBehaviour
         panelWaitingMobile.SetActive(false);
         lapsText.gameObject.SetActive(true);
         repsText.gameObject.SetActive(true);
+        pointsText.gameObject.SetActive(true);
     }
 
     public void EnablePanelWaiting()
@@ -290,6 +296,7 @@ public class UIManager : MonoBehaviour
         panelWaitingMobile.SetActive(true);
         lapsText.gameObject.SetActive(false);
         repsText.gameObject.SetActive(false);
+        pointsText.gameObject.SetActive(false);
     }
 
     public bool IsPanelWaitingEnabled()
@@ -417,5 +424,10 @@ public class UIManager : MonoBehaviour
     public bool IsPanelFinishSerieEnabled()
     {
         return panelFinishSerie.activeSelf;
+    }
+
+    public void UpdatePointsText(int points)
+    {
+        pointsText.text = points.ToString();
     }
 }

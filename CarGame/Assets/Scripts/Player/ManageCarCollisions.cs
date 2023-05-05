@@ -49,6 +49,8 @@ public class ManageCarCollisions : MonoBehaviour
         if (collision.gameObject.CompareTag("DeadObstacle"))
         {
             SetPositionToLastCheckPoint();
+            GameManager.Instance.LessPoints(50);
+            GameManager.Instance.AddReps();
         }
     }
 
@@ -57,6 +59,14 @@ public class ManageCarCollisions : MonoBehaviour
         if (other.gameObject.CompareTag("DeadObstacle") || other.gameObject.CompareTag("Wall"))
         { 
             SetPositionToLastCheckPoint();
+            GameManager.Instance.LessPoints(50);
+            GameManager.Instance.AddReps();
+        }
+        if (other.gameObject.CompareTag("Tyres"))
+        {
+            //other.gameObject.SetActive(false);
+            GameManager.Instance.AddPoints(100);
+            GameManager.Instance.AddReps();
         }
     }
 

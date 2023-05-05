@@ -229,11 +229,11 @@ public class CarController : MonoBehaviour
             //isBreaking = true;
             rep++;
         }
-        if (rep == 2)
-        {
-            GameManager.Instance.AddReps();
-            rep = 0;
-        }
+        //if (rep == 2)
+        //{
+        //    GameManager.Instance.AddReps();
+        //    rep = 0;
+        //}
         if (currentState == Movement.MOVE_DONE)
         {
             Debug.Log("Move doneeee");
