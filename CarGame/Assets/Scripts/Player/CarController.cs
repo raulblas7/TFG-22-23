@@ -12,17 +12,11 @@ public class CarController : MonoBehaviour
         RESTART
     }
 
+    private const float INITIAL_DEGREES = 350.0f;
     private Movement currentState;
-    private float verticalInput;
-
     private float currentBreakForce;
-    //private bool isBreaking = true;
-
     private float currentSteerAngle;
 
-    private Vector3 currentDir;
-
-    private int rep = 0;
 
     [SerializeField] private FollowPath followPath;
 
@@ -48,10 +42,6 @@ public class CarController : MonoBehaviour
 
     [SerializeField] private UIExerciseSlider uIExerciseSlider;
 
-    private const float INITIAL_DEGREES = 350.0f;
-
-    //private bool alreadyAccelerate = false;
-
 
     private void Start()
     {
@@ -59,12 +49,7 @@ public class CarController : MonoBehaviour
         currentState = Movement.WAITING;
         if (checkPoint1 != null)
         {
-            Debug.Log("No es null");
             followPath.SetDest(checkPoint1.GetNextPointInDest());
-        }
-        else
-        {
-            Debug.Log("Por algún motivo es null");
         }
     }
 
@@ -84,20 +69,6 @@ public class CarController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //GetInput();
-        //if (!GameManager.Instance.GetUIManager().IsPanelWaitingEnabled() && !GameManager.Instance.GetUIManager().IsPanelWinningEnabled() 
-        //    && !GameManager.Instance.GetUIManager().IsPanelFinishSerieEnabled() && !GameManager.Instance.GetUIManager().IsPanelDisconectingEnabled())
-        //{
-        //    HandleMotor();
-        //    HandleSteering();
-        //    UpdateWheels();
-        //}
-        //else if(GameManager.Instance.GetUIManager().IsPanelWinningEnabled() 
-        //    || GameManager.Instance.GetUIManager().IsPanelFinishSerieEnabled() || GameManager.Instance.GetUIManager().IsPanelDisconectingEnabled())
-        //{
-        //    FinishBreaking();
-        //}
-
         HandleSteering();
         UpdateWheels();
     }
@@ -110,19 +81,6 @@ public class CarController : MonoBehaviour
 
     private void HandleMotor()
     {
-        //if (!alreadyAccelerate && !isBreaking)
-        //{
-        //    Debug.Log("Acelero");
-        //    frontLeftWheelCollider.motorTorque = motorForce;
-        //    frontRightWheelCollider.motorTorque = motorForce;
-        //    alreadyAccelerate = true;
-        //}
-        //else if(alreadyAccelerate && !isBreaking)
-        //{
-        //    frontLeftWheelCollider.motorTorque = 0.0f;
-        //    frontRightWheelCollider.motorTorque = 0.0f;
-        //}
-
         if(frontLeftWheelCollider.brakeTorque > 0)
         {
             frontLeftWheelCollider.brakeTorque = 0.0f;
@@ -133,16 +91,6 @@ public class CarController : MonoBehaviour
 
         frontLeftWheelCollider.motorTorque = motorForce;
         frontRightWheelCollider.motorTorque = motorForce;
-
-        //if (isBreaking)
-        //{
-        //    currentBreakForce = breakForce;
-        //}
-        //else
-        //{
-        //    currentBreakForce = 0.0f;
-        //}
-        //ApplyBreaking();
     }
 
     private void ApplyBreaking()
@@ -159,12 +107,8 @@ public class CarController : MonoBehaviour
 
         float leftOrRight = AngleDir(transform.forward, auxDir, Vector3.up);
         float angle = Vector3.Angle(followPath.getDir(), transform.forward);
-        //Debug.Log("LeftOrRight " + leftOrRight);
-       // if (angle >= -deadzoneAngle && angle <= deadzoneAngle) angle = 0;
-       // Debug.Log("angulo2 " + angle);
 
         currentSteerAngle = angle * leftOrRight;
-        //Debug.Log("angulo3 " + currentSteerAngle);
         frontLeftWheelCollider.steerAngle = currentSteerAngle;
         frontRightWheelCollider.steerAngle = currentSteerAngle;
     }
@@ -216,46 +160,21 @@ public class CarController : MonoBehaviour
             uIExerciseSlider.UpdateSlider(orient.x);
         }
 
-        if (/*isBreaking &&*/ orient.x >= 270.0f && orient.x <= INITIAL_DEGREES - GameManager.Instance.GetAngleToDoIt() && currentState == Movement.RESTART)
+        if (orient.x >= 270.0f && orient.x <= INITIAL_DEGREES - GameManager.Instance.GetAngleToDoIt() && currentState == Movement.RESTART)
         {
             currentState = Movement.MOVE_DONE;
-            //isBreaking = false;
-            rep++;
         }
-        else if(/*!isBreaking &&*/ orient.x >= INITIAL_DEGREES - 10.0f && currentState == Movement.WAITING)
+        else if(orient.x >= INITIAL_DEGREES - 10.0f && currentState == Movement.WAITING)
         {
-            Debug.Log("Move restart");
             currentState = Movement.RESTART;
-            //isBreaking = true;
-            rep++;
         }
-        //if (rep == 2)
-        //{
-        //    GameManager.Instance.AddReps();
-        //    rep = 0;
-        //}
+
         if (currentState == Movement.MOVE_DONE)
         {
-            Debug.Log("Move doneeee");
             HandleCarFunctionality();
             currentState = Movement.WAITING;
         }
         GameManager.Instance.WriteData(orient.ToString());
-    }
-
-    public void SetAlreadyAccelerate(bool acc)
-    {
-        //alreadyAccelerate = acc;
-    }
-
-    public void SetIsBreaking(bool ib)
-    {
-        //isBreaking = ib;
-    }
-
-    public bool IsBreaking()
-    {
-        return /*isBreaking*/ false;
     }
 
     public void setCurrentStateToWait()

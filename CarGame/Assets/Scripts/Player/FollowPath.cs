@@ -21,9 +21,6 @@ public class FollowPath : MonoBehaviour
     void Start()
     {
         if(positions == null) InitPositions();
-        //currentDest = 0;
-        //dest = positions[0];
-        
     }
 
     void Update()

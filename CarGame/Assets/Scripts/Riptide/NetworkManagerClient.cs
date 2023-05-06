@@ -72,7 +72,6 @@ public class NetworkManagerClient : MonoBehaviour
 
             // Aplicar la orientación al objeto
             Quaternion orientation = Quaternion.FromToRotation(Vector3.up, deviceAcceleration);
-            Debug.Log("La orientacion es: " + orientation);
             SendMessageToPlayer(orientation);
         }
     }
