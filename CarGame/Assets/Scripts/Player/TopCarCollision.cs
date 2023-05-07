@@ -10,7 +10,6 @@ public class TopCarCollision : MonoBehaviour
     {
         if (other.gameObject.CompareTag("floor"))
         {
-            Debug.Log("He volcao");
             manageCarCollisions.SetPositionToLastCheckPoint();
         }
     }

@@ -42,8 +42,6 @@ public class ManageCarCollisions : MonoBehaviour
             else
             {
                 rbCar.AddForce(Vector3.forward * (-1) * collisionForce, ForceMode.Impulse);
-                carController.SetAlreadyAccelerate(false);
-                carController.SetIsBreaking(false);
             }
         }
         if (collision.gameObject.CompareTag("DeadObstacle"))
