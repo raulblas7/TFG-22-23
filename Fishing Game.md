@@ -54,22 +54,22 @@ Cuando el paciente complete todas las repeticiones, se considerará que ha termi
 ## 4. Inatalación
 
 ### 4.1 Instalación del juego en Windows
-Para instalar el juego debe acceder al siguiente enlace y descargar los archivos
+Para instalar el juego debe acceder al apartado de Releases en este Repositorio y descargar el archivo comprimido .zip referente a Fishing Game (Recomendamos siempre descargar la versión más nueva).
 
 Una vez descargado descomprima el archivo.
 Para abrir el juego haga doble click en el archivo **Fishing.exe**
 
-*Es posible que el firewal de windows le pida permiso para realizar la conexion con el móvil, debe permitir la conexión para que el juego funcine.
-*Si usted cuenta con un antivirus que se encargue de las funciones de Firewall, es posible que necesite dar permiso en su antivirus para pader conectarse al móvil.
+*Es posible que el firewal de windows le pida permiso para realizar la conexion con el móvil, debe permitir la conexión para que el juego funcione.
+*Si usted cuenta con un antivirus que se encargue de las funciones de Firewall, es posible que necesite dar permiso en su antivirus para poder conectarse al móvil.
 
 ### 4.1 Instalación de la aplicación móvil
 
-Para instalar la aplicación móvil debe acceder al siguiente enlace desde su móvil y descargar los archivos.
+Para instalar la aplicación debe acceder al apartado de Releases en este Repositorio y descargar el archivo .apk referente a Phone Sensor (Recomendamos siempre descargar la versión más nueva).
 
-Una vez descargado valla a "Descargas" en su móvil, busque el archivo descargado **Phone Sensor.apk**.
-Puelse en el archivo e instalelo.
+Una vez descargado dirijase a "Descargas" en su móvil, busque el archivo descargado **Phone Sensor.apk**.
+Pulse en el archivo e instalelo.
 
-*Es posible que al intentar instalar la aplicación es posible que aparezca un mensaje similar a este: 
+*Es posible que al intentar instalar la aplicación aparezca un mensaje similar a este: 
 > Por motivos de seguridad, tu teléfono no puede instalar aplicaciones desconocidas de esta fuente.
 
 En ese caso vaya a Ajustes y active la opción *"Permitir desde esta fuente"*.

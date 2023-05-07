@@ -1,4 +1,4 @@
-# Jumping Game
+# Car Game
 ## 1. Cómo colocar el dispositivo
 El dispositivo para captar el movimiento, el móvil, deberá ser colocado en el paciente y sujeto mediante unas correas.
 ### 1.1. Cúando colocar el dispositivo
@@ -10,8 +10,10 @@ El dispositivo para captar el movimiento, el móvil, deberá ser colocado en el 
 
 ### 1.2. Dónde colocar el dispositivo
 Teniendo como referencia que el paciente está en la posición inicial.
-El móvil debe colocarse en el muslo, lo más cerca de la rodilla posible.
-El móvil deberá situarse con la pantalla hacia arriba, colocado de forma que apunte hacia los pies.
+El móvil debe colocarse en la planta del pie, con la pantalla apuntando hacia la piel.
+El móvil deberá situarse de tal manera que la cámara esté hacia los dedos de los pies.
+
+Cambiar imagen
 
 ![Imagen colocación dispositivo](https://github.com/raulblas7/TFG-22-23/blob/main/JumpingGame/Assets/Images/MobilePos.png)
 
@@ -20,15 +22,16 @@ El móvil deberá situarse con la pantalla hacia arriba, colocado de forma que a
 
 ## 2. Ejercicio a realizar
 
-El ejercicio de rehabilitación asociado a este juego es el de rodilla y cadera.
-Para realizar este ejercicio el paciente deberá tumbarse boca arriba y con ambas piernas estiradas (posición inicial), el ejercicio consiste en aproximar la rodilla hacia el pecho mientras mantiene la otra pierna pegada al suelo. Después volverá a la posición inicial.
+El ejercicio de rehabilitación asociado a este juego es el de tobillo y pie.
+El paciente podrá realizar este ejercicio tumbado. El paciente deberá colocar el pie todo lo arriba posible (posición inicial). Después moverlo hacia abajo intentando hacer el máximo recorrido posible.
 
- Para que se considere que un movimiento ha sido completado el paciente deberá levantar el brazo y después volver a la posición inicial.
+Para que se considere que un movimiento ha sido completado el paciente deberá levantar el pie hasta la posición inicial.
 
+Cambiar imagen
 ![Imagen ejercicio a realizar](https://github.com/raulblas7/TFG-22-23/blob/main/JumpingGame/Assets/Images/Ejercicio%20Rodilla.png)
 
  ### 2.1. Posición inicial
-Para este ejercicio el paciente deberá empezar con ambas piernas estiradas pegadas al suelo como se muestra en la imagen.
+Para este ejercicio el paciente deberá empezar tumbado con las piernas estiradas y con la puntera de los pies apuntando al techo.
 
 **Importante:** Para que el juego funcione de forma correcta es importante que el paciente siempre empiece en la posición inicial o lo más cerca que le sea posible.
 
@@ -40,28 +43,24 @@ Si inicia el juego sin configurarlo, se usará la última configuración realiza
 
 ### 3.1. Parámetros a configurar
 
- - **Número de movimientos por serie:**  seleccione el número de repeticiones del movimiento que el paciente tendrá que realizar para terminar el juego.
-Recuerde que para que se considere que un movimiento ha sido completado el paciente deberá flexionar la pierna y después volver a la posición inicial.
+ - **Número de repeticiones:** En este juego se podrá seleccionar el número de repeticiones que debe realizar el paciente del ejercicio, en el juego este se verá reflejado en el número de obstáculos a superar.
 
+ - **Número de series:** El fisioterapeuta también podrá elegir cuantas series de repeticiones va a realizar el paciente, de forma que cuando el paciente termina todas las repeticiones se completa una serie y se reinician las repeticiones.
 
- - **Número de series a realizar:** seleccione las series que debe realizar el paciente, es decir, el número de veces que tendrá que repetir el número de repeticiones.
+ - **Ángulo del ejercicio:** El fisioterapeuta podrá elegir a partir de qué ángulo, contando desde la posición inicial, se considera que el movimiento ya se ha completado y por tanto el juego puede reaccionar. Se tiene en cuenta que no todos los pacientes tendrán las mismas capacidades y así se adapta a todos los posibles casos.
 
+ - **Dificultad:** En este juego se podrá configurar la dificultad, cuando modifiquemos la dificultad, se modificarán en el juego la velocidad a la que los obstáculos de los martillos se mueven
 
-  - **Tiempo máximo entre movimientos:** seleccione el tiempo que máximo que tendrá el paciente para volver a hacer un movimiento sin ser penalizado dentro del juego.
-
-
- - **Ángulo del movimiento:**  seleccione el ángulo a partir del cual el juego considerará que el movimiento ha sido efectuado.
-Para ajustar este ángulo se tiene en cuenta la inclinación del muslo desde la posición inicial.
-
+Cambiar imagen
 ![Imagen movimiento](https://github.com/raulblas7/TFG-22-23/blob/main/JumpingGame/Assets/Images/Movimiento.png)
 
 ## 4. Instalación
 
 ### 4.1 Instalación del juego en Windows
-Para instalar el juego debe acceder al apartado de Releases en este Repositorio y descargar el archivo comprimido .zip referente a Jumping Game (Recomendamos siempre descargar la versión más nueva).
+Para instalar el juego debe acceder al apartado de Releases en este Repositorio y descargar el archivo comprimido .zip referente a Car Game (Recomendamos siempre descargar la versión más nueva).
 
 Una vez descargado descomprima el archivo.
-Para abrir el juego haga doble click en el archivo **JumpingGame.exe**
+Para abrir el juego haga doble click en el archivo **CarGame.exe**
 
 *Es posible que el firewal de windows le pida permiso para realizar la conexion con el móvil, debe permitir la conexión para que el juego funcione.
 *Si usted cuenta con un antivirus que se encargue de las funciones de Firewall, es posible que necesite dar permiso en su antivirus para poder conectarse al móvil.
