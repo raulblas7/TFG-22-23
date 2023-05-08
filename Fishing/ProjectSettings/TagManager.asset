@@ -16,6 +16,7 @@ TagManager:
   - FishingRod
   - DeadZone
   - Fish
+  - Limit
   layers:
   - Default
   - TransparentFX

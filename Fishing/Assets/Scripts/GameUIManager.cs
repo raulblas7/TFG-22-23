@@ -10,6 +10,7 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI pointsText;
     [SerializeField] private TextMeshProUGUI fishCountDownText;
     [SerializeField] private TextMeshProUGUI fishCountText;
+    [SerializeField] private TextMeshProUGUI returnToinitPosText;
 
     //final panel
     [SerializeField] private GameObject finalPanel;
@@ -38,6 +39,7 @@ public class GameUIManager : MonoBehaviour
         fishCountText.text = "0" + "/" + maxFish.ToString();
         fishCountDownText.gameObject.SetActive(false);
         finalPanel.SetActive(false);
+        returnToinitPosText.gameObject.SetActive(false);
         ActiveWaitingConexion();
 
     }
@@ -184,6 +186,17 @@ public class GameUIManager : MonoBehaviour
             finalPanel.SetActive(false);
             GameManager.Instance.InitGame();
         }
+    }
+
+    public void ActiveReturnToInitPos()
+    {
+        returnToinitPosText.gameObject.SetActive(true);
+        Invoke("DesactiveReturnToInitPos", 3);
+    }
+
+    private void DesactiveReturnToInitPos()
+    {
+        returnToinitPosText.gameObject.SetActive(false);
     }
 
     public void DesactiveGame()

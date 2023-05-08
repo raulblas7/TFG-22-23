@@ -26,14 +26,16 @@ public class UIExerciseSlider : MonoBehaviour
     {
 
         //pasamos el valor actual(entre 0-180) a un rango 0-ejercicio
+        Debug.Log("current value: " + currentValue);
         if (currentValue <= 90 && currentValue >= (90 - exerciseAngle))
         {
             slider.value = (exerciseAngle - (currentValue - (90 - exerciseAngle)));
-
+            Debug.Log("angulo = : " + slider.value );
         }
-        else if (currentValue < 90 - exerciseAngle)
+        else if (currentValue < (90 - exerciseAngle))
         {
             slider.value = exerciseAngle;
+            Debug.Log("angulo menor de 40 = : " + slider.value);
         }
 
     }

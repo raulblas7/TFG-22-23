@@ -26,6 +26,8 @@ public class FishingRod : MonoBehaviour
     private Movement state = Movement.UP;
     private float playerAngle;
 
+ 
+
     private void Start()
     {
         playerAngle = GameManager.Instance.GetGameAngle();
@@ -35,13 +37,8 @@ public class FishingRod : MonoBehaviour
     {
         if (GameManager.Instance.IsGameActive())
         {
-            //if (Input.GetKey(KeyCode.Space))
-            //{
-            //    addForce = true;
-            //}
-            //else addForce = false;
 
-            if(state == Movement.MOVE_DONE)
+            if (state == Movement.MOVE_DONE)
             {
                 addForce = true;
             }
@@ -86,7 +83,7 @@ public class FishingRod : MonoBehaviour
         return addForce;
     }
 
- 
+
 
     public void CheckIfApplyForce(Quaternion orientQuaternion)
     {
@@ -96,9 +93,9 @@ public class FishingRod : MonoBehaviour
         //transformamos la orientacion en un rango de 0 a 180 grados
         float orientZ = (cube.forward.z + 1.0f) / 2.0f * 180.0f;
 
-        if (state == Movement.UP) Debug.Log("UP");
-        else if (state == Movement.MOVE_DONE) Debug.Log("MOVE DONE");
-        else Debug.Log("DOWN");
+        //if (state == Movement.UP) Debug.Log("UP");
+        //else if (state == Movement.MOVE_DONE) Debug.Log("MOVE DONE");
+        //else Debug.Log("DOWN");
 
 
         // le pasamos el angulo al slider
@@ -110,8 +107,9 @@ public class FishingRod : MonoBehaviour
 
         if ((orientZ <= 90.0f - playerAngle && (orient.x >= 270.0f && orient.x < 355.0f)) && state == Movement.UP)
         {
-           state = Movement.MOVE_DONE;
+            state = Movement.MOVE_DONE;
             
+
         }
 
         else if ((orientZ > 90.0f - 10.0f && (orient.x >= 270.0f && orient.x < 355.0f)) && state == Movement.MOVE_DONE)
