@@ -2412,6 +2412,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 630477711}
   _handleTransform: {fileID: 1732526061}
+  _sliderTransform: {fileID: 630477710}
 --- !u!1 &693147076
 GameObject:
   m_ObjectHideFlags: 0

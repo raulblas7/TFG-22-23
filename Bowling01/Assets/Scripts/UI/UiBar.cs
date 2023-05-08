@@ -7,6 +7,7 @@ public class UiBar : MonoBehaviour
 {
     [SerializeField] Slider slider;
     [SerializeField] RectTransform _handleTransform;
+    [SerializeField] RectTransform _sliderTransform;
 
     private int maxValue;
     private int minValue;
@@ -14,6 +15,26 @@ public class UiBar : MonoBehaviour
 
     void Start()
     {
+        int difficulty = GameManager.Instance.GetDifficulty();
+        switch (difficulty)
+        {
+            case 0:
+                ChangesliderSize(3.6f);
+                break;
+            case 1:
+                ChangesliderSize(3.0f);
+                break;
+            case 2:
+                ChangesliderSize(2.1f);
+                break;
+            case 3:
+                ChangesliderSize(1.5f);
+                break;
+            case 4:
+                ChangesliderSize(1.1f);
+                break;
+
+        }
         _handleTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Screen.width / 42.66667f);
         maxValue = GameManager.Instance.GetGameAngle();
         minValue = GameManager.Instance.GetGameAngle() * -1;
@@ -27,5 +48,10 @@ public class UiBar : MonoBehaviour
 
 
 
+    }
+
+    private void ChangesliderSize(float  size)
+    {
+        _sliderTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Screen.width / size);
     }
 }
