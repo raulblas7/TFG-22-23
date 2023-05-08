@@ -8,7 +8,7 @@ public class FishingRod : MonoBehaviour
     {
         UP = 0,
         DOWN,
-        MOVEDONE,
+        MOVE_DONE,
     }
 
     [SerializeField] private GameObject baitGO;
@@ -17,6 +17,8 @@ public class FishingRod : MonoBehaviour
     [SerializeField] private MeshRenderer baitRenderer;
     [SerializeField] private ColorFishingRod baitColors;
     [SerializeField] private UIExerciseSlider slider;
+
+    [SerializeField] Transform cube;
 
     private bool fishAtBait = false;
     private bool addForce = false;
@@ -39,7 +41,7 @@ public class FishingRod : MonoBehaviour
             //}
             //else addForce = false;
 
-            if(state == Movement.MOVEDONE)
+            if(state == Movement.MOVE_DONE)
             {
                 addForce = true;
             }
@@ -89,26 +91,63 @@ public class FishingRod : MonoBehaviour
     public void CheckIfApplyForce(Quaternion orientQuaternion)
     {
         Vector3 orient = orientQuaternion.eulerAngles;
+        cube.rotation = orientQuaternion;
+
+        //transformamos la orientacion en un rango de 0 a 180 grados
+        float orientZ = (cube.forward.z + 1.0f) / 2.0f * 180.0f;
 
         if (state == Movement.UP) Debug.Log("UP");
-        else if (state == Movement.MOVEDONE) Debug.Log("MOVE DONE");
+        else if (state == Movement.MOVE_DONE) Debug.Log("MOVE DONE");
         else Debug.Log("DOWN");
 
-        //le pasamos la info al slider
-        if(orient.x >= 270 && orient.x <= 360)
+
+        // le pasamos el angulo al slider
+        if (orient.x >= 270.0f && orient.x < 355.0f)
         {
-            slider.UpdateSlider(orient.x);
+            slider.UpdateSlider(orientZ);
+
         }
 
-        if ((orient.x >= 270.0f + playerAngle || orient.x < 90) && state == Movement.UP)
+        if ((orientZ <= 90.0f - playerAngle && (orient.x >= 270.0f && orient.x < 355.0f)) && state == Movement.UP)
         {
-            state = Movement.MOVEDONE;
+           state = Movement.MOVE_DONE;
+            
         }
-        if((orient.x <= 280.0f && orient.x > 90) && state == Movement.MOVEDONE)
+
+        else if ((orientZ > 90.0f - 10.0f && (orient.x >= 270.0f && orient.x < 355.0f)) && state == Movement.MOVE_DONE)
         {
             state = Movement.UP;
+            // Debug.Log("UP");
         }
 
         GameManager.Instance.WriteData(orient.ToString());
     }
+
+
+    //original
+    //public void CheckIfApplyForce(Quaternion orientQuaternion)
+    //{
+    //    Vector3 orient = orientQuaternion.eulerAngles;
+
+    //    if (state == Movement.UP) Debug.Log("UP");
+    //    else if (state == Movement.MOVEDONE) Debug.Log("MOVE DONE");
+    //    else Debug.Log("DOWN");
+
+    //    //le pasamos la info al slider
+    //    if (orient.x >= 270 && orient.x <= 360)
+    //    {
+    //        slider.UpdateSlider(orient.x);
+    //    }
+
+    //    if ((orient.x >= 270.0f + playerAngle || orient.x < 90) && state == Movement.UP)
+    //    {
+    //        state = Movement.MOVEDONE;
+    //    }
+    //    if ((orient.x <= 280.0f && orient.x > 90) && state == Movement.MOVEDONE)
+    //    {
+    //        state = Movement.UP;
+    //    }
+
+    //    GameManager.Instance.WriteData(orient.ToString());
+    //}
 }

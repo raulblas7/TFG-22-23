@@ -61,6 +61,15 @@ public class GameUIManager : MonoBehaviour
             fishCountDownText.gameObject.SetActive(false);
         }
     }
+    public void CancelFishCountDown()
+    {
+        
+        if (fishCountDownText.gameObject.activeSelf) // si sigue activo
+        {
+            CancelInvoke("UpdateFishCountDown");
+            fishCountDownText.gameObject.SetActive(false);
+        }
+    }
 
     public void UpdatePoints(int points)
     {

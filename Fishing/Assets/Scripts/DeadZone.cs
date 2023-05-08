@@ -16,6 +16,7 @@ public class DeadZone : MonoBehaviour
             if (fish.IsInTheFishingRod())
             {
                 GameManager.Instance.AddPoints(fish.GetPoints());
+                GameManager.Instance.GetUIManager().CancelFishCountDown();
                 
             }
             // lo eliminamos de la lista

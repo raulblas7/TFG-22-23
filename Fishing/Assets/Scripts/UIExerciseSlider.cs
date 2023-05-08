@@ -24,16 +24,33 @@ public class UIExerciseSlider : MonoBehaviour
 
     public void UpdateSlider(float currentValue)
     {
-      
-        if (currentValue >= 270 && currentValue <= (270 + exerciseAngle))
+
+        //pasamos el valor actual(entre 0-180) a un rango 0-ejercicio
+        if (currentValue <= 90 && currentValue >= (90 - exerciseAngle))
         {
-            slider.value = /*exerciseAngle -*/ (currentValue - 270);
+            slider.value = (exerciseAngle - (currentValue - (90 - exerciseAngle)));
 
         }
-        else if( currentValue > (270 + exerciseAngle))
+        else if (currentValue < 90 - exerciseAngle)
         {
             slider.value = exerciseAngle;
         }
 
     }
+
+    //original
+    //public void UpdateSlider(float currentValue)
+    //{
+
+    //    if (currentValue >= 270 && currentValue <= (270 + exerciseAngle))
+    //    {
+    //        slider.value = /*exerciseAngle -*/ (currentValue - 270);
+
+    //    }
+    //    else if (currentValue > (270 + exerciseAngle))
+    //    {
+    //        slider.value = exerciseAngle;
+    //    }
+
+    //}
 }

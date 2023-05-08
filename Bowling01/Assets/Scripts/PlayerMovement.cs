@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     //Instancia del launcher
     private static PlayerMovement _instance;
 
-    //todo quitar
+
     [SerializeField] Transform cube;
 
     private int exerciseAngle;
