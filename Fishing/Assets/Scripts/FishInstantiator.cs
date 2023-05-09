@@ -4,21 +4,22 @@ using UnityEngine;
 
 public class FishInstantiator : MonoBehaviour
 {
-    [SerializeField] private Fish fishPrefab;
+    [SerializeField] private Fish1 fishPrefab;
     [SerializeField] private FishingRod fishingRod;
     [SerializeField] private int numMaxOfFishInGame = 5;
 
     [SerializeField] private Transform[] spawners;
     [SerializeField] private Skin fishSkins;
+    [SerializeField] private Transform deadZone;
 
 
-    private List<Fish> fishList;
+    private List<Fish1> fishList;
 
 
     void Start()
     {
         GameManager.Instance.SetInstatiator(this);
-        fishList = new List<Fish>();
+        fishList = new List<Fish1>();
         //for (int i = 0; i < numMaxOfFishInGame; i++)
         //{
         //    InstantiateFish();
@@ -48,21 +49,31 @@ public class FishInstantiator : MonoBehaviour
     private void InstantiateFish()
     {
         int randomNum = Random.Range(0, spawners.Length);
-        Fish fishGO = Instantiate(fishPrefab, spawners[randomNum].position, Quaternion.identity, transform);
+        Fish1 fishGO = Instantiate(fishPrefab, spawners[randomNum].position, Quaternion.identity, transform);
         fishGO.SetFishingRod(fishingRod);
-        fishGO.SetFishInstantiator(this);
 
+        //pasamos color pez y puntos
         randomNum = Random.Range(0, fishSkins.materials.Length);
         fishGO.SetMaterialToMeshRenderer(fishSkins.materials[randomNum]);
         fishGO.SetPoints(fishSkins.points[randomNum]);
 
-        randomNum = Random.Range(10, 20);
+        //pasamos tiempo de vida
+        randomNum = Random.Range(5, 12);
         fishGO.SetLifeTime(randomNum);
+
+        //pasamos deadZone
+        fishGO.SetDeadZoneTr(deadZone);
+
+        //pasamos lista de objetivos
+        fishGO.SetObjetivesList(spawners);
+
+        //le decimos que elija primer destino
+        fishGO.PickNewObjetive();
 
         fishList.Add(fishGO);
     }
 
-    public void DeleteFishFromList(Fish fishToDelete)
+    public void DeleteFishFromList(Fish1 fishToDelete)
     {
         fishList.Remove(fishToDelete);
         Destroy(fishToDelete.gameObject);
@@ -70,7 +81,7 @@ public class FishInstantiator : MonoBehaviour
 
     public void DeleteAllFish()
     {
-        foreach (Fish f in fishList)
+        foreach (Fish1 f in fishList)
         {
             Destroy(f.gameObject);
         }

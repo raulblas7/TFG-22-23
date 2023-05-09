@@ -47,6 +47,7 @@ public class Fish : MonoBehaviour
 
             if (!goToFishingRod && fishVision.IsSawFishingRod())
             {
+                Debug.Log("ve hacia la caña");
                 // Ir hacia la caña
                 GoToFishingRod();
             }
@@ -82,6 +83,18 @@ public class Fish : MonoBehaviour
 
         //EditorApplication.isPaused = true;
     }
+
+    //original
+    //private void GoToFishingRod()
+    //{
+    //    Transform fishingRodPosTR = fishVision.GetFishingRodTr();
+    //    dir = fishingRodPosTR.position - transform.position;
+
+    //    MakeRotationInDir(dir);
+    //    goToFishingRod = true;
+
+    //    //EditorApplication.isPaused = true;
+    //}
 
     private void MakeRotationInDir(Vector3 d)
     {

@@ -125,10 +125,14 @@ public class GameUIManager : MonoBehaviour
             }
             else
             {
+                Debug.Log("<=0");
                 //Desactivamos la cuenta atras
                 CancelInvoke("UpdateCountDown");
+                Debug.Log("cancel invoke");
                 DesactiveWaitingConexion();
+                Debug.Log("Desactive waiting panel");
                 GameManager.Instance.InitGame();
+                Debug.Log("init Game");
             }
         }
         catch

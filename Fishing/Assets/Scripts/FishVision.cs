@@ -22,6 +22,7 @@ public class FishVision : MonoBehaviour
     {
         if (other.gameObject.CompareTag("FishingRod"))
         {
+            Debug.Log("caña detectada");
             sawFishingRod = true;
             fishingRodTr = other.gameObject.transform;
         }

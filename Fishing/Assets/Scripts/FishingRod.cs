@@ -87,6 +87,7 @@ public class FishingRod : MonoBehaviour
 
     public void CheckIfApplyForce(Quaternion orientQuaternion)
     {
+      
         Vector3 orient = orientQuaternion.eulerAngles;
         cube.rotation = orientQuaternion;
 

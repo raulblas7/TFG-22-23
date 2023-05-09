@@ -17,6 +17,7 @@ TagManager:
   - DeadZone
   - Fish
   - Limit
+  - Spawner
   layers:
   - Default
   - TransparentFX

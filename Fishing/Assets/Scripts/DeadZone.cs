@@ -11,7 +11,7 @@ public class DeadZone : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Fish"))
         {
-            Fish fish = other.GetComponent<Fish>();
+            Fish1 fish = other.GetComponent<Fish1>();
             // Añadir puntos solo si estoy pescado 
             if (fish.IsInTheFishingRod())
             {
@@ -21,7 +21,7 @@ public class DeadZone : MonoBehaviour
                 
             }
             // lo eliminamos de la lista
-            fishInstantiator.DeleteFishFromList(other.gameObject.GetComponent<Fish>());
+            fishInstantiator.DeleteFishFromList(other.gameObject.GetComponent<Fish1>());
             
         }
     }
