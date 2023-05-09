@@ -243,6 +243,7 @@ public class UIManager : MonoBehaviour
 
     public void GoToMenuAfterDisconnect()
     {
+        GameManager.Instance.RestartCurrentSerie();
         GameManager.Instance.ResetPoints();
         GameManager.Instance.LoadScene("MainMenu");
     }

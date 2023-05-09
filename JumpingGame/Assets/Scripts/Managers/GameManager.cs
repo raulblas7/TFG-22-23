@@ -77,6 +77,7 @@ public class GameManager : MonoBehaviour
         cubes.Clear();
         spawner.ResetNumCubesInstantiated();
         InitGame();
+        uiManager.SetJumpsText();
     }
 
     public List<CubeController> getCubes() { return cubes; }
@@ -270,5 +271,10 @@ public class GameManager : MonoBehaviour
     private void OnApplicationQuit()
     {
         FinishSave();
+    }
+
+    public void RestartCurrentSerie()
+    {
+        currentSerie = 0;
     }
 }
