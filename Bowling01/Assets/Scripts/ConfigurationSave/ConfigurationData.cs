@@ -9,5 +9,6 @@ public class ConfigurationData
     public int AnguloDeJuego;
     public int AnguloDelEjercicio;
     public int Dificultad;
+    public int Series;
     
 }

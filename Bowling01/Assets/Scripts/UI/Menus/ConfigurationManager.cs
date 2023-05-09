@@ -7,14 +7,14 @@ public class ConfigurationManager : MonoBehaviour
 {
 
     [SerializeField] UpdateSlider roundSlider;
-    [SerializeField] UpdateSlider gameAngleSlider;
+    [SerializeField] UpdateSlider seriesSlider;
     [SerializeField] UpdateSlider exerciseAngleSlider;
     [SerializeField] SelectDifficulty difficultySlider;
 
     void Start()
     {
         roundSlider.SetValue(GameManager.Instance.GetNumRounds());
-        gameAngleSlider.SetValue(GameManager.Instance.GetGameAngle());
+        seriesSlider.SetValue(GameManager.Instance.GetMaxSeries());
         exerciseAngleSlider.SetValue(GameManager.Instance.GetExerciseAngle());
         difficultySlider.SetValue(GameManager.Instance.GetDifficulty());
     }
@@ -28,10 +28,10 @@ public class ConfigurationManager : MonoBehaviour
         GameManager.Instance.ChangeScene(scene);
     }
 
-    //public void SetGameAngle(float angle)
-    //{
-    //    GameManager.Instance.SetGameAngle(angle);
-    //}
+    public void SetSeries(float series)
+    {
+        GameManager.Instance.SetMaxSeries((int)series);
+    }
 
     public void SetExerciseAngle(float angle)
     {
@@ -43,7 +43,7 @@ public class ConfigurationManager : MonoBehaviour
         GameManager.Instance.SetDifficulty(dif);
         if (dif == 0)
         {
-            GameManager.Instance.SetGameAngle(5);
+            GameManager.Instance.SetGameAngle(4);
         }
         else
         {

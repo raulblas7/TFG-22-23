@@ -40,6 +40,7 @@ public class SaveData
         if(writer != null)
         {
             writer.Close();
+            writer = null;
         }
     }
 }

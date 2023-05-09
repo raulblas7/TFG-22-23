@@ -41,5 +41,13 @@ public class PuntuationUIManager : MonoBehaviour
         panel.SetRoundPoints(totalRoundPoints);
     }
 
+    public void ResetPuntuation()
+    {
+        foreach(PanelPuntuation p in panels)
+        {
+            p.ResetPanel();
+        }
+    }
+
  
 }

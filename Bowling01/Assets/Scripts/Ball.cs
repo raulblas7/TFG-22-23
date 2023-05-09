@@ -30,19 +30,19 @@ public class Ball : MonoBehaviour
         switch (difficulty)
         {
             case 0:
-                vel = 2f;
+                vel = 3.2f;
                 break;
             case 1:
-                vel = 6;
+                vel = 7.5f;
                 break;
             case 2:
-                vel = 9;
+                vel = 10.5f;
                 break;
             case 3:
-                vel = 13;
+                vel = 14.5f;
                 break;
             case 4:
-                vel = 20;
+                vel = 22;
                 break;
 
         }

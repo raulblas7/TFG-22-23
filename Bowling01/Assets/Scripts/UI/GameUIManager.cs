@@ -7,8 +7,15 @@ using UnityEngine.UI;
 public class GameUIManager : MonoBehaviour
 {
     [SerializeField] private PuntuationUIManager _puntuationUIManager;
-    [SerializeField] private GameObject finalPanel;
     [SerializeField] private TextMeshProUGUI finalPoints;
+
+    //final panel
+    [SerializeField] private GameObject finalPanel;
+    [SerializeField] private TextMeshProUGUI seriesText;
+    [SerializeField] private TextMeshProUGUI seriesCountDownText;
+    [SerializeField] private Button returnToMenuButton;
+
+
     //Waiting Panel
     [SerializeField] private GameObject waitingConexionPanel;
     [SerializeField] private TextMeshProUGUI codeText;
@@ -16,6 +23,8 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI countDownText;
     [SerializeField] private GameObject desconexionPanel;
     [SerializeField] private Button restartButton;
+
+    private int seriesCountDown = 0;
 
 
     void Start()
@@ -43,11 +52,45 @@ public class GameUIManager : MonoBehaviour
         _puntuationUIManager.EndRoundPuntuation(round, shootpoints, totalRoundPoints);
     }
 
-    public void ActiveFinalPanel(int points)
+    public void ActiveFinalPanel(int points, int currentSerie, int maxSerie)
     {
         //activamos el finalPanel
         finalPanel.SetActive(true);
         finalPoints.text = points.ToString();
+        seriesText.text = "Serie " +currentSerie.ToString() + "/" + maxSerie.ToString();
+        seriesCountDownText.gameObject.SetActive(false);
+        returnToMenuButton.gameObject.SetActive(false);
+    }
+
+    public void ActiveReturnToMenuButton()
+    {
+        returnToMenuButton.gameObject.SetActive(true);
+    }
+
+    public void StartCountDown(int waitingTime)
+    {
+        seriesCountDownText.gameObject.SetActive(true);
+        seriesCountDown = waitingTime;
+        seriesCountDownText.text = "Siguiente serie en " + seriesCountDown.ToString();
+
+        InvokeRepeating("UpdateCountdown", 1.0f, 1.0f);
+    }
+    private void UpdateCountdown()
+    {
+        seriesCountDown--;
+        seriesCountDownText.text = "Siguiente serie en " + seriesCountDown.ToString();
+        if(seriesCountDown <= 0)
+        {
+            CancelInvoke("UpdateCountdown");
+            finalPanel.gameObject.SetActive(false);
+            //reiniciamos el juego
+            PlayerMovement.Instance.SetState(Movement.DOWN);
+            RestartGame();
+            //reiniciamos la puntuacion
+            _puntuationUIManager.ResetPuntuation();
+            //iniciamos de nuevo el juego
+            GameManager.Instance.InitGame();
+        }
     }
 
     public void ActiveWaitingConexion()

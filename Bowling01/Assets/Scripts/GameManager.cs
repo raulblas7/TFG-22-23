@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
 
     //variables para la UI
     private float _currentAngle;    //Angulo antual de la barra de la UI
- 
+
     //Managers
     private BolosManager _bolosManager;
     private SpawnerBall _spawnerBall;
@@ -24,17 +24,20 @@ public class GameManager : MonoBehaviour
     private int totalPoints = 0;
     private bool isGameActive = false;
     private bool pleno = false;
+    private int currentSeries = 0;
+    private const int WaitingTimeSeries = 30;
 
     //variables configurables
     [SerializeField] private int _rounds;   // cada ronda son dos tiradas
     [SerializeField] private int _gameAngle;    //Angulo maximo de desviacion de la bola
     [SerializeField] private int _exerciseAngle;
     [SerializeField] private int _difficulty;  // dificultad del juego que determinara la velocidad a la que se mueve la barra
+    [SerializeField] private int _maxSeries;
 
     //Variable el guardado
     ConfigurationSaveManager _configurationSafeManager;
     SaveData _saveData;
-    
+
 
 
     public static GameManager Instance { get { return _instance; } }
@@ -55,11 +58,11 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(_instance);
         }
 
-        
+
     }
     void Start()
     {
-     
+
     }
 
     public void ThrownBall()
@@ -82,19 +85,7 @@ public class GameManager : MonoBehaviour
             Invoke("CleanBolos", 3);
         }
     }
-    //metodos para cambiar a una nueva ronda
-    //public void NewRound()
-    //{
-    //    //CleanBolos();
-    //    Invoke("CleanBolos", 3);
 
-    //}
-
-    ////metodos para pasar a la segunda parte de la ronda
-    //public void SetRoundPartTwo()
-    //{
-    //    Invoke("StartSecondPart", 4);
-    //}
 
     private void StartSecondPart()
     {
@@ -116,7 +107,7 @@ public class GameManager : MonoBehaviour
             if (pleno)
             {
                 _bolosManager.instatiateBolos();
-               
+
             }
         }
         else
@@ -134,7 +125,7 @@ public class GameManager : MonoBehaviour
         //actualizamos la puntuacion
         int points = _bolosManager.CheckPoints(true);
         //si se tiran todos los bolos
-        if(points == 10)
+        if (points == 10)
         {
             pleno = true;
         }
@@ -151,16 +142,28 @@ public class GameManager : MonoBehaviour
             pleno = false;
         }
         else points = _bolosManager.CheckPoints(false);
-      
+
         totalPoints += points;
         _gameUIManager.EndRoundPuntuation(currentRound, points, totalPoints);
         currentRound++;
-        if(currentRound == _rounds)
+        if (currentRound >= _rounds)
         {
-            //finalizamos el juego
+            //finalizamos la series
             DesactiveGame();
-            _gameUIManager.ActiveFinalPanel(totalPoints);
-            _networkManager.StopServer();
+            currentSeries++;
+            _gameUIManager.ActiveFinalPanel(totalPoints, currentSeries, _maxSeries);
+            if (currentSeries >= _maxSeries)
+            {//ha terminado el juego
+                _gameUIManager.ActiveReturnToMenuButton();
+                _networkManager.StopServer();
+                currentSeries = 0;
+            }
+            else//pasamos a la siguiente serie
+            {
+                _gameUIManager.StartCountDown(WaitingTimeSeries);
+
+            }
+
 
         }
     }
@@ -200,6 +203,14 @@ public class GameManager : MonoBehaviour
     public void SetDifficulty(float dif) { _difficulty = (int)dif; }
     public int GetDifficulty() { return _difficulty; }
 
+    public void SetMaxSeries(int series) { _maxSeries = series; }
+    public int GetMaxSeries() { return _maxSeries; }
+
+    public int GetCurrentSeries() { return currentSeries; }
+
+
+
+
     public void SafeConfig()
     {
         ConfigurationData data = new ConfigurationData();
@@ -207,18 +218,20 @@ public class GameManager : MonoBehaviour
         data.AnguloDeJuego = _gameAngle;
         data.AnguloDelEjercicio = _exerciseAngle;
         data.Dificultad = _difficulty;
+        data.Series = _maxSeries;
         _configurationSafeManager.Safe(data);
     }
 
     private void LoadConfig()
     {
         ConfigurationData data = _configurationSafeManager.Load();
-        if(data != null)
+        if (data != null)
         {
             _rounds = data.Rondas;
             _gameAngle = data.AnguloDeJuego;
             _exerciseAngle = data.AnguloDelEjercicio;
             _difficulty = data.Dificultad;
+            _maxSeries = data.Series;
         }
     }
 
@@ -250,7 +263,8 @@ public class GameManager : MonoBehaviour
         firstPartCompleted = false;
         currentRound = 0;
         totalPoints = 0;
-        //isGameActive = true;
+        pleno = false;
+       // currentSeries = 0;
     }
 
     public void InitGame()
@@ -267,8 +281,8 @@ public class GameManager : MonoBehaviour
         FinishSave();
     }
 
-    
 
-  
+
+
 
 }
