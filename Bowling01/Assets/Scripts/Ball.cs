@@ -8,13 +8,13 @@ public class Ball : MonoBehaviour
 
     [SerializeField] Rigidbody rb;
     [SerializeField] float force;
-    [SerializeField] float vel = 0.01f;
+   // [SerializeField] float vel = 0.01f;
 
-    private int maxAngle;
-    private int minAngle;
+   // private int maxAngle;
+    //private int minAngle;
     private bool thrownBall = false;
-    private float currentAngle = 0;
-    private int dir = 1;
+    //private float currentAngle = 0;
+   // private int dir = 1;
     private bool throwInput = false;
 
     private Vector3 directionTranslate;
@@ -25,29 +25,29 @@ public class Ball : MonoBehaviour
         rb.Sleep();
         directionTranslate = Vector3.right;
 
-        maxAngle = GameManager.Instance.GetGameAngle();
-        minAngle = GameManager.Instance.GetGameAngle() * -1;
+        //maxAngle = GameManager.Instance.GetGameAngle();
+       // minAngle = GameManager.Instance.GetGameAngle() * -1;
  
         int difficulty = GameManager.Instance.GetDifficulty();
-        switch (difficulty)
-        {
-            case 0:
-                vel = 3.2f;
-                break;
-            case 1:
-                vel = 7.5f;
-                break;
-            case 2:
-                vel = 10.5f;
-                break;
-            case 3:
-                vel = 14.5f;
-                break;
-            case 4:
-                vel = 22;
-                break;
+        //switch (difficulty)
+        //{
+        //    case 0:
+        //        vel = 3.2f;
+        //        break;
+        //    case 1:
+        //        vel = 7.5f;
+        //        break;
+        //    case 2:
+        //        vel = 10.5f;
+        //        break;
+        //    case 3:
+        //        vel = 14.5f;
+        //        break;
+        //    case 4:
+        //        vel = 22;
+        //        break;
 
-        }
+        //}
     }
 
     void Update()
@@ -61,21 +61,23 @@ public class Ball : MonoBehaviour
                 transform.Translate(directionTranslate * Time.deltaTime);
             }
 
-            currentAngle += vel * dir * Time.deltaTime;
-            GameManager.Instance.SetAngle(currentAngle);
-            if (currentAngle >= maxAngle)
-            {
-                dir = -1;
-            }
-            if (currentAngle <= minAngle)
-            {
-                dir = 1;
-            }
+            //currentAngle += vel * dir * Time.deltaTime;
+            //GameManager.Instance.SetAngle(currentAngle);
+            //if (currentAngle >= maxAngle)
+            //{
+            //    dir = -1;
+            //}
+            //if (currentAngle <= minAngle)
+            //{
+            //    dir = 1;
+            //}
+            //---------------------------------------------------
             //if (!thrownBall && Input.GetKeyDown(KeyCode.Space))
             //{
             //    throwInput = true;
             //    thrownBall = true;
             //}
+            //-----------------------------------------------------
             if (!thrownBall && PlayerMovement.Instance.GetCurrentState() == Movement.MOVE_DONE)
             {
                 PlayerMovement.Instance.SetState( Movement.DOWN);
