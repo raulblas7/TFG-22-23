@@ -10,18 +10,20 @@ public class Ball : MonoBehaviour
     [SerializeField] float force;
     [SerializeField] float vel = 0.01f;
 
-
     private int maxAngle;
     private int minAngle;
     private bool thrownBall = false;
     private float currentAngle = 0;
     private int dir = 1;
     private bool throwInput = false;
- 
+
+    private Vector3 directionTranslate;
 
     private void Start()
     {
-     
+        //ponemos el rigidbody dormido
+        rb.Sleep();
+        directionTranslate = Vector3.right;
 
         maxAngle = GameManager.Instance.GetGameAngle();
         minAngle = GameManager.Instance.GetGameAngle() * -1;
@@ -53,6 +55,12 @@ public class Ball : MonoBehaviour
         //solo actualizamos el juego si esta activo(si aun no ha terminado la partida)
         if (GameManager.Instance.IsGameActive())
         {
+            //Movemos la pelota si no se ha hecho el input de la bola
+            if (!throwInput && !thrownBall)
+            {
+                transform.Translate(directionTranslate * Time.deltaTime);
+            }
+
             currentAngle += vel * dir * Time.deltaTime;
             GameManager.Instance.SetAngle(currentAngle);
             if (currentAngle >= maxAngle)
@@ -73,6 +81,7 @@ public class Ball : MonoBehaviour
                 PlayerMovement.Instance.SetState( Movement.DOWN);
                 throwInput = true;
                 thrownBall = true;
+                rb.WakeUp();
             }
         }
 
@@ -81,11 +90,11 @@ public class Ball : MonoBehaviour
     {
         if (GameManager.Instance.IsGameActive() && throwInput)
         {
-            Quaternion q = new Quaternion();
-            q.eulerAngles = new Vector3(0, 0, 0);
-            transform.rotation = q;
-
-            transform.rotation = Quaternion.AngleAxis(currentAngle, Vector3.up);
+            //Quaternion q = new Quaternion();
+            //q.eulerAngles = new Vector3(0, 0, 0);
+            //transform.rotation = q;
+            //
+            //transform.rotation = Quaternion.AngleAxis(currentAngle, Vector3.up);
 
             rb.AddForce(transform.forward * -1 * force, ForceMode.Impulse);
             rb.useGravity = true;
@@ -100,6 +109,17 @@ public class Ball : MonoBehaviour
         {
             GameManager.Instance.ThrownBall();
             Destroy(this.gameObject);
+        }
+        if (other.gameObject.CompareTag("BallLimit"))
+        {
+            if(directionTranslate == Vector3.right) 
+            {
+                directionTranslate = Vector3.left;
+            }
+            else
+            {
+                directionTranslate = Vector3.right;
+            }
         }
     }
 

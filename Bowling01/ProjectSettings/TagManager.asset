@@ -9,6 +9,7 @@ TagManager:
   - Floor
   - DeadZoneV
   - DeadZoneH
+  - BallLimit
   layers:
   - Default
   - TransparentFX

@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     private bool isGameActive = false;
     private bool pleno = false;
     private int currentSeries = 0;
-    private const int WaitingTimeSeries = 30;
+    private const int WaitingTimeSeries = 10;
 
     //variables configurables
     [SerializeField] private int _rounds;   // cada ronda son dos tiradas
