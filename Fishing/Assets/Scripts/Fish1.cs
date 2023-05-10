@@ -34,13 +34,14 @@ public class Fish1 : MonoBehaviour
     private bool goToFishingRod = false;
     private bool alreadyAtFishingRod = false;
     private FishingRod fishingRod;
+    private Transform fishingBait;
     private int points = 0;
 
     void Start()
     {
         waitTimeInRod = GameManager.Instance.GetMaxTime();
+        Invoke("GoFishingRod", lifeTime - 2f);
         Invoke("DeadFish", lifeTime);
-
     }
 
     void Update()
@@ -101,6 +102,14 @@ public class Fish1 : MonoBehaviour
         }
     }
 
+    private void GoFishingRod()
+    {
+        if (!fishingRod.HasFishAtBait())
+        {
+            GoToObjetive(fishingBait);
+        }
+    }
+
 
     private void GoToObjetive(Transform tr)
     {
@@ -138,6 +147,7 @@ public class Fish1 : MonoBehaviour
 
     public void SetFishingRod(FishingRod fR) { fishingRod = fR; }
 
+    public void SetFishingBait(Transform bait) { fishingBait = bait; }
 
     public void SetMaterialToMeshRenderer(Material mat)
     {

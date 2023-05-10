@@ -11,6 +11,7 @@ public class FishInstantiator : MonoBehaviour
     [SerializeField] private Transform[] spawners;
     [SerializeField] private Skin fishSkins;
     [SerializeField] private Transform deadZone;
+    [SerializeField] private Transform fishBait;
 
 
     private List<Fish1> fishList;
@@ -42,8 +43,6 @@ public class FishInstantiator : MonoBehaviour
         {
             InstantiateFish();
         }
-
-
     }
 
     private void InstantiateFish()
@@ -51,6 +50,8 @@ public class FishInstantiator : MonoBehaviour
         int randomNum = Random.Range(0, spawners.Length);
         Fish1 fishGO = Instantiate(fishPrefab, spawners[randomNum].position, Quaternion.identity, transform);
         fishGO.SetFishingRod(fishingRod);
+
+        fishGO.SetFishingBait(fishBait);
 
         //pasamos color pez y puntos
         randomNum = Random.Range(0, fishSkins.materials.Length);
