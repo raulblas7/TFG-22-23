@@ -25,12 +25,14 @@ public class FishingRod : MonoBehaviour
     private HingeJoint fixedJoint;
     private Movement state = Movement.UP;
     private float playerAngle;
+    private float minAngle;
 
  
 
     private void Start()
     {
         playerAngle = GameManager.Instance.GetGameAngle();
+        minAngle = GameManager.Instance.GetMinAngle();
         baitRenderer.material.color = baitColors.noFishColor;
     }
     void Update()
@@ -99,21 +101,21 @@ public class FishingRod : MonoBehaviour
         //else Debug.Log("DOWN");
 
 
-        // le pasamos el angulo al slider
-        if (orient.x >= 270.0f && orient.x < 355.0f)
+        // le pasamos el angulo al maxSlider
+        if (orient.x >= 270.0f && orient.x < 350.0f)
         {
             slider.UpdateSlider(orientZ);
 
         }
 
-        if ((orientZ <= 90.0f - playerAngle && (orient.x >= 270.0f && orient.x < 355.0f)) && state == Movement.UP)
+        if ((orientZ <= 90.0f - playerAngle && (orient.x >= 270.0f && orient.x < 350.0f)) && state == Movement.UP)
         {
             state = Movement.MOVE_DONE;
             
 
         }
 
-        else if ((orientZ > 90.0f - 10.0f && (orient.x >= 270.0f && orient.x < 355.0f)) && state == Movement.MOVE_DONE)
+        else if ((orientZ > 90.0f - minAngle/*10.0f*/ && (orient.x >= 270.0f && orient.x < 350.0f)) && state == Movement.MOVE_DONE)
         {
             state = Movement.UP;
             // Debug.Log("UP");
@@ -132,10 +134,10 @@ public class FishingRod : MonoBehaviour
     //    else if (state == Movement.MOVEDONE) Debug.Log("MOVE DONE");
     //    else Debug.Log("DOWN");
 
-    //    //le pasamos la info al slider
+    //    //le pasamos la info al maxSlider
     //    if (orient.x >= 270 && orient.x <= 360)
     //    {
-    //        slider.UpdateSlider(orient.x);
+    //        maxSlider.UpdateSlider(orient.x);
     //    }
 
     //    if ((orient.x >= 270.0f + playerAngle || orient.x < 90) && state == Movement.UP)

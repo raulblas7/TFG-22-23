@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float _maxTime;
     [SerializeField] private int _gameAngle;
     [SerializeField] private int _maxSeries;
+    [SerializeField] private int _minAngle;
     //Managers
     private GameUIManager _UIManager;
     private FishInstantiator _instantiator;
@@ -153,6 +154,9 @@ public class GameManager : MonoBehaviour
     public int GetGameAngle() { return _gameAngle; }
     public void SetGameAngle(int Angle) { _gameAngle = Angle; }
 
+    public int GetMinAngle() { return _minAngle; }
+    public void SetMinAngle(int Angle) { _minAngle = Angle; }
+
     public int GetMaxSeries() { return _maxSeries; }
     public void SetMaxSeries(int series) { _maxSeries = series; }
 
@@ -163,6 +167,7 @@ public class GameManager : MonoBehaviour
         data.AnguloDeJuego = _gameAngle;
         data.TiempoRepeticiones = _maxTime;
         data.Series = _maxSeries;
+        data.AnguloMinimo = _minAngle;
         _configurationSafeManager.Safe(data);
     }
 
@@ -175,6 +180,7 @@ public class GameManager : MonoBehaviour
             _maxTime = data.TiempoRepeticiones;
             _gameAngle = data.AnguloDeJuego;
             _maxSeries = data.Series;
+            _minAngle = data.AnguloMinimo;
         }
     }
 

@@ -37,10 +37,13 @@ public class Fish1 : MonoBehaviour
     private Transform fishingBait;
     private int points = 0;
 
+    private bool dead = false;
+ 
+
     void Start()
     {
         waitTimeInRod = GameManager.Instance.GetMaxTime();
-        Invoke("GoFishingRod", lifeTime - 2f);
+        Invoke("GoFishingRod", lifeTime - 5f);
         Invoke("DeadFish", lifeTime);
     }
 
@@ -54,6 +57,10 @@ public class Fish1 : MonoBehaviour
             GoToObjetive(fishVision.GetFishingRodTr());
             rb.velocity = Vector3.zero;
             goToFishingRod = true;
+        }
+        else if( goToFishingRod && !dead && !alreadyAtFishingRod)
+        {
+            GoToObjetive(fishingBait);
         }
     }
 
@@ -84,11 +91,12 @@ public class Fish1 : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (!alreadyAtFishingRod )
+        if (!alreadyAtFishingRod)
         {
             rb.AddForce(transform.forward * vel);
-          
+
         }
+       // else rb.velocity = Vector3.zero;
     }
 
 
@@ -99,6 +107,7 @@ public class Fish1 : MonoBehaviour
             this.gameObject.layer = layerIndexWhenCatched;
             GoToObjetive(deadZone);
             rb.velocity = Vector3.zero;
+            dead = true;
         }
     }
 
@@ -106,7 +115,8 @@ public class Fish1 : MonoBehaviour
     {
         if (!fishingRod.HasFishAtBait())
         {
-            GoToObjetive(fishingBait);
+            // GoToObjetive(fishingBait);
+            goToFishingRod = true;
         }
     }
 

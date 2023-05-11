@@ -12,13 +12,16 @@ public class UIExerciseSlider : MonoBehaviour
 
 
     private int exerciseAngle;
+    private int minAngle;
 
 
     void Start()
     {
         _handleTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Screen.width / 55.0f);
         exerciseAngle = GameManager.Instance.GetGameAngle();
-        slider.maxValue = exerciseAngle;
+        minAngle = GameManager.Instance.GetMinAngle();
+        slider.maxValue = 1;
+        slider.minValue = 0;
 
     }
 
@@ -27,15 +30,20 @@ public class UIExerciseSlider : MonoBehaviour
 
         //pasamos el valor actual(entre 0-180) a un rango 0-ejercicio
       //  Debug.Log("current value: " + currentValue);
-        if (currentValue <= 90 && currentValue >= (90 - exerciseAngle))
+        if (currentValue <= 90-minAngle && currentValue >= (90 - exerciseAngle))
         {
-            slider.value = (exerciseAngle - (currentValue - (90 - exerciseAngle)));
-           // Debug.Log("angulo = : " + slider.value );
+            //slider.value = (exerciseAngle - (currentValue - (90 - exerciseAngle)));
+            //(valor_original - (180 - y)) / (y - x)
+            slider.value = 1-( (currentValue - (90 - exerciseAngle)) / (exerciseAngle - minAngle));
         }
         else if (currentValue < (90 - exerciseAngle))
         {
-            slider.value = exerciseAngle;
-           // Debug.Log("angulo menor de 40 = : " + slider.value);
+            slider.value = 1;
+           // Debug.Log("angulo menor de 40 = : " + maxSlider.value);
+        }
+        else if (currentValue > 90 - minAngle)
+        {
+            slider.value = 0;
         }
 
     }
@@ -46,12 +54,12 @@ public class UIExerciseSlider : MonoBehaviour
 
     //    if (currentValue >= 270 && currentValue <= (270 + exerciseAngle))
     //    {
-    //        slider.value = /*exerciseAngle -*/ (currentValue - 270);
+    //        maxSlider.value = /*exerciseAngle -*/ (currentValue - 270);
 
     //    }
     //    else if (currentValue > (270 + exerciseAngle))
     //    {
-    //        slider.value = exerciseAngle;
+    //        maxSlider.value = exerciseAngle;
     //    }
 
     //}

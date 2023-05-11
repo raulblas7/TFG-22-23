@@ -9,5 +9,6 @@ public class ConfigurationData
     public int AnguloDeJuego;
     public float TiempoRepeticiones;
     public int Series;
+    public int AnguloMinimo;
     
 }

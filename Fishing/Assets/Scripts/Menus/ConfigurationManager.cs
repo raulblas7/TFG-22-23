@@ -18,7 +18,12 @@ public class ConfigurationManager : MonoBehaviour
     [SerializeField] TMP_InputField textSerie;
 
     [SerializeField] Button button;
-    [SerializeField] SliderConfig slider;
+    [SerializeField] SliderConfig maxSlider;
+    [SerializeField] SliderConfig minSlider;
+    [SerializeField] TextMeshProUGUI errorAngleText;
+
+    private int maxAngle;
+    private int minAngle;
 
     // Start is called before the first frame update
     void Start()
@@ -26,10 +31,14 @@ public class ConfigurationManager : MonoBehaviour
         textRepeat.text = GameManager.Instance.GetMaxFish().ToString();
         textTime.text = GameManager.Instance.GetMaxTime().ToString();
         textSerie.text = GameManager.Instance.GetMaxSeries().ToString();
-        slider.SetValue(GameManager.Instance.GetGameAngle());
+        maxSlider.SetValue(GameManager.Instance.GetGameAngle());
+        minSlider.SetValue(GameManager.Instance.GetMinAngle());
+        maxAngle = GameManager.Instance.GetGameAngle();
+        minAngle = GameManager.Instance.GetMinAngle();
         errorTextRepeat.gameObject.SetActive(false);
         errorTextTime.gameObject.SetActive(false);
         errorTextSerie.gameObject.SetActive(false);
+        errorAngleText.gameObject.SetActive(false);
 
     }
 
@@ -40,9 +49,41 @@ public class ConfigurationManager : MonoBehaviour
         GameManager.Instance.ChangeScene(scene);
     }
 
+    public void SetMinAngle(float angle)
+    {
+        minAngle = (int)angle;
+        if (minAngle <= maxAngle - 10)
+        {
+            GameManager.Instance.SetMinAngle((int)angle);
+            errorAngleText.gameObject.SetActive(false);
+            if (!errorTextTime.gameObject.activeSelf && !errorTextRepeat.gameObject.activeSelf && !errorTextSerie.gameObject.activeSelf)
+            {
+                button.interactable = true;
+            }
+        }
+        else
+        {
+            errorAngleText.gameObject.SetActive(true);
+            button.interactable = false;
+        }
+    }
     public void SetGameAngle(float angle)
     {
-        GameManager.Instance.SetGameAngle((int)angle);
+        maxAngle = (int)angle;
+        if (minAngle <= maxAngle - 10)
+        {
+            GameManager.Instance.SetGameAngle((int)angle);
+            errorAngleText.gameObject.SetActive(false);
+            if (!errorTextTime.gameObject.activeSelf && !errorTextRepeat.gameObject.activeSelf && !errorTextSerie.gameObject.activeSelf)
+            {
+                button.interactable = true;
+            }
+        }
+        else
+        {
+            errorAngleText.gameObject.SetActive(true);
+            button.interactable = false;
+        }
     }
 
     public void SetTime(string time)
@@ -63,7 +104,7 @@ public class ConfigurationManager : MonoBehaviour
                 GameManager.Instance.SetMaxTime(t);
 
             }
-            if (!errorTextTime.gameObject.activeSelf && !errorTextRepeat.gameObject.activeSelf && !errorTextSerie.gameObject.activeSelf)
+            if (!errorTextTime.gameObject.activeSelf && !errorTextRepeat.gameObject.activeSelf && !errorTextSerie.gameObject.activeSelf && !errorAngleText.gameObject.activeSelf)
             {
                 button.interactable = true;
             }
@@ -91,8 +132,8 @@ public class ConfigurationManager : MonoBehaviour
                 GameManager.Instance.SetMAxFish(n);
 
             }
-           
-            if (!errorTextTime.gameObject.activeSelf && !errorTextRepeat.gameObject.activeSelf && !errorTextSerie.gameObject.activeSelf)
+
+            if (!errorTextTime.gameObject.activeSelf && !errorTextRepeat.gameObject.activeSelf && !errorTextSerie.gameObject.activeSelf && !errorAngleText.gameObject.activeSelf)
             {
                 button.interactable = true;
             }
@@ -120,7 +161,7 @@ public class ConfigurationManager : MonoBehaviour
                 GameManager.Instance.SetMaxSeries(n);
 
             }
-            if (!errorTextTime.gameObject.activeSelf && !errorTextRepeat.gameObject.activeSelf && !errorTextSerie.gameObject.activeSelf)
+            if (!errorTextTime.gameObject.activeSelf && !errorTextRepeat.gameObject.activeSelf && !errorTextSerie.gameObject.activeSelf && !errorAngleText.gameObject.activeSelf)
             {
                 button.interactable = true;
             }
