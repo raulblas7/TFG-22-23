@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ConfigurationManager : MonoBehaviour
 {
@@ -9,14 +10,24 @@ public class ConfigurationManager : MonoBehaviour
     [SerializeField] UpdateSlider roundSlider;
     [SerializeField] UpdateSlider seriesSlider;
     [SerializeField] UpdateSlider exerciseAngleSlider;
+    [SerializeField] UpdateSlider minExerciseAngleSlider;
     [SerializeField] SelectDifficulty difficultySlider;
+    [SerializeField] TextMeshProUGUI errorText;
+    [SerializeField] Button finishButton;
+
+    private int maxAngle;
+    private int minAngle;
 
     void Start()
     {
         roundSlider.SetValue(GameManager.Instance.GetNumRounds());
         seriesSlider.SetValue(GameManager.Instance.GetMaxSeries());
         exerciseAngleSlider.SetValue(GameManager.Instance.GetExerciseAngle());
+        maxAngle = GameManager.Instance.GetExerciseAngle();
+        minExerciseAngleSlider.SetValue(GameManager.Instance.GetMinExerciseAngle());
+        minAngle = GameManager.Instance.GetMinExerciseAngle();
         difficultySlider.SetValue(GameManager.Instance.GetDifficulty());
+        errorText.gameObject.SetActive(false);
     }
     public void SetNumRound(float round)
     {
@@ -35,7 +46,36 @@ public class ConfigurationManager : MonoBehaviour
 
     public void SetExerciseAngle(float angle)
     {
-        GameManager.Instance.SetExerciseAngle(angle);
+        maxAngle = (int)angle;
+        if (minAngle <=( maxAngle - 10))
+        {
+            GameManager.Instance.SetExerciseAngle(angle);
+            errorText.gameObject.SetActive(false);
+            finishButton.interactable = true;
+        }
+        else
+        {
+            errorText.gameObject.SetActive(true);
+            finishButton.interactable = false;
+        }
+
+
+    }
+    public void SetMinExerciseAngle(float angle)
+    {
+        minAngle = (int)angle;
+        if (minAngle <= (maxAngle - 10))
+        {
+            GameManager.Instance.SetMinExerciseAngle(angle);
+            errorText.gameObject.SetActive(false);
+            finishButton.interactable = true;
+        }
+        else
+        {
+            errorText.gameObject.SetActive(true);
+            finishButton.interactable = false;
+        }
+           
     }
 
     public void SetDifficulty(float dif)

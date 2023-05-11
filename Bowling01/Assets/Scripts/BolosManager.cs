@@ -43,7 +43,7 @@ public class BolosManager : MonoBehaviour
             Vector3 aux = positions[i].position;
             Vector3 pos = new Vector3(aux.x, aux.y + 3, aux.z);
             Quaternion rot = new Quaternion();
-            rot.eulerAngles = new Vector3(-90, 0, 0);
+            rot.eulerAngles = Vector3.zero;
             Bolo b = Instantiate<Bolo>(prefabBolo, pos, rot, transform);
             b.SetInfo(this, i);
             bolos.Add(b);
@@ -70,16 +70,31 @@ public class BolosManager : MonoBehaviour
     }
 
     // se encarga de comprobar los puntos
-    public int CheckPoints(bool firstPart )
+    //public int CheckPoints(bool firstPart )
+    //{
+    //    int points = 0;
+    //    foreach (Bolo b in bolos)
+    //    {
+    //        if (b.IsOnTheFloor())
+    //        {
+    //            points++;
+    //        }
+    //    }
+
+    //    return points;
+    //}
+
+    //original
+    public int CheckPoints(bool firstPart)
     {
         int standUpBowling = 0;
-       
-        for (int i = 0; i < bolos.Count; i++)
+
+        foreach (Bolo b in bolos)
         {
-            if (!bolos[i].IsOnTheFloor())
+            if (!b.IsOnTheFloor())
             {
                 standUpBowling++;
-             
+
             }
         }
         if (firstPart)

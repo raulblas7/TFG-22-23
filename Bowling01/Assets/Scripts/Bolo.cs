@@ -37,12 +37,16 @@ public class Bolo : MonoBehaviour
         }
     }
 
-    public void OnThefloor()
-    {
-        _onTheFloor = true;
-    }
+    //public void OnThefloor()
+    //{
+    //    _onTheFloor = true;
+    //}
 
-    public bool IsOnTheFloor() { return _onTheFloor; }
+    public bool IsOnTheFloor() {
+
+        return ((transform.rotation.eulerAngles.x >= 20.0f || transform.rotation.eulerAngles.x <= -20.0f) ||
+            (transform.rotation.eulerAngles.z >= 20.0f || transform.rotation.eulerAngles.z <= -20.0f));
+    }
 
     public void ElevateBolo()
     {

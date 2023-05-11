@@ -8,7 +8,7 @@ public class Ball : MonoBehaviour
 
     [SerializeField] Rigidbody rb;
     [SerializeField] float force;
-   // [SerializeField] float vel = 0.01f;
+    
 
    // private int maxAngle;
     //private int minAngle;
@@ -18,6 +18,7 @@ public class Ball : MonoBehaviour
     private bool throwInput = false;
 
     private Vector3 directionTranslate;
+   public float vel = 0.01f;
 
     private void Start()
     {
@@ -29,25 +30,25 @@ public class Ball : MonoBehaviour
        // minAngle = GameManager.Instance.GetGameAngle() * -1;
  
         int difficulty = GameManager.Instance.GetDifficulty();
-        //switch (difficulty)
-        //{
-        //    case 0:
-        //        vel = 3.2f;
-        //        break;
-        //    case 1:
-        //        vel = 7.5f;
-        //        break;
-        //    case 2:
-        //        vel = 10.5f;
-        //        break;
-        //    case 3:
-        //        vel = 14.5f;
-        //        break;
-        //    case 4:
-        //        vel = 22;
-        //        break;
+        switch (difficulty)
+        {
+            case 0:
+                vel = 0f;
+                break;
+            case 1:
+                vel = 1f;
+                break;
+            case 2:
+                vel = 1.2f;
+                break;
+            case 3:
+                vel = 1.5f;
+                break;
+            case 4:
+                vel = 2.3f;
+                break;
 
-        //}
+        }
     }
 
     void Update()
@@ -58,7 +59,7 @@ public class Ball : MonoBehaviour
             //Movemos la pelota si no se ha hecho el input de la bola
             if (!throwInput && !thrownBall)
             {
-                transform.Translate(directionTranslate * Time.deltaTime);
+                transform.Translate(directionTranslate * vel* Time.deltaTime);
             }
 
             //currentAngle += vel * dir * Time.deltaTime;

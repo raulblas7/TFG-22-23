@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Transform cube;
 
     private int exerciseAngle;
+    private int minExerciseAngle;
     private bool pass270 = false;
     private Movement currentState;
 
@@ -46,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         exerciseAngle = GameManager.Instance.GetExerciseAngle();
+        minExerciseAngle = GameManager.Instance.GetMinExerciseAngle();
         currentState = Movement.DOWN;
     }
 
@@ -63,12 +65,12 @@ public class PlayerMovement : MonoBehaviour
             cube.rotation = mobileOrient;
             Debug.Log("El vector en angulos es: " + orient);
 
-            Debug.Log(cube.right);
+            Debug.Log(cube.forward.z);
             //transformamos la orientacion en un rango de 0 a 180 grados
             float orientZ = (cube.forward.z + 1.0f) / 2.0f * 180.0f;
 
             // le pasamos el angulo al slider
-            if (orient.x >= 270.0f && orient.x < 355.0f)
+            if (orient.x >= 270.0f && orient.x < 350.0f)
             {
                 slider.UpdateSlider(orientZ);
 
@@ -80,13 +82,13 @@ public class PlayerMovement : MonoBehaviour
             else if (currentState == Movement.UP) Debug.Log("UP");
             else Debug.Log("MOVE DONE");
 
-            if ((orientZ <= 180.0f - exerciseAngle && (orient.x >= 270.0f && orient.x < 355.0f)) && currentState == Movement.UP)
+            if ((orientZ <= 180.0f - exerciseAngle && (orient.x >= 270.0f && orient.x < 350.0f)) && currentState == Movement.UP)
             {
                 currentState = Movement.MOVE_DONE;
                 Debug.Log("MOVE_DONE");
             }
 
-            else if ((orientZ > 180.0f - 10.0f && (orient.x >= 270.0f && orient.x < 355.0f)) && currentState == Movement.DOWN)
+            else if ((orientZ > 180.0f - minExerciseAngle/* 10.0f*/ && (orient.x >= 270.0f && orient.x < 350.0f)) && currentState == Movement.DOWN)
             {
                 currentState = Movement.UP;
                 // Debug.Log("UP");

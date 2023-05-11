@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class CollisionWithFloor : MonoBehaviour
 {
-    [SerializeField] Bolo parent;
+    //[SerializeField] Bolo parent;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Floor"))
-        {
-            parent.OnThefloor();
-        }
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.gameObject.CompareTag("Floor"))
+    //    {
+    //        parent.OnThefloor();
+    //    }
+    //}
 }
