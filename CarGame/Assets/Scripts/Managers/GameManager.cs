@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
 
     private UIManager uiManager;
     private int angleToDoIt = 30;
+    private int angleMinToDoIt = 10;
     private int laps = 3;
     private int reps = 10;
     private int currentReps = 0;
@@ -67,6 +68,16 @@ public class GameManager : MonoBehaviour
     public float GetAngleToDoIt()
     {
         return angleToDoIt;
+    }
+
+    public void SetAngleMinToDoIt(int angle)
+    {
+        angleMinToDoIt = angle;
+    }
+
+    public float GetAngleMinToDoIt()
+    {
+        return angleMinToDoIt;
     }
 
     public void SetNumReps(int r)
@@ -148,6 +159,7 @@ public class GameManager : MonoBehaviour
             reps = data.Reps;
             laps = data.Laps;
             angleToDoIt = data.AnguloDeJuego;
+            angleMinToDoIt = data.AnguloDeJuegoMin;
             difficulty = data.Dificultad; 
         }
     }
@@ -158,6 +170,7 @@ public class GameManager : MonoBehaviour
         data.Reps = reps;
         data.Laps = laps;
         data.AnguloDeJuego = angleToDoIt;
+        data.AnguloDeJuegoMin = angleMinToDoIt;
         data.Dificultad = difficulty;
         _configurationSafeManager.Safe(data);
     }

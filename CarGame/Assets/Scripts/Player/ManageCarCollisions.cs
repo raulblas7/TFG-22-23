@@ -54,17 +54,34 @@ public class ManageCarCollisions : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("DeadObstacle") || other.gameObject.CompareTag("Wall"))
-        { 
-            SetPositionToLastCheckPoint();
-            GameManager.Instance.LessPoints(50);
-            GameManager.Instance.AddReps();
-        }
-        if (other.gameObject.CompareTag("Tyres"))
+        //if (other.gameObject.CompareTag("DeadObstacle") || other.gameObject.CompareTag("Wall"))
+        //{ 
+        //    SetPositionToLastCheckPoint();
+        //    GameManager.Instance.LessPoints(50);
+        //    GameManager.Instance.AddReps();
+        //}
+        //if (other.gameObject.CompareTag("Tyres"))
+        //{
+        //    //other.gameObject.SetActive(false);
+        //    GameManager.Instance.AddPoints(100);
+        //    GameManager.Instance.AddReps();
+        //}
+        if (other.gameObject.CompareTag("Limit"))
         {
-            //other.gameObject.SetActive(false);
-            GameManager.Instance.AddPoints(100);
+            if(carController.GetDir() == Vector3.left) carController.SetDir(Vector3.right);
+            else carController.SetDir(Vector3.left);
+        }
+        if (other.gameObject.CompareTag("DeadZone"))
+        {
+            carController.RestartCar();
             GameManager.Instance.AddReps();
+            GameManager.Instance.LessPoints(50);
+        }
+        if (other.gameObject.CompareTag("Parking"))
+        {
+            carController.Parked();
+            GameManager.Instance.AddReps();
+            GameManager.Instance.AddPoints(100);
         }
     }
 

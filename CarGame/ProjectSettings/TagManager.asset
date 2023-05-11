@@ -17,6 +17,8 @@ TagManager:
   - FinishPoint
   - Tyres
   - CarTop
+  - Limit
+  - Parking
   layers:
   - Default
   - TransparentFX

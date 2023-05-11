@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_InputField repsField;
     [SerializeField] private TMP_InputField lapsField;
     [SerializeField] private TMP_InputField angleField;
+    [SerializeField] private TMP_InputField angleMinField;
     [SerializeField] private TMP_Dropdown difficultyDropdown;
     [SerializeField] private Button returnToMenu;
 
@@ -33,6 +34,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI infoText;
     [SerializeField] private TextMeshProUGUI ipAndCountDownText;
     [SerializeField] private TextMeshProUGUI pointsText;
+    [SerializeField] private TextMeshProUGUI parkingText;
 
     private void Start()
     {
@@ -116,7 +118,13 @@ public class UIManager : MonoBehaviour
             angleField.onValueChanged.AddListener(delegate { ValueChangeCheckAngle(); });
             angleField.text = "" + GameManager.Instance.GetAngleToDoIt();
         }
-        if(difficultyDropdown != null)
+        if (angleMinField != null)
+        {
+            angleMinField.onValueChanged.AddListener(delegate { ValueChangeCheckAngleMin(); });
+            angleMinField.text = "" + GameManager.Instance.GetAngleMinToDoIt();
+        ;
+        }
+        if (difficultyDropdown != null)
         {
             difficultyDropdown.onValueChanged.AddListener(delegate { ValueChangeDropdown(); });
             difficultyDropdown.value = (int)GameManager.Instance.GetDifficulty();
@@ -190,6 +198,19 @@ public class UIManager : MonoBehaviour
     public void ValueChangeDropdown()
     {
         GameManager.Instance.SetDifficulty(difficultyDropdown.value);
+    }
+
+    public void ValueChangeCheckAngleMin()
+    {
+        try
+        {
+            int n = int.Parse(angleMinField.text);
+            GameManager.Instance.SetAngleMinToDoIt(n);
+        }
+        catch
+        {
+            Debug.Log("Valor introducido no valido");
+        }
     }
 
     public void ValueChangeCheckAngle()
@@ -429,5 +450,15 @@ public class UIManager : MonoBehaviour
     public void UpdatePointsText(int points)
     {
         pointsText.text = points.ToString();
+    }
+
+    public void ActivateParkingText(bool t)
+    {
+        parkingText.gameObject.SetActive(t);
+    }
+
+    public bool IsParkingTextActivate()
+    {
+        return parkingText.IsActive();
     }
 }

@@ -17,8 +17,11 @@ public class CarController : MonoBehaviour
     private float currentBreakForce;
     private float currentSteerAngle;
 
+    private Vector3 dir;
+    private bool moveTranslate;
+    private float moveSpeed;
 
-    [SerializeField] private FollowPath followPath;
+    //[SerializeField] private FollowPath followPath;
 
     [SerializeField] private float motorForce;
     [SerializeField] private float breakForce;
@@ -34,7 +37,7 @@ public class CarController : MonoBehaviour
     [SerializeField] private Transform rearLeftWheelTransform;
     [SerializeField] private Transform rearRightWheelTransform;
 
-    [SerializeField] private CheckPointInfo checkPoint1;
+    //[SerializeField] private CheckPointInfo checkPoint1;
    
     [SerializeField] private Rigidbody carRb;
 
@@ -42,35 +45,66 @@ public class CarController : MonoBehaviour
 
     [SerializeField] private UIExerciseSlider uIExerciseSlider;
 
+    [SerializeField] private Vector3 posIni;
+
 
     private void Start()
     {
-        transform.position = checkPoint1.gameObject.transform.position;
+        //transform.position = checkPoint1.gameObject.transform.position;
         currentState = Movement.WAITING;
-        if (checkPoint1 != null)
+
+        transform.position = posIni;
+        dir = Vector3.right;
+        moveTranslate = true;
+        carRb.Sleep();
+
+        switch(GameManager.Instance.GetDifficulty())
         {
-            followPath.SetDest(checkPoint1.GetNextPointInDest());
+            case 0:
+                moveSpeed = 1.5f;
+                break;
+            case 1:
+                moveSpeed = 2.1f;
+                break; 
+            case 2:
+                moveSpeed = 2.8f;
+                break;
+        }
+        //if (checkPoint1 != null)
+        //{
+        //    followPath.SetDest(checkPoint1.GetNextPointInDest());
+        //}
+    }
+
+    private void Update()
+    {
+        if (!GameManager.Instance.GetUIManager().IsPanelWaitingEnabled() && !GameManager.Instance.GetUIManager().IsPanelWinningEnabled()
+            && !GameManager.Instance.GetUIManager().IsPanelFinishSerieEnabled() && !GameManager.Instance.GetUIManager().IsPanelDisconectingEnabled() 
+            && moveTranslate)
+        {
+            transform.Translate(dir * moveSpeed * Time.deltaTime);  
         }
     }
 
     private void HandleCarFunctionality()
     {
+        carRb.WakeUp();
+        moveTranslate = false;
+
         if (!GameManager.Instance.GetUIManager().IsPanelWaitingEnabled() && !GameManager.Instance.GetUIManager().IsPanelWinningEnabled()
             && !GameManager.Instance.GetUIManager().IsPanelFinishSerieEnabled() && !GameManager.Instance.GetUIManager().IsPanelDisconectingEnabled())
         {
             HandleMotor();
         }
-        else if (GameManager.Instance.GetUIManager().IsPanelWinningEnabled()
-            || GameManager.Instance.GetUIManager().IsPanelFinishSerieEnabled() || GameManager.Instance.GetUIManager().IsPanelDisconectingEnabled())
-        {
-            FinishBreaking();
-        }
     }
 
     private void FixedUpdate()
     {
-        HandleSteering();
-        UpdateWheels();
+        if (!moveTranslate)
+        {
+            //HandleSteering();
+            UpdateWheels();
+        }
     }
 
     public void FinishBreaking()
@@ -102,15 +136,15 @@ public class CarController : MonoBehaviour
     }
     private void HandleSteering()
     {
-        Vector3 auxDir = followPath.getDir();
-        Vector3 rotation = carRb.rotation.eulerAngles;
-
-        float leftOrRight = AngleDir(transform.forward, auxDir, Vector3.up);
-        float angle = Vector3.Angle(followPath.getDir(), transform.forward);
-
-        currentSteerAngle = angle * leftOrRight;
-        frontLeftWheelCollider.steerAngle = currentSteerAngle;
-        frontRightWheelCollider.steerAngle = currentSteerAngle;
+        //Vector3 auxDir = followPath.getDir();
+        //Vector3 rotation = carRb.rotation.eulerAngles;
+        //
+        //float leftOrRight = AngleDir(transform.forward, auxDir, Vector3.up);
+        //float angle = Vector3.Angle(followPath.getDir(), transform.forward);
+        //
+        //currentSteerAngle = angle * leftOrRight;
+        //frontLeftWheelCollider.steerAngle = currentSteerAngle;
+        //frontRightWheelCollider.steerAngle = currentSteerAngle;
     }
 
 
@@ -164,7 +198,7 @@ public class CarController : MonoBehaviour
         {
             currentState = Movement.MOVE_DONE;
         }
-        else if(orient.x >= INITIAL_DEGREES - 10.0f && currentState == Movement.WAITING)
+        else if(orient.x >= INITIAL_DEGREES - GameManager.Instance.GetAngleMinToDoIt() && currentState == Movement.WAITING)
         {
             currentState = Movement.RESTART;
         }
@@ -180,5 +214,40 @@ public class CarController : MonoBehaviour
     public void setCurrentStateToWait()
     {
         currentState = Movement.WAITING;
+    }
+
+    public void SetDir(Vector3 v)
+    {
+        dir = v;
+    }
+
+    public Vector3 GetDir()
+    {
+        return dir;
+    }
+
+    public void RestartCar()
+    {
+        if(GameManager.Instance.GetUIManager().IsParkingTextActivate())
+        {
+            GameManager.Instance.GetUIManager().ActivateParkingText(false);
+        }
+        if(!carRb.IsSleeping()) carRb.Sleep();
+        transform.position = posIni;
+        setCurrentStateToWait();
+        FinishBreaking();
+        Invoke("PutMoveTranslate", 1.0f);
+    }
+
+    public void Parked()
+    {
+        carRb.Sleep();
+        GameManager.Instance.GetUIManager().ActivateParkingText(true);
+        Invoke("RestartCar", 1.5f);
+    }
+
+    public void PutMoveTranslate()
+    {
+        moveTranslate = true;
     }
 }
