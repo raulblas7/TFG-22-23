@@ -15,9 +15,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textInvalidInput2;
     [SerializeField] private TextMeshProUGUI textInvalidInput3;
     [SerializeField] private TextMeshProUGUI textInvalidInput4;
+    [SerializeField] private TextMeshProUGUI textInvalidInput5;
     [SerializeField] private TMP_InputField movementInputField;
     [SerializeField] private TMP_InputField seriesInputField;
     [SerializeField] private TMP_InputField speedField;
+    [SerializeField] private TMP_InputField angleMinField;
     [SerializeField] private TMP_InputField angleField;
     [SerializeField] private Button returnButton;
 
@@ -98,7 +100,11 @@ public class UIManager : MonoBehaviour
             speedField.onValueChanged.AddListener(delegate { ValueChangeCheckSpeed(); });
             speedField.text = "" + GameManager.Instance.GetSpeedDown();
         }
-        // Añade un listener onValueChanged al inputField de la velocidad de las rocas si existe
+        if (angleMinField != null)
+        {
+            angleMinField.onValueChanged.AddListener(delegate { ValueChangeCheckAngleMin(); });
+            angleMinField.text = "" + GameManager.Instance.GetAngleMinToDoIt();
+        }
         if (angleField != null)
         {
             angleField.onValueChanged.AddListener(delegate { ValueChangeCheckAngle(); });
@@ -126,7 +132,7 @@ public class UIManager : MonoBehaviour
             else
             {
                 textInvalidInput.enabled = false;
-                if (!textInvalidInput2.enabled && !textInvalidInput3.enabled && !textInvalidInput4.enabled)
+                if (!textInvalidInput2.enabled && !textInvalidInput3.enabled && !textInvalidInput4.enabled && !textInvalidInput5.enabled)
                 {
                     returnButton.interactable = true;
                 }
@@ -153,7 +159,7 @@ public class UIManager : MonoBehaviour
             else
             {
                 textInvalidInput2.enabled = false;
-                if (!textInvalidInput.enabled && !textInvalidInput3.enabled && !textInvalidInput4.enabled)
+                if (!textInvalidInput.enabled && !textInvalidInput3.enabled && !textInvalidInput4.enabled && !textInvalidInput5.enabled)
                 {
                     returnButton.interactable = true;
                 }
@@ -180,7 +186,7 @@ public class UIManager : MonoBehaviour
             else
             {
                 textInvalidInput3.enabled = false;
-                if (!textInvalidInput.enabled && !textInvalidInput2.enabled && !textInvalidInput4.enabled)
+                if (!textInvalidInput.enabled && !textInvalidInput2.enabled && !textInvalidInput4.enabled && !textInvalidInput5.enabled)
                 {
                     returnButton.interactable = true;
                 }
@@ -193,6 +199,35 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void ValueChangeCheckAngleMin()
+    {
+        try
+        {
+            int n = int.Parse(angleMinField.text);
+            GameManager.Instance.SetAngleMinToDoIt(n);
+            if (n <= 0)
+            {
+                Debug.Log("hhhhhhh");
+                textInvalidInput4.enabled = true;
+                returnButton.interactable = false;
+            }
+            else
+            {
+                textInvalidInput4.enabled = false;
+                if (!textInvalidInput.enabled && !textInvalidInput2.enabled && !textInvalidInput3.enabled && !textInvalidInput5.enabled)
+                {
+                    returnButton.interactable = true;
+                }
+            }
+        }
+        catch
+        {
+            Debug.Log("iiiiiiiiiii");
+            textInvalidInput4.enabled = true;
+            returnButton.interactable = false;
+        }
+    }
+
     public void ValueChangeCheckAngle()
     {
         try
@@ -201,13 +236,13 @@ public class UIManager : MonoBehaviour
             GameManager.Instance.SetAngleToDoIt(n);
             if (n <= 0)
             {
-                textInvalidInput4.enabled = true;
+                textInvalidInput5.enabled = true;
                 returnButton.interactable = false;
             }
             else
             {
-                textInvalidInput4.enabled = false;
-                if (!textInvalidInput.enabled && !textInvalidInput2.enabled && !textInvalidInput3.enabled)
+                textInvalidInput5.enabled = false;
+                if (!textInvalidInput.enabled && !textInvalidInput2.enabled && !textInvalidInput3.enabled && !textInvalidInput4.enabled)
                 {
                     returnButton.interactable = true;
                 }
@@ -215,7 +250,7 @@ public class UIManager : MonoBehaviour
         }
         catch
         {
-            textInvalidInput4.enabled = true;
+            textInvalidInput5.enabled = true;
             returnButton.interactable = false;
         }
     }

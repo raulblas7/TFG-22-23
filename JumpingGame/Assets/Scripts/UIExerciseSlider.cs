@@ -10,23 +10,29 @@ public class UIExerciseSlider : MonoBehaviour
     [SerializeField] RectTransform _handleTransform;
 
     private int exerciseAngle;
+    private int exerciseAngleMin;
 
     void Start()
     {
         _handleTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Screen.width / 55.0f);
         exerciseAngle = (int)GameManager.Instance.GetAngleToDoIt();
-        slider.maxValue = exerciseAngle;
+        exerciseAngleMin = (int)GameManager.Instance.GetAngleMinToDoIt();
+        //slider.maxValue = exerciseAngle;
     }
 
     public void UpdateSlider(float currentValue)
     {
-        if (currentValue >= 270 && currentValue <= (270 + exerciseAngle))
+        if (currentValue >= 270 + exerciseAngleMin && currentValue <= (270 + exerciseAngle))
         {
-            slider.value = /*exerciseAngle -*/ (currentValue - 270);
+            slider.value = (currentValue - (270 + exerciseAngleMin)) / (exerciseAngle - exerciseAngleMin);
         }
         else if(currentValue > (270 + exerciseAngle))
         {
-            slider.value = exerciseAngle;
+            slider.value = 1;
+        }
+        else if(currentValue < 270 + exerciseAngleMin)
+        {
+            slider.value = 0;
         }
     }
 }

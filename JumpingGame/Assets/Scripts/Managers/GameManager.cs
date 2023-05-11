@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     private int numPoints;
 
     private int angleToDoIt = 90;
+    private int angleMinToDoIt = 0;
 
     private UIManager uiManager;
 
@@ -230,6 +231,16 @@ public class GameManager : MonoBehaviour
         return angleToDoIt;
     }
 
+    public void SetAngleMinToDoIt(int angle)
+    {
+        angleMinToDoIt = angle;
+    }
+
+    public float GetAngleMinToDoIt()
+    {
+        return angleMinToDoIt;
+    }
+
     private void LoadConfig()
     {
         ConfigurationData data = _configurationSafeManager.Load();
@@ -238,6 +249,7 @@ public class GameManager : MonoBehaviour
             numJumps = data.Jumps;
             numSeries = data.Series;
             angleToDoIt = data.AngleToDo;
+            angleMinToDoIt = data.AngleMinToDo;
             speedDownSetting = data.TimeBetweenReps;
         }
     }
@@ -248,6 +260,7 @@ public class GameManager : MonoBehaviour
         data.Jumps = numJumps;
         data.Series = numSeries;
         data.AngleToDo = angleToDoIt;
+        data.AngleMinToDo = angleMinToDoIt;
         data.TimeBetweenReps = speedDownSetting;
         _configurationSafeManager.Safe(data);
     }
