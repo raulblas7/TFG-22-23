@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     private int _currentFish = 0;           //numero de peces que se han pescado
     private bool _gameActive = false;
     private int _currentSerie = 0;
-    private int _serieTime = 30;
+    private int _serieTime = 10;
 
     //Variable el guardado
     ConfigurationSaveManager _configurationSafeManager;
