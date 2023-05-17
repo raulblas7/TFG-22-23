@@ -14,6 +14,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button exitInMenuButton;
 
     // Variables Menu Settings, solo tendrán valor en dicho menu
+    [SerializeField] private TextMeshProUGUI textInvalidInput;
+    [SerializeField] private TextMeshProUGUI textInvalidInput2;
+    [SerializeField] private TextMeshProUGUI textInvalidInput3;
+    [SerializeField] private TextMeshProUGUI textInvalidInput4;
     [SerializeField] private TMP_InputField repsField;
     [SerializeField] private TMP_InputField lapsField;
     [SerializeField] private TMP_InputField angleField;
@@ -149,23 +153,25 @@ public class UIManager : MonoBehaviour
         try
         {
             int n = int.Parse(repsField.text);
+            GameManager.Instance.SetNumReps(n);
             if (n <= 0)
             {
+                textInvalidInput.enabled = true;
                 returnToMenu.interactable = false;
             }
             else
             {
-                if(!returnToMenu.interactable && GameManager.Instance.GetLaps() > 0)
+                textInvalidInput.enabled = false;
+                if (!textInvalidInput3.enabled && !textInvalidInput4.enabled && !textInvalidInput2.enabled)
                 {
                     returnToMenu.interactable = true;
                 }
             }
-            GameManager.Instance.SetNumReps(n);
         }
         catch
         {
+            textInvalidInput.enabled = true;
             returnToMenu.interactable = false;
-            Debug.Log("Valor introducido no valido");
         }
     }
 
@@ -175,23 +181,25 @@ public class UIManager : MonoBehaviour
         try
         {
             int n = int.Parse(lapsField.text);
+            GameManager.Instance.SetNumLaps(n);
             if (n <= 0)
             {
+                textInvalidInput2.enabled = true;
                 returnToMenu.interactable = false;
             }
             else
             {
-                if (!returnToMenu.interactable && GameManager.Instance.GetReps() > 0)
+                textInvalidInput2.enabled = false;
+                if (!textInvalidInput3.enabled && !textInvalidInput4.enabled && !textInvalidInput.enabled)
                 {
                     returnToMenu.interactable = true;
                 }
             }
-            GameManager.Instance.SetNumLaps(n);
         }
         catch
         {
+            textInvalidInput2.enabled = true;
             returnToMenu.interactable = false;
-            Debug.Log("Valor introducido no valido");
         }
     }
 
@@ -206,10 +214,24 @@ public class UIManager : MonoBehaviour
         {
             int n = int.Parse(angleMinField.text);
             GameManager.Instance.SetAngleMinToDoIt(n);
+            if (n <= 0 || GameManager.Instance.GetAngleToDoIt() - n < 10)
+            {
+                textInvalidInput4.enabled = true;
+                returnToMenu.interactable = false;
+            }
+            else
+            {
+                textInvalidInput4.enabled = false;
+                if (!textInvalidInput.enabled && !textInvalidInput2.enabled && !textInvalidInput3.enabled)
+                {
+                    returnToMenu.interactable = true;
+                }
+            }
         }
         catch
         {
-            Debug.Log("Valor introducido no valido");
+            textInvalidInput4.enabled = true;
+            returnToMenu.interactable = false;
         }
     }
 
@@ -219,10 +241,24 @@ public class UIManager : MonoBehaviour
         {
             int n = int.Parse(angleField.text);
             GameManager.Instance.SetAngleToDoIt(n);
+            if (n <= 0 || n - GameManager.Instance.GetAngleMinToDoIt() < 10)
+            {
+                textInvalidInput3.enabled = true;
+                returnToMenu.interactable = false;
+            }
+            else
+            {
+                textInvalidInput3.enabled = false;
+                if (!textInvalidInput.enabled && !textInvalidInput2.enabled && !textInvalidInput4.enabled)
+                {
+                    returnToMenu.interactable = true;
+                }
+            }
         }
         catch
         {
-            Debug.Log("Valor introducido no valido");
+            textInvalidInput3.enabled = true;
+            returnToMenu.interactable = false;
         }
     }
 
