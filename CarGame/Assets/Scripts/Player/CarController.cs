@@ -89,7 +89,8 @@ public class CarController : MonoBehaviour
     private void HandleCarFunctionality()
     {
         carRb.WakeUp();
-        moveTranslate = false;
+        carRb.velocity = Vector3.zero;
+        moveTranslate = false; 
 
         if (!GameManager.Instance.GetUIManager().IsPanelWaitingEnabled() && !GameManager.Instance.GetUIManager().IsPanelWinningEnabled()
             && !GameManager.Instance.GetUIManager().IsPanelFinishSerieEnabled() && !GameManager.Instance.GetUIManager().IsPanelDisconectingEnabled())
@@ -236,7 +237,7 @@ public class CarController : MonoBehaviour
         transform.position = posIni;
         setCurrentStateToWait();
         FinishBreaking();
-        Invoke("PutMoveTranslate", 1.0f);
+        moveTranslate = true;
     }
 
     public void Parked()
@@ -244,10 +245,5 @@ public class CarController : MonoBehaviour
         carRb.Sleep();
         GameManager.Instance.GetUIManager().ActivateParkingText(true);
         Invoke("RestartCar", 1.5f);
-    }
-
-    public void PutMoveTranslate()
-    {
-        moveTranslate = true;
     }
 }

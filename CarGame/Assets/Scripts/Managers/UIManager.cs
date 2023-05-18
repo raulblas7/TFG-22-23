@@ -214,7 +214,7 @@ public class UIManager : MonoBehaviour
         {
             int n = int.Parse(angleMinField.text);
             GameManager.Instance.SetAngleMinToDoIt(n);
-            if (n <= 0 || GameManager.Instance.GetAngleToDoIt() - n < 10)
+            if (n < 0 || n > 70 || GameManager.Instance.GetAngleToDoIt() - n < 10)
             {
                 textInvalidInput4.enabled = true;
                 returnToMenu.interactable = false;
@@ -241,7 +241,7 @@ public class UIManager : MonoBehaviour
         {
             int n = int.Parse(angleField.text);
             GameManager.Instance.SetAngleToDoIt(n);
-            if (n <= 0 || n - GameManager.Instance.GetAngleMinToDoIt() < 10)
+            if (n < 0 || n > 70 || n - GameManager.Instance.GetAngleMinToDoIt() < 10)
             {
                 textInvalidInput3.enabled = true;
                 returnToMenu.interactable = false;
