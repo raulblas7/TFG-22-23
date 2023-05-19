@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Movement
+{
+    MOVE_DONE = 0,
+    WAITING,
+    RESTART
+}
 public class PlayerController : MonoBehaviour
 {
-    private enum Movement
-    {
-        MOVE_DONE = 0,
-        WAITING,
-        RESTART
-    }
+ 
 
     [SerializeField] private Rigidbody rb;
     [SerializeField] private float impulseH;
@@ -198,7 +199,7 @@ public class PlayerController : MonoBehaviour
 
         if (orient.x >= 270.0f && orient.x < 360.0f)
         {
-            uIExerciseSlider.UpdateSlider(orient.x);
+            uIExerciseSlider.UpdateSlider(orient.x, currentState);
         }
 
         if ((orient.x >= 270.0f + angle || orient.x < 90.0f) && currentState == Movement.RESTART)

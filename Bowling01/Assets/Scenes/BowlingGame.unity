@@ -433,6 +433,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 54908673}
   _handleTransform: {fileID: 1315505566}
+  barColor: {fileID: 11400000, guid: fae65380c87a3624d86b8d227c4b779e, type: 2}
+  fillArea: {fileID: 912774668}
 --- !u!114 &54908673
 MonoBehaviour:
   m_ObjectHideFlags: 0

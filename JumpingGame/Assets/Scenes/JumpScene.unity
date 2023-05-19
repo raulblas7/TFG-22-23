@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.5784537, g: 0.61573005, b: 0.6087278, a: 1}
+  m_IndirectSpecularColor: {r: 0.20245656, g: 0.35269657, b: 0.46873873, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1780,6 +1780,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 417940307}
   _handleTransform: {fileID: 1379158069}
+  barColor: {fileID: 11400000, guid: ef346ef89b3a056408c4affed4125864, type: 2}
+  fillArea: {fileID: 1509355044}
 --- !u!1 &426256394
 GameObject:
   m_ObjectHideFlags: 0
@@ -7910,9 +7912,11 @@ MonoBehaviour:
   textInvalidInput2: {fileID: 0}
   textInvalidInput3: {fileID: 0}
   textInvalidInput4: {fileID: 0}
+  textInvalidInput5: {fileID: 0}
   movementInputField: {fileID: 0}
   seriesInputField: {fileID: 0}
   speedField: {fileID: 0}
+  angleMinField: {fileID: 0}
   angleField: {fileID: 0}
   returnButton: {fileID: 0}
   exitButton: {fileID: 520324378}

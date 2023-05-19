@@ -72,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
             // le pasamos el angulo al slider
             if (orient.x >= 270.0f && orient.x < 350.0f)
             {
-                slider.UpdateSlider(orientZ);
+                slider.UpdateSlider(orientZ, currentState);
 
             }
 

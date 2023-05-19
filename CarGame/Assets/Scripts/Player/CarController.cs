@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Movement
+{
+    MOVE_DONE = 0,
+    WAITING,
+    RESTART
+}
 
 public class CarController : MonoBehaviour
 {
-    private enum Movement
-    {
-        MOVE_DONE = 0,
-        WAITING,
-        RESTART
-    }
 
     private const float INITIAL_DEGREES = 350.0f;
     private Movement currentState;
@@ -192,7 +192,7 @@ public class CarController : MonoBehaviour
 
         if(orient.x <= 360.0f && orient.x >= 270.0f)
         {
-            uIExerciseSlider.UpdateSlider(orient.x);
+            uIExerciseSlider.UpdateSlider(orient.x, currentState);
         }
 
         if (orient.x >= 270.0f && orient.x <= INITIAL_DEGREES - GameManager.Instance.GetAngleToDoIt() && currentState == Movement.RESTART)

@@ -8,6 +8,8 @@ public class UIExerciseSlider : MonoBehaviour
 
     [SerializeField] Slider slider;
     [SerializeField] RectTransform _handleTransform;
+    [SerializeField] private BarColor barColor;
+    [SerializeField] private Image fillArea;
 
     private int exerciseAngle;
     private int exerciseAngleMin;
@@ -19,7 +21,7 @@ public class UIExerciseSlider : MonoBehaviour
         exerciseAngleMin = (int)GameManager.Instance.GetAngleMinToDoIt();
     }
 
-    public void UpdateSlider(float currentValue)
+    public void UpdateSlider(float currentValue, Movement state)
     {
         if (currentValue <= 350.0f - exerciseAngleMin && currentValue >= (350.0f - exerciseAngle))
         {
@@ -34,5 +36,12 @@ public class UIExerciseSlider : MonoBehaviour
         {
             slider.value = 0;
         }
+
+        //comprobamos el estado---------------
+        if (state == Movement.RESTART)
+        {
+            fillArea.color = barColor.readyToPlay;
+        }
+        else fillArea.color = barColor.returnToIniPos;
     }
 }

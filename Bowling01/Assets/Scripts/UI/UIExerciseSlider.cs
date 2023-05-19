@@ -8,6 +8,8 @@ public class UIExerciseSlider : MonoBehaviour
 
     [SerializeField] Slider slider;
     [SerializeField] RectTransform _handleTransform;
+    [SerializeField] private BarColor barColor;
+    [SerializeField] private Image fillArea;
 
 
 
@@ -25,7 +27,7 @@ public class UIExerciseSlider : MonoBehaviour
 
     }
 
-    public void UpdateSlider(float currentValue)
+    public void UpdateSlider(float currentValue, Movement state)
     {
         //pasamos el valor actual(entre 0-180) a un rango 0-ejercicio
         if (currentValue <=( 180 -minExerciseAngle) && currentValue >= (180 - exerciseAngle))
@@ -43,8 +45,15 @@ public class UIExerciseSlider : MonoBehaviour
         {
             slider.value =0;
         }
-        Debug.Log("Slider: " + slider.value);
-        
+        //Debug.Log("Slider: " + slider.value);
+
+        //comprobación del estado-------------------------
+        if (state == Movement.UP)
+        {
+            fillArea.color = barColor.readyToPlay;
+        }
+        else fillArea.color = barColor.returnToIniPos;
+
 
     }
 }

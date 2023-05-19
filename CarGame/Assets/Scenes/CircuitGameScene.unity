@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1817236227}
-  m_IndirectSpecularColor: {r: 0.18384448, g: 0.22859347, b: 0.30081007, a: 1}
+  m_IndirectSpecularColor: {r: 0.18384422, g: 0.22859284, b: 0.30080873, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1920,9 +1920,14 @@ MonoBehaviour:
   settingsButton: {fileID: 0}
   infoButton: {fileID: 0}
   exitInMenuButton: {fileID: 0}
+  textInvalidInput: {fileID: 0}
+  textInvalidInput2: {fileID: 0}
+  textInvalidInput3: {fileID: 0}
+  textInvalidInput4: {fileID: 0}
   repsField: {fileID: 0}
   lapsField: {fileID: 0}
   angleField: {fileID: 0}
+  angleMinField: {fileID: 0}
   difficultyDropdown: {fileID: 0}
   returnToMenu: {fileID: 0}
   exitButton: {fileID: 1851346815}
@@ -2493,6 +2498,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 1010011642}
   _handleTransform: {fileID: 202985125}
+  barColor: {fileID: 11400000, guid: b28d29ebf38ba7d4b862d2cd3f909543, type: 2}
+  fillArea: {fileID: 1297396080}
 --- !u!1 &1045523122
 GameObject:
   m_ObjectHideFlags: 0

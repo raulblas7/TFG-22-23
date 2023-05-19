@@ -58,10 +58,10 @@ public class Fish1 : MonoBehaviour
             rb.velocity = Vector3.zero;
             goToFishingRod = true;
         }
-        else if( goToFishingRod && !dead && !alreadyAtFishingRod)
-        {
-            GoToObjetive(fishingBait);
-        }
+        //else if( goToFishingRod && !dead && !alreadyAtFishingRod)
+        //{
+        //    GoToObjetive(fishingBait);
+        //}
     }
 
 
@@ -96,7 +96,10 @@ public class Fish1 : MonoBehaviour
             rb.AddForce(transform.forward * vel);
 
         }
-       // else rb.velocity = Vector3.zero;
+        if (goToFishingRod && !dead && !alreadyAtFishingRod)
+        {
+            GoToObjetive(fishingBait);
+        }
     }
 
 

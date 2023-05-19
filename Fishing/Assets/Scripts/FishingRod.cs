@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Movement
+{
+    UP = 0,
+    DOWN,
+    MOVE_DONE,
+}
 public class FishingRod : MonoBehaviour
 {
-    private enum Movement
-    {
-        UP = 0,
-        DOWN,
-        MOVE_DONE,
-    }
+  
 
     [SerializeField] private GameObject baitGO;
     [SerializeField] private Rigidbody rbFirstRopePart;
@@ -104,7 +105,7 @@ public class FishingRod : MonoBehaviour
         // le pasamos el angulo al maxSlider
         if (orient.x >= 270.0f && orient.x < 350.0f)
         {
-            slider.UpdateSlider(orientZ);
+            slider.UpdateSlider(orientZ, state);
 
         }
 
