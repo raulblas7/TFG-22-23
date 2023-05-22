@@ -63,9 +63,9 @@ public class PlayerMovement : MonoBehaviour
 
             Vector3 orient = mobileOrient.eulerAngles;
             cube.rotation = mobileOrient;
-            Debug.Log("El vector en angulos es: " + orient);
+           // Debug.Log("El vector en angulos es: " + orient);
 
-            Debug.Log(cube.forward.z);
+           // Debug.Log(cube.forward.z);
             //transformamos la orientacion en un rango de 0 a 180 grados
             float orientZ = (cube.forward.z + 1.0f) / 2.0f * 180.0f;
 
@@ -76,11 +76,11 @@ public class PlayerMovement : MonoBehaviour
 
             }
 
-            Debug.Log("el angulo es " + orientZ);
+            //Debug.Log("el angulo es " + orientZ);
 
-            if (currentState == Movement.DOWN) Debug.Log("DOWN");
-            else if (currentState == Movement.UP) Debug.Log("UP");
-            else Debug.Log("MOVE DONE");
+            //if (currentState == Movement.DOWN) Debug.Log("DOWN");
+            //else if (currentState == Movement.UP) Debug.Log("UP");
+            //else Debug.Log("MOVE DONE");
 
             if ((orientZ <= 180.0f - exerciseAngle && (orient.x >= 270.0f && orient.x < 350.0f)) && currentState == Movement.UP)
             {

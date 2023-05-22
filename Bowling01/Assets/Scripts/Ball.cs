@@ -108,7 +108,7 @@ public class Ball : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("DeadZoneH") || other.gameObject.CompareTag("DeadZoneV"))
+        if (other.gameObject.CompareTag("DeadZoneH") /*|| other.gameObject.CompareTag("DeadZoneV")*/)
         {
             GameManager.Instance.ThrownBall();
             Destroy(this.gameObject);

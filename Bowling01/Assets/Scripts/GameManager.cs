@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviour
 
     public void ThrownBall()
     {
+        Debug.Log("Bola lanzada");
         if (!firstPartCompleted)
         {
             //firstPartCompleted = true;
@@ -100,7 +101,7 @@ public class GameManager : MonoBehaviour
     }
     public void AllClean()
     {
-
+        Debug.Log("all clean");
         if (!firstPartCompleted)
         {
             firstPartCompleted = true;

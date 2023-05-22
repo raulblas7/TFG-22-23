@@ -9,17 +9,8 @@ public class Bolo : MonoBehaviour
 
     private BolosManager _parent;
     public int _index;
-    private bool _onTheFloor = false;
+   // private bool _onTheFloor = false;
 
-    void Start()
-    {
-        
-    }
-
-  
-   
-       
-    
 
     public void SetInfo(BolosManager parent, int index)
     {
@@ -30,7 +21,7 @@ public class Bolo : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("DeadZoneH") || other.gameObject.CompareTag("DeadZoneV"))
+        if (other.gameObject.CompareTag("DeadZoneH") /*|| other.gameObject.CompareTag("DeadZoneV")*/)
         {
             _parent.deleteBoloFromList(this);
             Destroy(this.gameObject);
@@ -44,8 +35,9 @@ public class Bolo : MonoBehaviour
 
     public bool IsOnTheFloor() {
 
-        return ((transform.rotation.eulerAngles.x >= 20.0f || transform.rotation.eulerAngles.x <= -20.0f) ||
-            (transform.rotation.eulerAngles.z >= 20.0f || transform.rotation.eulerAngles.z <= -20.0f));
+        Debug.Log("bolo " + _index + ": " + transform.rotation.eulerAngles);
+        return (!(transform.rotation.eulerAngles.x <= 20.0f || transform.rotation.eulerAngles.x >= 340.0f) ||
+            !(transform.rotation.eulerAngles.z <= 20.0f || transform.rotation.eulerAngles.z >= 340.0f));
     }
 
     public void ElevateBolo()
