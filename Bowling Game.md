@@ -12,7 +12,8 @@ El dispositivo para captar el movimiento, el móvil, deberá ser colocado en el 
 El móvil debe estar colocado en el antebrazo, de forma que la cámara del mismo mire hacia la piel del paciente, y la pantalla hacia afuera. Además el móvil deberá estar orientado de forma que apunte hacia los dedos de la mano.
 El juego funcionará independientemente de si el paciente tiene la palma de la mano hacia arriba, hacia abajo, o de lado, siempre y cuando el dispositivo esté orientado de forma que si colocamos el brazo en 90º apuntando hacia delante, la pantalla del móvil siempre mire hacia el techo.
 
-Meter imagen
+![Imagen colocación dispositivo](https://github.com/raulblas7/Videojuegos-para-terapia-de-rehabilitacion/blob/main/Dispositivo%20brazo%20bowling.png)
+
 
 ***Importante:** Recuerde que si el dispositivo está mal colocado o se descoloca durante el ejercicio, es posible que el juego no funcione de forma correcta.
 
