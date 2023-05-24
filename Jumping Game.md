@@ -13,7 +13,7 @@ Teniendo como referencia que el paciente está en la posición inicial.
 El móvil debe colocarse en el muslo, lo más cerca de la rodilla posible.
 El móvil deberá situarse con la pantalla hacia arriba, colocado de forma que apunte hacia los pies.
 
-![Imagen colocación dispositivo](https://github.com/raulblas7/Videojuegos-para-terapia-de-rehabilitacion/blob/main/dispositivo%20pierna.png)
+![Imagen colocación dispositivo](https://github.com/raulblas7/Videojuegos-para-terapia-de-rehabilitacion/blob/main/Imagenes/dispositivo%20pierna.png)
 
 **Importante:** Recuerde que si el dispositivo está mal colocado o se descoloca durante el ejercicio, es posible que el juego no funcione de forma correcta.
 
@@ -25,7 +25,7 @@ Para realizar este ejercicio el paciente deberá tumbarse boca arriba y con amba
 
  Para que se considere que un movimiento ha sido completado el paciente deberá levantar el brazo y después volver a la posición inicial.
 
-![Imagen ejercicio a realizar](https://github.com/raulblas7/Videojuegos-para-terapia-de-rehabilitacion/blob/main/Ejercicio%20Rodilla.png)
+![Imagen ejercicio a realizar](https://github.com/raulblas7/Videojuegos-para-terapia-de-rehabilitacion/blob/main/Imagenes/Ejercicio%20Rodilla.png)
 
  ### 2.1. Posición inicial
 Para este ejercicio el paciente deberá empezar con ambas piernas estiradas pegadas al suelo como se muestra en la imagen.
@@ -56,7 +56,7 @@ Para ajustar este ángulo se tiene en cuenta la inclinación del muslo desde la 
 - **Ángulo mínimo del movimiento:**  seleccione el ángulo a partir del cual el juego considerará que el movimiento ha sido completado (nueva posición inical).
 Para ajustar este ángulo se tiene en cuenta la inclinación de la pierna desde la posición inicial.
 
-![Imagen movimiento](https://github.com/raulblas7/Videojuegos-para-terapia-de-rehabilitacion/blob/main/Rango%20Ejer%20Jumping.png)
+![Imagen movimiento](https://github.com/raulblas7/Videojuegos-para-terapia-de-rehabilitacion/blob/main/Imagenes/Rango%20Ejer%20Jumping.png)
 
 ## 4. Instalación
 

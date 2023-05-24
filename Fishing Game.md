@@ -12,7 +12,7 @@ El dispositivo para captar el movimiento, el móvil, deberá ser colocado en el 
 Si colocamos el brazo en la posición inicial con las palmas de las manos hacia arriba.
 El dispositivo móvil irá colocado en la parte de atrás del antebrazo, con la pantalla mirando hacia la piel y el móvil orientado mirando hacia la mano.
 
-![Imagen colocación dispositivo](https://github.com/raulblas7/Videojuegos-para-terapia-de-rehabilitacion/blob/main/Dispositivo%20brazo%20fishing.png)
+![Imagen colocación dispositivo](https://github.com/raulblas7/Videojuegos-para-terapia-de-rehabilitacion/blob/main/Imagenes/Dispositivo%20brazo%20fishing.png)
 
 ***Importante:** Recuerde que si el dispositivo está mal colocado o se descoloca durante el ejercicio, es posible que el juego no funcione de forma correcta.
 
@@ -24,7 +24,7 @@ El paciente se colocará con los brazos flexionados a 90º, pegados al cuerpo co
 
  Para que se considere que un movimiento ha sido completado el paciente deberá levantar el brazo y después volver a la posición inicial.
 
-![Imagen Ejercicio ](https://github.com/raulblas7/Videojuegos-para-terapia-de-rehabilitacion/blob/main/Ejercicio%20codo.png)
+![Imagen Ejercicio ](https://github.com/raulblas7/Videojuegos-para-terapia-de-rehabilitacion/blob/main/Imagenes/Ejercicio%20codo.png)
 
  ### 2.1. Posición inicial
  Para este ejercicio el paciente deberá empezar con los brazos pegados al cuerpo, los codos flexionados y las palmas hacia arriba. De forma que las manos apunten hacia delante y que el brazo y el antebrazo formen un ángulo recto.
@@ -49,7 +49,7 @@ Para ajustar este ángulo se tiene en cuenta la inclinación del brazo desde la 
   - **Ángulo mínimo del movimiento:**  seleccione el ángulo a partir del cual el juego considerará que el movimiento ha sido completado (nueva posición inical).
 Para ajustar este ángulo se tiene en cuenta la inclinación del brazo desde la posición inicial.
 
-![Imagen Rango movimiento ](https://github.com/raulblas7/Videojuegos-para-terapia-de-rehabilitacion/blob/main/Rango%20Ejer%20Fishing.png)
+![Imagen Rango movimiento ](https://github.com/raulblas7/Videojuegos-para-terapia-de-rehabilitacion/blob/main/Imagenes/Rango%20Ejer%20Fishing.png)
 
 -**Numero de series:** seleccione el número de series que debe realizar el paciente.
 Cuando el paciente complete todas las repeticiones, se considerará que ha terminado una serie.

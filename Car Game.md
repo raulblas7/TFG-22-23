@@ -14,7 +14,7 @@ El móvil debe colocarse en la planta del pie, con la pantalla apuntando hacia l
 El móvil deberá situarse de tal manera que la cámara esté hacia los dedos de los pies.
 
 
-![Imagen colocación dispositivo](https://github.com/raulblas7/Videojuegos-para-terapia-de-rehabilitacion/blob/main/Dispositivo%20pie.png)
+![Imagen colocación dispositivo](https://github.com/raulblas7/Videojuegos-para-terapia-de-rehabilitacion/blob/main/Imagenes/Dispositivo%20pie.png)
 
 **Importante:** Recuerde que si el dispositivo está mal colocado o se descoloca durante el ejercicio, es posible que el juego no funcione de forma correcta.
 
@@ -27,7 +27,7 @@ El paciente podrá realizar este ejercicio tumbado. El paciente deberá colocar 
 Para que se considere que un movimiento ha sido completado el paciente deberá levantar el pie hasta la posición inicial.
 
 
-![Imagen ejercicio a realizar](https://github.com/raulblas7/Videojuegos-para-terapia-de-rehabilitacion/blob/main/Ejercicio%20tobillo.png)
+![Imagen ejercicio a realizar](https://github.com/raulblas7/Videojuegos-para-terapia-de-rehabilitacion/blob/main/Imagenes/Ejercicio%20tobillo.png)
 
  ### 2.1. Posición inicial
 Para este ejercicio el paciente deberá empezar tumbado con las piernas estiradas y con la puntera de los pies apuntando al techo.
@@ -52,7 +52,7 @@ Si inicia el juego sin configurarlo, se usará la última configuración realiza
 Para ajustar este ángulo se tiene en cuenta la inclinación del pie desde la posición inicial.
 
 
-![Imagen Rango movimiento](https://github.com/raulblas7/Videojuegos-para-terapia-de-rehabilitacion/blob/main/Rango%20Ejer%20Car.png)
+![Imagen Rango movimiento](https://github.com/raulblas7/Videojuegos-para-terapia-de-rehabilitacion/blob/main/Imagenes/Rango%20Ejer%20Car.png)
 
  - **Dificultad:** En este juego se podrá configurar la dificultad, cuando modifiquemos la dificultad, se modificarán en el juego la velocidad a la que los obstáculos de los martillos se mueven
 

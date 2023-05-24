@@ -12,7 +12,7 @@ El dispositivo para captar el movimiento, el móvil, deberá ser colocado en el 
 El móvil debe estar colocado en el antebrazo, de forma que la cámara del mismo mire hacia la piel del paciente, y la pantalla hacia afuera. Además el móvil deberá estar orientado de forma que apunte hacia los dedos de la mano.
 El juego funcionará independientemente de si el paciente tiene la palma de la mano hacia arriba, hacia abajo, o de lado, siempre y cuando el dispositivo esté orientado de forma que si colocamos el brazo en 90º apuntando hacia delante, la pantalla del móvil siempre mire hacia el techo.
 
-![Imagen colocación dispositivo](https://github.com/raulblas7/Videojuegos-para-terapia-de-rehabilitacion/blob/main/Dispositivo%20brazo%20bowling.png)
+![Imagen colocación dispositivo](https://github.com/raulblas7/Videojuegos-para-terapia-de-rehabilitacion/blob/main/Imagenes/Dispositivo%20brazo%20bowling.png)
 
 
 ***Importante:** Recuerde que si el dispositivo está mal colocado o se descoloca durante el ejercicio, es posible que el juego no funcione de forma correcta.
@@ -24,7 +24,7 @@ El paciente podrá realizar este ejercicio sentado o de pie. Empezará con el br
 
  Para que se considere que un movimiento ha sido completado el paciente deberá levantar el brazo y después volver a la posición inicial.
 
-![Imagen Ejercicio](https://github.com/raulblas7/Videojuegos-para-terapia-de-rehabilitacion/blob/main/Ejercicio%20hombro.png)
+![Imagen Ejercicio](https://github.com/raulblas7/Videojuegos-para-terapia-de-rehabilitacion/blob/main/Imagenes/Ejercicio%20hombro.png)
 
  ### 2.1. Posición inicial
 Para este ejercicio el paciente deberá empezar con los brazos pegados al cuerpo, los codos estirados. De forma que las manos apuntan hacia el suelo y el brazo quede estirado.
@@ -52,7 +52,7 @@ Para ajustar este ángulo se tiene en cuenta la inclinación del brazo desde la 
   - **Ángulo mínimo del movimiento:**  seleccione el ángulo a partir del cual el juego considerará que el movimiento ha sido completado (nueva posición inical).
 Para ajustar este ángulo se tiene en cuenta la inclinación del brazo desde la posición inicial.
 
-![Rango de movimiento](https://github.com/raulblas7/Videojuegos-para-terapia-de-rehabilitacion/blob/main/Rango%20Ejer%20Bowling.png) 
+![Rango de movimiento](https://github.com/raulblas7/Videojuegos-para-terapia-de-rehabilitacion/blob/main/Imagenes/Rango%20Ejer%20Bowling.png) 
 
 -**Numero de series:** seleccione el número de series que debe realizar el paciente.
 Cuando el paciente complete todas las repeticiones, se considerará que ha terminado una serie.
