@@ -13,7 +13,7 @@ Teniendo como referencia que el paciente está en la posición inicial.
 El móvil debe colocarse en el muslo, lo más cerca de la rodilla posible.
 El móvil deberá situarse con la pantalla hacia arriba, colocado de forma que apunte hacia los pies.
 
-![Imagen colocación dispositivo](https://github.com/raulblas7/TFG-22-23/blob/main/JumpingGame/Assets/Images/MobilePos.png)
+![Imagen colocación dispositivo](https://github.com/raulblas7/Videojuegos-para-terapia-de-rehabilitacion/blob/main/dispositivo%20pierna.png)
 
 **Importante:** Recuerde que si el dispositivo está mal colocado o se descoloca durante el ejercicio, es posible que el juego no funcione de forma correcta.
 
@@ -25,7 +25,7 @@ Para realizar este ejercicio el paciente deberá tumbarse boca arriba y con amba
 
  Para que se considere que un movimiento ha sido completado el paciente deberá levantar el brazo y después volver a la posición inicial.
 
-![Imagen ejercicio a realizar](https://github.com/raulblas7/TFG-22-23/blob/main/JumpingGame/Assets/Images/Ejercicio%20Rodilla.png)
+![Imagen ejercicio a realizar](https://github.com/raulblas7/Videojuegos-para-terapia-de-rehabilitacion/blob/main/Ejercicio%20Rodilla.png)
 
  ### 2.1. Posición inicial
 Para este ejercicio el paciente deberá empezar con ambas piernas estiradas pegadas al suelo como se muestra en la imagen.
@@ -53,7 +53,10 @@ Recuerde que para que se considere que un movimiento ha sido completado el pacie
  - **Ángulo del movimiento:**  seleccione el ángulo a partir del cual el juego considerará que el movimiento ha sido efectuado.
 Para ajustar este ángulo se tiene en cuenta la inclinación del muslo desde la posición inicial.
 
-![Imagen movimiento](https://github.com/raulblas7/TFG-22-23/blob/main/JumpingGame/Assets/Images/Movimiento.png)
+- **Ángulo mínimo del movimiento:**  seleccione el ángulo a partir del cual el juego considerará que el movimiento ha sido completado (nueva posición inical).
+Para ajustar este ángulo se tiene en cuenta la inclinación de la pierna desde la posición inicial.
+
+![Imagen movimiento](https://github.com/raulblas7/Videojuegos-para-terapia-de-rehabilitacion/blob/main/Rango%20Ejer%20Jumping.png)
 
 ## 4. Instalación
 
@@ -77,3 +80,13 @@ Pulse en el archivo e instalelo.
 > Por motivos de seguridad, tu teléfono no puede instalar aplicaciones desconocidas de esta fuente.
 
 En ese caso vaya a Ajustes y active la opción *"Permitir desde esta fuente"*.
+
+## 5. Cómo se juega
+
+Para jugar a este juego debe realizar el movimiento indicado arriba.
+
+Cuando la barra que se encuentra en la parte lateral derecha de la pantalla llegue arriba del todo, significará que ha realizado el ejercicio y el jugador saltará. Para que el movimiento se considere completado debe volver a la posición inicial, es decir la barra lateral debe volver a bajo del todo, y volverse verde. 
+
+Para que pueda volver a saltar la barra debe ser de color **Verde** (el movimiento debe haberse completado).
+
+Si la barra es de color rojo, aunque suba la pierna, el jugador no saltará.
