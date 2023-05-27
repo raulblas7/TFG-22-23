@@ -1,4 +1,3 @@
-using Photon.Pun;
 using RiptideNetworking;
 using RiptideNetworking.Utils;
 using System;
@@ -16,22 +15,6 @@ public enum MessageID
 public class NetworkManagerClient : MonoBehaviour
 {
     private static NetworkManagerClient _instance;
-    //public static NetworkManagerClient Instance
-    //{
-    //    get => instance;
-    //    private set
-    //    {
-    //        if (instance != null)
-    //        {
-    //            instance = value;
-    //        }
-    //        else if (instance != value)
-    //        {
-    //            Debug.Log($"{nameof(NetworkManagerClient)} instance already exists");
-    //            Destroy(value);
-    //        }
-    //    }
-    //}
     
     public static NetworkManagerClient Instance { get { return _instance; } }
     public Client Client { get; private set; }

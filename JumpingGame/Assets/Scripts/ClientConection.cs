@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using System.Net.Sockets;
 using System.Text;
@@ -12,9 +11,6 @@ public class ClientConection : MonoBehaviour
     private TcpClient client;
     private NetworkStream stream;
 
-    private Vector3 orientation;
-    private Vector3 accelerometer;
-    private Vector3 gyroscope;
 
     void Start()
     {
@@ -35,14 +31,8 @@ public class ClientConection : MonoBehaviour
             // Convertir los datos a una cadena de texto
             string data = Encoding.ASCII.GetString(buffer, 0, bytes); // 123123123
             Debug.Log("Data es " + data);
-
             
         }
-        
-    }
-
-    private void OnApplicationQuit()
-    {
         
     }
 }
