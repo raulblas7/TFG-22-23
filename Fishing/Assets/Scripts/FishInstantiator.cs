@@ -1,4 +1,4 @@
-using System.Collections;
+
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,10 +21,7 @@ public class FishInstantiator : MonoBehaviour
     {
         GameManager.Instance.SetInstatiator(this);
         fishList = new List<Fish1>();
-        //for (int i = 0; i < numMaxOfFishInGame; i++)
-        //{
-        //    InstantiateFish();
-        //}
+
     }
 
     public void StartInstantiate()

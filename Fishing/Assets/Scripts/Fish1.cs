@@ -1,18 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+
 using UnityEngine;
 
-//enum Sides
-//{
-//    Left,
-//    Right,
-//    Up,
-//    Down,
-//    Back,
-//    Forward
 
-//}
 public class Fish1 : MonoBehaviour
 {
 

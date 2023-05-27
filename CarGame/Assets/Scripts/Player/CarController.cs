@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public enum Movement
@@ -70,10 +69,7 @@ public class CarController : MonoBehaviour
                 moveSpeed = 2.8f;
                 break;
         }
-        //if (checkPoint1 != null)
-        //{
-        //    followPath.SetDest(checkPoint1.GetNextPointInDest());
-        //}
+
     }
 
     private void Update()

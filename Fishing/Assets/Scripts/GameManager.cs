@@ -49,12 +49,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-
-    }
-
-
 
     //variables del juego
     public void AddPoints(int p)
@@ -93,17 +87,6 @@ public class GameManager : MonoBehaviour
     public int GetPoints() { return _points; }
 
 
-
-    //public void AddFish()
-    //{
-    //    _currentFish++;
-    //    _UIManager.UpdateFishCount(_currentFish);
-    //    if(_currentFish == _maxFish)
-    //    {
-    //        //TODO fin del juego
-
-    //    }
-    //}
     public void RestartGame()
     {
         _points = 0;
@@ -119,7 +102,6 @@ public class GameManager : MonoBehaviour
     public void SetUImanager(GameUIManager manager) { _UIManager = manager; }
     public GameUIManager GetUIManager() { return _UIManager; }
 
-    // public void SetNetworkManager(NetworkManager n) { _networkManager = n; }
 
     public void SetInstatiator(FishInstantiator i) { _instantiator = i; }
 

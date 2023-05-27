@@ -1,13 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.AI;
 
-//enum RotatingState
-//{
-//    ROTATING = 0,
-//    WAITING,
-//}
+using UnityEngine;
+
 public class V2RotatingObject : MonoBehaviour
 {
     [SerializeField] private float vel;

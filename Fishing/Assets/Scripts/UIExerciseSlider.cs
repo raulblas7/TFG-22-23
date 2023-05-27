@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -56,19 +55,4 @@ public class UIExerciseSlider : MonoBehaviour
 
     }
 
-    //original
-    //public void UpdateSlider(float currentValue)
-    //{
-
-    //    if (currentValue >= 270 && currentValue <= (270 + exerciseAngle))
-    //    {
-    //        maxSlider.value = /*exerciseAngle -*/ (currentValue - 270);
-
-    //    }
-    //    else if (currentValue > (270 + exerciseAngle))
-    //    {
-    //        maxSlider.value = exerciseAngle;
-    //    }
-
-    //}
 }

@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+
 using UnityEngine;
 
 enum Sides
@@ -83,18 +81,6 @@ public class Fish : MonoBehaviour
 
         //EditorApplication.isPaused = true;
     }
-
-    //original
-    //private void GoToFishingRod()
-    //{
-    //    Transform fishingRodPosTR = fishVision.GetFishingRodTr();
-    //    dir = fishingRodPosTR.position - transform.position;
-
-    //    MakeRotationInDir(dir);
-    //    goToFishingRod = true;
-
-    //    //EditorApplication.isPaused = true;
-    //}
 
     private void MakeRotationInDir(Vector3 d)
     {
