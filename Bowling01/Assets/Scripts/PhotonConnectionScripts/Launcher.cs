@@ -5,9 +5,6 @@ using ExitGames.Client.Photon;
 
 public class Launcher : MonoBehaviourPunCallbacks, IOnEventCallback
 {
-
-  
-
     public const byte DisconnectEvent = 2;
     [SerializeField] private PhotonView pcClient;
     [SerializeField] private PlayerMovement player;
@@ -18,10 +15,6 @@ public class Launcher : MonoBehaviourPunCallbacks, IOnEventCallback
 
     private const string id_validate_room = "VBG-";
     private string idValidate;
-
-
-
-   
 
     void Start()
     {
@@ -151,10 +144,6 @@ public class Launcher : MonoBehaviourPunCallbacks, IOnEventCallback
         }
         else Debug.Log("Mensaje enviado");
     }
-
-  
-
- 
 }
 
 

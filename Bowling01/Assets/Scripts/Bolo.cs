@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class Bolo : MonoBehaviour
@@ -27,11 +26,6 @@ public class Bolo : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-
-    //public void OnThefloor()
-    //{
-    //    _onTheFloor = true;
-    //}
 
     public bool IsOnTheFloor() {
 

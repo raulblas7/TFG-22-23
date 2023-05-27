@@ -1,7 +1,6 @@
 using RiptideNetworking;
 using RiptideNetworking.Utils;
 using System.Net.NetworkInformation;
-using Unity.VisualScripting;
 using UnityEngine;
 using System.Net.Sockets;
 using System.Net;
@@ -9,7 +8,6 @@ using System.Net;
 public class NetworkManager : MonoBehaviour
 {
     private static NetworkManager _instance;
-
 
     public static NetworkManager Instance { get { return _instance; } }
 
@@ -68,7 +66,6 @@ public class NetworkManager : MonoBehaviour
             }
 
         }
-
     }
 
     private void FixedUpdate()
@@ -112,28 +109,19 @@ public class NetworkManager : MonoBehaviour
     [MessageHandler((ushort)MessageID.orientationX)]
     private static void ReceiveOrientationXFromDevice(ushort fromClientId, Message message)
     {
-        //Debug.Log("mensaje recibido " + message.GetFloat());
         orientationX = message.GetFloat();
-        //Debug.Log("Orientacion en x es: " + message.GetFloat());
-
     }
 
     [MessageHandler((ushort)MessageID.orientationY)]
     private static void ReceiveOrientationYFromDevice(ushort fromClientId, Message message)
     {
-        //Debug.Log("mensaje recibido " + message.GetFloat());
         orientationY = message.GetFloat();
-        //Debug.Log("Orientacion en x es: " + message.GetFloat());
-
     }
 
     [MessageHandler((ushort)MessageID.orientationZ)]
     private static void ReceiveOrientationZFromDevice(ushort fromClientId, Message message)
     {
-        //Debug.Log("mensaje recibido " + message.GetFloat());
         orientationZ = message.GetFloat();
-        //Debug.Log("Orientacion en x es: " + message.GetFloat());
-
     }
 
 

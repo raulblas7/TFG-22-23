@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -39,8 +38,6 @@ public class GameManager : MonoBehaviour
     ConfigurationSaveManager _configurationSafeManager;
     SaveData _saveData;
 
-
-
     public static GameManager Instance { get { return _instance; } }
 
     private void Awake()
@@ -61,10 +58,6 @@ public class GameManager : MonoBehaviour
 
 
     }
-    void Start()
-    {
-
-    }
 
     public void ThrownBall()
     {
@@ -76,8 +69,6 @@ public class GameManager : MonoBehaviour
             Invoke("FirstPartPuntuation", 4);
             //iniciamos la segunda parte de la ronda
             Invoke("StartSecondPart", 4);
-
-
         }
         else
         {
@@ -97,7 +88,6 @@ public class GameManager : MonoBehaviour
     private void CleanBolos()
     {
         _spawnerCleaner.SpawnCleaner();
-
     }
     public void AllClean()
     {
@@ -212,9 +202,6 @@ public class GameManager : MonoBehaviour
 
     public int GetCurrentSeries() { return currentSeries; }
 
-
-
-
     public void SafeConfig()
     {
         ConfigurationData data = new ConfigurationData();
@@ -286,9 +273,5 @@ public class GameManager : MonoBehaviour
         isGameActive = false;
         FinishSave();
     }
-
-
-
-
 
 }

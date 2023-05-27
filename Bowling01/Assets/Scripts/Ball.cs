@@ -1,15 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
- 
-
     [SerializeField] Rigidbody rb;
     [SerializeField] float force;
     
-
    // private int maxAngle;
     //private int minAngle;
     private bool thrownBall = false;
@@ -35,7 +31,7 @@ public class Ball : MonoBehaviour
             case 0:
                 vel = 0f;
                 break;
-            case 1:
+            case 1: 
                 vel = 1f;
                 break;
             case 2:
@@ -62,22 +58,6 @@ public class Ball : MonoBehaviour
                 transform.Translate(directionTranslate * vel* Time.deltaTime);
             }
 
-            //currentAngle += vel * dir * Time.deltaTime;
-            //GameManager.Instance.SetAngle(currentAngle);
-            //if (currentAngle >= maxAngle)
-            //{
-            //    dir = -1;
-            //}
-            //if (currentAngle <= minAngle)
-            //{
-            //    dir = 1;
-            //}
-            //---------------------------------------------------
-            //if (!thrownBall && Input.GetKeyDown(KeyCode.Space))
-            //{
-            //    throwInput = true;
-            //    thrownBall = true;
-            //}
             //-----------------------------------------------------
             if (!thrownBall && PlayerMovement.Instance.GetCurrentState() == Movement.MOVE_DONE)
             {
@@ -93,12 +73,6 @@ public class Ball : MonoBehaviour
     {
         if (GameManager.Instance.IsGameActive() && throwInput)
         {
-            //Quaternion q = new Quaternion();
-            //q.eulerAngles = new Vector3(0, 0, 0);
-            //transform.rotation = q;
-            //
-            //transform.rotation = Quaternion.AngleAxis(currentAngle, Vector3.up);
-
             rb.AddForce(transform.forward * -1 * force, ForceMode.Impulse);
             rb.useGravity = true;
             throwInput = false;

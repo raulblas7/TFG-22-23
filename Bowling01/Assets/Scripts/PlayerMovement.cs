@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public enum Movement
@@ -11,7 +10,6 @@ public enum Movement
 
 public class PlayerMovement : MonoBehaviour
 {
-
 
     [SerializeField] UIExerciseSlider slider;
     //Instancia del launcher
@@ -25,9 +23,6 @@ public class PlayerMovement : MonoBehaviour
     private bool pass270 = false;
     private Movement currentState;
 
-
-
-
     public static PlayerMovement Instance { get { return _instance; } }
 
     private void Awake()
@@ -40,8 +35,6 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             _instance = this;
-
-
         }
     }
     void Start()
@@ -55,7 +48,6 @@ public class PlayerMovement : MonoBehaviour
     public void SetState(Movement state) { currentState = state; }
 
 
-
     public void CheckIfCanThrow(Quaternion mobileOrient)
     {
         if (GameManager.Instance.IsGameActive())
@@ -63,9 +55,7 @@ public class PlayerMovement : MonoBehaviour
 
             Vector3 orient = mobileOrient.eulerAngles;
             cube.rotation = mobileOrient;
-           // Debug.Log("El vector en angulos es: " + orient);
 
-           // Debug.Log(cube.forward.z);
             //transformamos la orientacion en un rango de 0 a 180 grados
             float orientZ = (cube.forward.z + 1.0f) / 2.0f * 180.0f;
 
@@ -75,12 +65,6 @@ public class PlayerMovement : MonoBehaviour
                 slider.UpdateSlider(orientZ, currentState);
 
             }
-
-            //Debug.Log("el angulo es " + orientZ);
-
-            //if (currentState == Movement.DOWN) Debug.Log("DOWN");
-            //else if (currentState == Movement.UP) Debug.Log("UP");
-            //else Debug.Log("MOVE DONE");
 
             if ((orientZ <= 180.0f - exerciseAngle && (orient.x >= 270.0f && orient.x < 350.0f)) && currentState == Movement.UP)
             {

@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -34,12 +33,6 @@ public class GameUIManager : MonoBehaviour
         finalPanel.SetActive(false);
         ActiveWaitingConexion();
         desconexionPanel.SetActive(false);
-    }
-
-
-    void Update()
-    {
-
     }
 
     public void FirstShootPuntuation(int round, int points)

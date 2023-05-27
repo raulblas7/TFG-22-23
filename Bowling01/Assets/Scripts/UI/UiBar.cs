@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -45,9 +44,6 @@ public class UiBar : MonoBehaviour
         currentValue = GameManager.Instance.GetAngle();
         float aux = (float)(currentValue - minValue) / (float)(maxValue - minValue);
         slider.value = aux;
-
-
-
     }
 
     private void ChangesliderSize(float  size)

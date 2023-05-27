@@ -1,4 +1,4 @@
-using Photon.Pun;
+
 using RiptideNetworking;
 using RiptideNetworking.Utils;
 using System;
@@ -109,9 +109,7 @@ public class NetworkManagerClient : MonoBehaviour
 
     private void FailedToConnect(object sender, EventArgs e)
     {
-        
         text.text = "Fallo al conectar: Asegurese de que el juego esta en marcha y la IP es correcta";
-
     }
 
     private void DidDisconnect(object sender, EventArgs e)
@@ -135,6 +133,5 @@ public class NetworkManagerClient : MonoBehaviour
         Client.Send(message);
 
     }
-
 
 }

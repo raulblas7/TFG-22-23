@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,15 +24,12 @@ public class BolosManager : MonoBehaviour
 
     }
 
-
-
     public void deleteBoloFromList(Bolo b)
     {
-        
        if(bolos.Remove(b))
-        {
+       {
            // Debug.Log("Eliminado bolo " + b._index);
-        }
+       }
     }
 
     public void instatiateBolos()
@@ -68,21 +64,6 @@ public class BolosManager : MonoBehaviour
             }
         }
     }
-
-    // se encarga de comprobar los puntos
-    //public int CheckPoints(bool firstPart )
-    //{
-    //    int points = 0;
-    //    foreach (Bolo b in bolos)
-    //    {
-    //        if (b.IsOnTheFloor())
-    //        {
-    //            points++;
-    //        }
-    //    }
-
-    //    return points;
-    //}
 
     //original
     public int CheckPoints(bool firstPart)
