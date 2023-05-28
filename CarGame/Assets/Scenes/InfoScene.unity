@@ -159,9 +159,14 @@ MonoBehaviour:
   settingsButton: {fileID: 0}
   infoButton: {fileID: 0}
   exitInMenuButton: {fileID: 0}
+  textInvalidInput: {fileID: 0}
+  textInvalidInput2: {fileID: 0}
+  textInvalidInput3: {fileID: 0}
+  textInvalidInput4: {fileID: 0}
   repsField: {fileID: 0}
   lapsField: {fileID: 0}
   angleField: {fileID: 0}
+  angleMinField: {fileID: 0}
   difficultyDropdown: {fileID: 0}
   returnToMenu: {fileID: 1628302012}
   exitButton: {fileID: 0}
@@ -175,6 +180,8 @@ MonoBehaviour:
   counterSeriesText: {fileID: 0}
   infoText: {fileID: 0}
   ipAndCountDownText: {fileID: 0}
+  pointsText: {fileID: 0}
+  parkingText: {fileID: 0}
 --- !u!114 &123455740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -342,7 +349,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 94.1
+  m_fontSize: 46.45
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -480,7 +487,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 62.7
+  m_fontSize: 31
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -656,7 +663,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d3c451f5b85acab4ebb7203d807b0f53, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c446a3289f82569449fa48f0f15a1ded, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1351,7 +1358,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 61
+  m_fontSize: 30.45
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
